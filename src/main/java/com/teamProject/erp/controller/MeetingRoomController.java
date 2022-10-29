@@ -32,4 +32,18 @@ public class MeetingRoomController {
         mv.setViewName("MRoom/mrList");
         return mv;
     }
+    @RequestMapping(value="/mrlist/mrregistration", method = {RequestMethod.GET, RequestMethod.POST})
+    public ModelAndView mrRegistration() {
+        log.info("/main/mrregistration 호출 됨");
+        ModelAndView mv = new ModelAndView();
+        mv.setViewName("MRoom/mrRegistration");
+        return mv;
+    }
+    @RequestMapping(value="/main/mrupdate", method = {RequestMethod.GET, RequestMethod.POST})
+    public ModelAndView mrUpdate() {
+        log.info("/main/mrupdate 호출 됨");
+        ModelAndView mv = new ModelAndView();
+        mv.setViewName("MRoom/mrUpdate");
+        return mv;
+    }
 }

@@ -66,7 +66,8 @@
                                 </table>
                                 <nav aria-label="Page navigation example">
                                     <!-- 등록 버튼 -->
-                                    <button type="button" class="btn btn-primary float-right clearfix">등록</button>
+                                    <button type="button" class="btn btn-primary float-right clearfix"
+                                            onclick="changeContentCus('mrlist', 'mrregistration')">등록</button>
                                     <!-- Pagination 속성 설정 -->
                                     <ul class="pagination justify-content-center">
                                         <li class="page-item">
