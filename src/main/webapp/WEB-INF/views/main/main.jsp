@@ -4,7 +4,7 @@
 <html>
 <head>
   <!-- header js, css, CDN -->
-<%--  <tiles:insertAttribute name="include"/>--%>
+  <%--  <tiles:insertAttribute name="include"/>--%>
   <jsp:include page="../../tiles/layouts/include.jsp"/>
 </head>
 <body id="page-top">
@@ -151,7 +151,7 @@
       </nav>
       <!-- End of Topbar -->
       <div id="mainContent" class="container-fluid">
-<%--        <tiles:insertAttribute name="body"/>--%>
+        <%--        <tiles:insertAttribute name="body"/>--%>
       </div>
     </div>
     <!-- footer -->
