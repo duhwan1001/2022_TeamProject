@@ -39,7 +39,7 @@ public class MeetingRoomController {
         mv.setViewName("MRoom/mrRegistration");
         return mv;
     }
-    @RequestMapping(value="/main/mrupdate", method = {RequestMethod.GET, RequestMethod.POST})
+    @RequestMapping(value="/mrdetail/mrupdate", method = {RequestMethod.GET, RequestMethod.POST})
     public ModelAndView mrUpdate() {
         log.info("/main/mrupdate 호출 됨");
         ModelAndView mv = new ModelAndView();

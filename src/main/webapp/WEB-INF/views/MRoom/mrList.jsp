@@ -4,7 +4,7 @@
     <!-- Page Heading 회의실관리 목록 제목 설정-->
     <div class="d-sm-flex align-items-center justify-content-between mb-4">
         <div class="border-bottom-1">
-            <h1 class="h3 mb-2 text-gray-700">회의실 관리 목록</h1>
+            <h1 class="h3 mb-2 text-gray-700">회의실 목록</h1>
         </div>
     </div>
     <!-- 구분 선 속성-->
@@ -67,7 +67,7 @@
                                 <nav aria-label="Page navigation example">
                                     <!-- 등록 버튼 -->
                                     <button type="button" class="btn btn-primary float-right clearfix"
-                                            onclick="changeContentCus('mrlist', 'mrregistration')">등록</button>
+                                            onclick="changeContentCus('mrlist', 'mrregistration')">예약</button>
                                     <!-- Pagination 속성 설정 -->
                                     <ul class="pagination justify-content-center">
                                         <li class="page-item">
