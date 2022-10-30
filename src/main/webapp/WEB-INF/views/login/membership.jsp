@@ -101,7 +101,7 @@
                                                     aria-label="Search" aria-describedby="basic-addon2">
                                             </div>
                                         </div>
-                                        <button type="button" onclick="check()" class="btn btn-primary btn-user btn-block">회원가입</button>
+                                        <button type="button" class="btn btn-primary btn-user btn-block">회원가입</button>
 
                                     </form>
                                 </div>
@@ -115,17 +115,45 @@
 
         </div>
 
-        <!-- <script>
-        //회원가입검증
-        const getIdCheck = RegExp(/^[a-zA-Z0-9]{4,14}$/);
-                    const getPwCheck = RegExp(
-                        /([a-zA-Z0-9].*[!,@,#,$,%,^,&,*,?,_,~])|([!,@,#,$,%,^,&,*,?,_,~].*[a-zA-Z0-9])/);
-                    const getName = RegExp(/^[가-힣]+$/);
-                    const getMail = RegExp(/^[A-Za-z0-9_\.\-]+@[A-Za-z0-9\-]+\.[A-Za-z0-9\-]+/);
-        function check(){
+        <script>
 
-        }
-        </script> -->
+            //회원가입 폼 유효성검사
+            $(document).ready(function(){
+                const getPwCheck = RegExp(
+                /([a-zA-Z0-9].*[!,@,#,$,%,^,&,*,?,_,~])|([!,@,#,$,%,^,&,*,?,_,~].*[a-zA-Z0-9])/);
+                const getuser_name = RegExp(/^[가-힣]+$/);
+                const getuser_id = RegExp(/^[A-Za-z0-9_\.\-]+@[A-Za-z0-9\-]+\.[A-Za-z0-9\-]+/);
+                const checkArr = [false, false, false, false, false];
+                //입력값 검증
+                const $user_id = $('#user_id');
+                const $btn = $('.btn-user');
+                console.log('버튼:', $btn);
+                console.log('아이디 값:', $user_id.value);
+
+                $btn.on('click', e =>{
+                    console.log($user_id.val());
+                    if($user_id.val() === '' || $user_id.val() === null){
+                        alert('아이디를 입력하세요.');
+                        return;
+                    }else if(getuser_id.test($user_id)){
+                        $user_id.css('boarder-color', 'red');
+                        $user_id.html('<b class="c-red">[영문, 숫자로 4~14자 사이로 작성하세요!]</b>');
+                        checkArr[0] = false;
+                    }else{
+
+                        fetch('/membership/check?type=id&value='+$user_id.val())
+                        .then(res => res.text())
+                        .then(flag =>{
+                            console.log('값확인:', flag);
+                        });
+                    }
+
+                })
+                
+            })
+
+        
+        </script>
 
         <!-- Bootstrap core JavaScript-->
         <script src="vendor/jquery/jquery.min.js"></script>
