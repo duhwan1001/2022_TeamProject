@@ -77,13 +77,13 @@ public class MainPageController {
     }
 
     // 자유게시판
-    @RequestMapping(value="/main/mainboard", method = {RequestMethod.GET, RequestMethod.POST})
-    public ModelAndView mainboard() {
-        log.info("/main/mainboard 호출 됨");
-        ModelAndView mv = new ModelAndView();
-        mv.setViewName("main/mainboard");
-        return mv;
-    }
+//    @RequestMapping(value="/main/mainboard", method = {RequestMethod.GET, RequestMethod.POST})
+//    public ModelAndView mainboard() {
+//        log.info("/main/mainboard 호출 됨");
+//        ModelAndView mv = new ModelAndView();
+//        mv.setViewName("main/mainboard");
+//        return mv;
+//    }
 
     // 회의실 메인
     @RequestMapping(value="/main/mrmain", method = {RequestMethod.GET, RequestMethod.POST})
