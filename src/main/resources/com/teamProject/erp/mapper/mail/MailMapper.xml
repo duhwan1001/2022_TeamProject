@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.teamProject.erp.mapper.mail.MailMapper">
+
+    <resultMap id="mailMap" type="com.teamProject.erp.dto.MailDTO">
+        <result property="mailNo" column="mail_no" />
+        <result property="mailContent" column="mail_content" />
+        <result property="mailTitle" column="mail_title" />
+        <result property="mailReceiver" column="mail_receiver" />
+        <result property="mailSender" column="mail_sender" />
+        <result property="mailFlag" column="mail_flag" />
+        <result property="mailRegdate" column="mail_regdate" />
+
+        <result property="userId" column="user_id" />
+        <result property="fileNo" column="file_no" />
+    </resultMap>
+
+    <select id="findAll" resultMap="mailMap">
+        SELECT  *
+        FROM mail
+    </select>
+
+    <select id="receivedMail" resultMap="mailMap">
+        SELECT  *
+        FROM mail
+        where mail_receiver = #{type}
+    </select>
+
+    <select id="sendedMail" resultMap="mailMap">
+        SELECT  *
+        FROM mail
+        where mail_sender = #{type}
+    </select>
+
+</mapper>

@@ -131,7 +131,7 @@
 
           <!-- 채팅 아이콘 -->
           <li class="nav-item dropdown no-arrow mx-1">
-            <a class="nav-link dropdown-toggle" href="#" id="alertsDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <a class="nav-link dropdown-toggle" href="#" onclick="window.open('/popup.html', 'PopupWin', 'width=710,height=810');" id="alertsDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
               <i class="fas fa-comments fa-2x"></i>
               <!-- Counter - Alerts -->
               <span class="badge badge-danger badge-counter">3+</span>
@@ -140,7 +140,7 @@
 
           <!-- 메일 아이콘 -->
           <li class="nav-item dropdown no-arrow mx-1">
-            <a class="nav-link dropdown-toggle" href="#" id="messagesDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <a class="nav-link dropdown-toggle" href="#" onclick="window.open('/mail/receive', 'PopupWin', 'width=710,height=810');" id="messagesDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
               <i class="fas fa-envelope fa-2x"></i>
               <!-- Counter - Messages -->
               <span class="badge badge-danger badge-counter">7</span>
