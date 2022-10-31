@@ -1,9 +1,11 @@
 package com.teamProject.erp.controller;
 
-import com.teamProject.erp.domain.Member;
+import com.teamProject.erp.dto.Member;
+import com.teamProject.erp.service.MemberService;
 import lombok.RequiredArgsConstructor;
-import lombok.extern.log4j.Log4j;
 import lombok.extern.log4j.Log4j2;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -15,6 +17,8 @@ import org.springframework.web.servlet.ModelAndView;
 @Log4j2
 @RequiredArgsConstructor
 public class LoginController {
+
+    private final MemberService memberService;
 
 //    @Autowired
 //    private SampleService sampleService;
@@ -57,17 +61,18 @@ public class LoginController {
     //아이디 이메일 중복확인
     @GetMapping("/membership/check")
     @ResponseBody
-    public String idcheck(String type, String value){
+    public ResponseEntity<Boolean> idcheck(String type, String value){
         log.info("전달받은값:type={}&value={}", type, value);
-        return "login/membership";
+        boolean getdata =  memberService.checkSignUpValue(type, value);
+        return new ResponseEntity<>(getdata, HttpStatus.OK);
     }
 
 
     // 회원가입 처리기능
     @RequestMapping("/membership/sing-up")
     public String singup(Member member){
-        log.info("회원가입 받은 데이터: {}", member);
-        return "membership";
+        log.info("회원가입 받은 데이터id={}", member.getUserId());
+        return memberService.memberResister(member) ? "login/login": "login/membership";
     }
 
     //비번찾기
