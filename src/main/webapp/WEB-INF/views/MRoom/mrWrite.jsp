@@ -39,12 +39,11 @@
                         </div>
                     </div>
                 </div>
-                <div class="form-floating" style="margin-bottom: 30px">
-                    <select class="form-select" aria-label="Disabled select example">
-                        <option selected>사용여부</option>
-                        <option value="1">Yes</option>
-                        <option value="2">No</option>
-                    </select>
+                <div>
+                    <div class="input-group input-group-lg" style="margin-bottom: 30px">
+                        <span class="input-group-text" id="inputGroup-sizing-lg3">사용 시간:</span>
+                        <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-lg">
+                    </div>
                 </div>
                 <div>
                     <button style="float: right" type="button" class="btn btn-primary" onclick="changeContentCus('main', 'mrmain')">저장</button>

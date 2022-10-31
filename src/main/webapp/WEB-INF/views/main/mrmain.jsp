@@ -62,7 +62,7 @@
                                 </tbody>
                             </table>
                             <nav aria-label="Page navigation example">
-                                <button type="button" class="btn btn-primary float-right clearfix" onclick="changeContentCus('mrlist', 'mrregistration')">예약</button>
+                                <button type="button" class="btn btn-primary float-right clearfix" onclick="changeContentCus('mrlist', 'mrwrite')">예약</button>
                                 <ul class="pagination justify-content-center">
                                     <li class="page-item">
                                         <a class="page-link" href="#" aria-label="Previous">

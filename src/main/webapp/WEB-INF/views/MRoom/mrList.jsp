@@ -19,10 +19,8 @@
             </button>
         </div>
     </div>
-
     <!-- Content Row 회의실관리 목록 내용 담고있는 전체 박스-->
     <div class="row">
-
         <!-- Earnings (Monthly) Card Example -->
         <div class="col-xl-12">
             <div class="card border-left-primary shadow h-100 py-2">
@@ -46,21 +44,21 @@
                                         <td><a href="#" onclick="changeContentCus('main', 'mrdetail')">A 회의실</a></td>
                                         <td>5명</td>
                                         <td>김동철</td>
-                                        <td>Yes</td>
+                                        <td>AM8:00-AM10:00</td>
                                     </tr>
                                     <tr>
                                         <th scope="row">2</th>
                                         <td><a href="#" onclick="changeContentCus('main', 'mrdetail')">B 회의실</a></td>
                                         <td>20명</td>
                                         <td>김영우</td>
-                                        <td>Yes</td>
+                                        <td>AM11:00-PM13:00</td>
                                     </tr>
                                     <tr>
                                         <th scope="row">3</th>
                                         <td><a href="#" onclick="changeContentCus('main', 'mrdetail')">C 회의실</a></td>
                                         <td>10명</td>
                                         <td>김두환</td>
-                                        <td>No</td>
+                                        <td>PM16:00-PM20:00</td>
                                     </tr>
                                     </tbody>
                                 </table>

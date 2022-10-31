@@ -31,7 +31,7 @@
     <button type="button" class="btn btn-primary" onclick="changeContentCus('main', 'mrmain')">목록</button>
     <button type="button" class="btn btn-danger" style="float: right; margin-left: 10px" onclick="cancelRes()">예약취소</button>
     <button type="button" class="btn btn-warning" style="float: right; color: #ffffff"
-            onclick="changeContentCus('mrdetail', 'mrupdate')">수정</button>
+            onclick="changeContentCus('mrdetail', 'mrmodify')">수정</button>
 </div>
 <script>
     function cancelRes() {
