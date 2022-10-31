@@ -6,11 +6,11 @@
     <div class="card-header py-3">
         <h1 class="m-0 font-weight-bold text-primary" style="text-align: center">메일</h1>
     </div>
-    <div class="card-body">
+    <div class="card-body" style="height: 726px;">
         <div class="table-responsive">
             <div id="dataTable_wrapper" class="dataTables_wrapper dt-bootstrap4">
                 <div class="col-sm-12" style="padding-left:1.5rem;">
-                    <div class="col-md-12" style="height: 50px; padding-left: 0;">
+                    <div class="col-md-12" style="height: 50px; padding-left: 0; padding-right: 0;">
                         <div class="dropdown float-left" style="margin-right: 15px">
                             <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 태그 선택
@@ -21,8 +21,8 @@
                             </ul>
                         </div>
                         <div id="dataTable_filter" class="dataTables_filter float-left">
-                            <label style="width: 315px;">
-                                <input type="search" class="form-control form-control-sm" placeholder="검색어 입력" aria-controls="dataTable" style="font-size: 1.2em;">
+                            <label style="width: 390px;">
+                                <input type="search" class="form-control form-control-sm" placeholder="검색어 입력" aria-controls="dataTable" style="font-size: 1.2em;height: 38px;">
                             </label>
                         </div>
                         <div class="float-right">

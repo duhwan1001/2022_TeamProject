@@ -39,11 +39,11 @@
                                         <div class="text-center">
                                             <h1 class="h4 text-gray-900 mb-4">로그인</h1>
                                         </div>
-                                        <form class="user">
+                                        <form class="user" type="GET">
                                             <div class="form-group">
                                                 <input type="email" class="form-control form-control-user"
                                                     name="user_id" id="user_id" aria-describedby="emailHelp"
-                                                    placeholder="아이디 입력:">
+                                                    placeholder="아이디 입력">
                                             </div>
                                             <div class="form-group">
                                                 <input type="password" name="user_pw"
@@ -51,7 +51,7 @@
                                                     placeholder="비밀번호 입력">
                                             </div>
 
-                                            <a href="index.html" class="btn btn-primary btn-user btn-block">
+                                            <a href="#" onclick="signIn();" class="btn btn-primary btn-user btn-block">
                                                 로그인
                                             </a>
                                             <hr>
@@ -92,5 +92,27 @@
 
         <!-- Custom scripts for all pages-->
         <script src="js/sb-admin-2.min.js"></script>
+
+        <script type="text/javascript">
+            function signIn() {
+                $.ajax({
+                    type:"post",  //전송타입
+                    url:"/signIn",//서버요청대상파일
+                    data: {
+                        userId : $("#user_id").val(),
+                        userPw : $("#user_pw").val()
+                    },
+                    success: function (data, status, xhr) {
+                        alert("로그인 성공!");
+                        location.href = "/main";
+                    },
+                    error: function (xhr, status, e) {
+                        console.log("error", e);
+                        console.log("status", status);
+                    }
+                });
+            }
+
+        </script>
 
     </body>

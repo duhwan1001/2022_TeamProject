@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.teamProject.erp.mapper.member.MemberMapper">
+
+    <parameterMap id="memberParamMap" type="com.teamProject.erp.dto.MemberDTO"/>
+
+    <resultMap id="memberMap" type="com.teamProject.erp.dto.MemberDTO">
+        <result property="userId"       column="user_id" />
+        <result property="userPw"       column="user_pw" />
+        <result property="userName"     column="user_name" />
+        <result property="userHp"       column="user_hp" />
+        <result property="userAddr"     column="user_addr" />
+        <result property="userAddr2"    column="user_addr2" />
+        <result property="userDep"      column="user_dep" />
+        <result property="userRank"     column="user_rank" />
+
+        <result property="userId" column="user_id" />
+        <result property="fileNo" column="file_no" />
+    </resultMap>
+
+    <select id="checkLogin" resultType="int">
+        SELECT count(*)
+        FROM user
+        where user_id = #{userId}
+          AND user_pw = #{userPw}
+    </select>
+
+</mapper>
