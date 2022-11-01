@@ -101,7 +101,7 @@
                                                     aria-label="Search" aria-describedby="basic-addon2">
                                             </div>
                                         </div>
-                                        <button type="button" class="btn btn-primary btn-user btn-block">회원가입</button>
+                                        <button type="button" class="btn btn-user btn-primary btn-block">회원가입</button>
                                         <a href="/" class="btn btn-primary btn-block">뒤로</a>
 
                                     </form>

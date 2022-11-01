@@ -1,15 +1,13 @@
 package com.teamProject.erp.dto;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.*;
 
 import java.util.Date;
 
 @Setter @Getter
 @ToString
 @AllArgsConstructor
+@NoArgsConstructor
 public class Member {
 
     private String userId;   //사원 아이디
