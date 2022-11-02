@@ -10,9 +10,9 @@
                 <h2>제목</h2>
             </div>
             <div class="subTitle clearfix">
-                <div class="float-left">작성자 김영우</div>
-                <div class="float-left" style="margin-left: 15px">조회수 30000000</div>
-                <div class="float-right">작성일 2022-10-28</div>
+                <div class="float-left">작성자<span style="margin-left: 15px">김영우</span></div>
+                <div class="float-left" style="margin-left: 15px">조회수<span style="margin-left: 15px">30000000</span></div>
+                <div class="float-right">작성일<span style="margin-left: 15px">2022-10-30</span></div>
             </div>
         </div>
         <!-- 내용 -->
@@ -31,7 +31,7 @@
         </div>
         <!-- 첨부파일 -->
         <div style="margin-bottom: 2em">
-            <div>첨부파일<a href="#"></a></div>
+            <div><a href="#"><i class="fa-solid fa-download"></i>첨부파일</a></div>
         </div>
         <!-- 버튼 -->
         <div>
@@ -40,7 +40,7 @@
                     <button type="button" class="btn btn-primary" onclick="changeContentCus('main', 'notice')">목록</button>
                 </div>
                 <div class="float-right">
-                    <button type="button" class="btn btn-warning" onclick="changeContentCus('notice', 'noticemodify')">
+                    <button type="button" class="btn btn-warning" onclick="changeContentCus('noticeview', 'noticemodify')">
                         수정
                     </button>
                     <button type="button" class="btn btn-danger" onclick="">

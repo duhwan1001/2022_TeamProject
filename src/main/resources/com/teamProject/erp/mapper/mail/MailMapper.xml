@@ -16,17 +16,6 @@
         <result property="fileNo" column="file_no" />
     </resultMap>
 
-    <select id="findAll" resultMap="mailMap">
-        SELECT  *
-        FROM mail
-    </select>
-
-    <select id="receivedMail" resultMap="mailMap">
-        SELECT  *
-        FROM mail
-        where mail_receiver = #{type}
-    </select>
-
     <select id="sendedMail" resultMap="mailMap">
         SELECT  *
         FROM mail

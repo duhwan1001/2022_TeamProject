@@ -37,53 +37,53 @@
                                     <div class="text-center">
                                         <h1 class="h4 text-gray-800 mb-4">회원가입!</h1>
                                     </div>
-                                    <form class="user">
+                                    <form class="userfrm" name="userfrm" action="/membership/sing-up" method="post">
                                         <div class="form-group row">
 
                                             <div class="col-sm-6 mb-3 mb-sm-0">
-                                                <input type="email" class="form-control form-control-user"
-                                                    name="user_id" id="user_id" placeholder="아이디 입력:">
+                                                <input type="email" class="form-control form-control-user" name="userId"
+                                                    id="userId" placeholder="아이디 입력:">
                                             </div>
 
                                             <div class="col-sm-6">
                                                 <input type="password" class="form-control form-control-user"
-                                                    name="user_pw" id="user_pw" placeholder="비밀번호 입력:">
+                                                    name="userPw" id="userPw" placeholder="비밀번호 입력:">
                                             </div>
                                         </div>
                                         <div class="form-group row">
                                             <div class="col-sm-6 mb-3 mb-sm-0">
                                                 <input type="password" class="form-control form-control-user"
-                                                    name="user_pwconcheck" id="user_pwconcheck" placeholder="비밀번호 확인:">
+                                                    name="userpwconcheck" id="userpwconcheck" placeholder="비밀번호 확인:">
                                             </div>
                                             <div class="col-sm-6">
-                                                <input type="text" class="form-control form-control-user" id="user_name"
-                                                    name="user_name" placeholder="이름 입력:">
+                                                <input type="text" class="form-control form-control-user" id="userName"
+                                                    name="userName" placeholder="이름 입력:">
                                             </div>
                                         </div>
 
                                         <div class="form-group row">
                                             <div class="col-sm-6 mb-3 mb-sm-0">
+                                                <input type="text" class="form-control form-control-user" name="userDep"
+                                                    id="userDep" placeholder="부서:">
+                                            </div>
+                                            <div class="col-sm-6">
                                                 <input type="text" class="form-control form-control-user"
-                                                    name="user_dep" id="user_dep" placeholder="부서:">
-                                            </div>
-                                            <div class="col-sm-6">
-                                                <input type="password" class="form-control form-control-user"
-                                                    name="user_rank" id="user_rank" placeholder="직급:">
+                                                    name="userRank" id="userRank" placeholder="직급:">
                                             </div>
                                         </div>
 
                                         <div class="form-group row">
 
                                             <div class="col-sm-6 mb-3 mb-sm-0">
-                                                <input type="text" class="form-control form-control-user" name="user_hp"
-                                                    id="user_hp" placeholder="전화번호:">
+                                                <input type="text" class="form-control form-control-user" name="userHp"
+                                                    id="userHp" placeholder="핸드폰번호 입력:">
                                             </div>
 
                                             <div class="col-sm-6">
                                                 <div class="input-group">
                                                     <input type="text"
                                                         class="form-control form-control-user bg-light border-1 small"
-                                                        name="user_addr" id="user_addr" placeholder="주소 입력:"
+                                                        name="userAddr" id="userAddr" placeholder="주소 입력:"
                                                         aria-label="Search" aria-describedby="basic-addon2">
                                                     <div class="input-group-append">
                                                         <button class="btn btn-primary" type="button">
@@ -97,11 +97,12 @@
                                         <div class="form-group">
                                             <div class="input-group">
                                                 <input type="text" class="form-control form-control-user"
-                                                    name="user_addr2" id="user_addr2" placeholder="상세주소 입력:"
+                                                    name="userAddr2" id="userAddr2" placeholder="상세주소 입력:"
                                                     aria-label="Search" aria-describedby="basic-addon2">
                                             </div>
                                         </div>
-                                        <button type="button" class="btn btn-primary btn-user btn-block">회원가입</button>
+                                        <button type="button" class="btn btn-user btn-primary btn-block">회원가입</button>
+                                        <a href="/" class="btn btn-primary btn-block">뒤로</a>
 
                                     </form>
                                 </div>
@@ -115,45 +116,8 @@
 
         </div>
 
-        <script>
-
-            //회원가입 폼 유효성검사
-            $(document).ready(function(){
-                const getPwCheck = RegExp(
-                /([a-zA-Z0-9].*[!,@,#,$,%,^,&,*,?,_,~])|([!,@,#,$,%,^,&,*,?,_,~].*[a-zA-Z0-9])/);
-                const getuser_name = RegExp(/^[가-힣]+$/);
-                const getuser_id = RegExp(/^[A-Za-z0-9_\.\-]+@[A-Za-z0-9\-]+\.[A-Za-z0-9\-]+/);
-                const checkArr = [false, false, false, false, false];
-                //입력값 검증
-                const $user_id = $('#user_id');
-                const $btn = $('.btn-user');
-                console.log('버튼:', $btn);
-                console.log('아이디 값:', $user_id.value);
-
-                $btn.on('click', e =>{
-                    console.log($user_id.val());
-                    if($user_id.val() === '' || $user_id.val() === null){
-                        alert('아이디를 입력하세요.');
-                        return;
-                    }else if(getuser_id.test($user_id)){
-                        $user_id.css('boarder-color', 'red');
-                        $user_id.html('<b class="c-red">[영문, 숫자로 4~14자 사이로 작성하세요!]</b>');
-                        checkArr[0] = false;
-                    }else{
-
-                        fetch('/membership/check?type=id&value='+$user_id.val())
-                        .then(res => res.text())
-                        .then(flag =>{
-                            console.log('값확인:', flag);
-                        });
-                    }
-
-                })
-                
-            })
-
-        
-        </script>
+        <!--membership javascript-->
+        <script src="js/membership.js"></script>
 
         <!-- Bootstrap core JavaScript-->
         <script src="vendor/jquery/jquery.min.js"></script>

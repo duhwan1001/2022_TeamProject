@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.teamProject.erp.mapper.member.MemberMapper">
+
+    <resultMap id="memberMapper" type="com.teamProject.erp.dto.Member">
+
+        <result column="user_id" property="userId"/>
+        <result column="user_pw" property="userPw"/>
+        <result column="user_name" property="userName"/>
+        <result column="user_no" property="userNo"/>
+        <result column="user_hp" property="userHp"/>
+        <result column="user_dep" property="userDep"/>
+        <result column="user_rank" property="userRank"/>
+        <result column="user_addr" property="userAddr"/>
+        <result column="user_regdate" property="userRegdate"/>
+        <result column="user_flag" property="userFlag"/>
+
+    </resultMap>
+
+    <select id="checkLogin" resultType="int">
+        SELECT count(*)
+        FROM user
+        where user_id = #{userId}
+          AND user_pw = #{userPw}
+    </select>
+
+    <select id="membercheck" resultType="int">
+        select count(*)
+        from user
+        <if test="type=='id'">
+            where user_id = #{value}
+        </if>
+        <if test="type=='pw'">
+            where user_pw = #{value}
+        </if>
+    </select>
+
+    <insert id="memberRegister">
+        insert into `project_db`.`user`(user_id, user_pw, user_name, user_hp, user_no, user_dep, user_rank, user_addr, user_regdate, user_flag)
+        values(#{userId}, #{userPw}, #{userName}, #{userHp}, #{userNo}, #{userDep}, #{userRank}, #{userAddr}, #{userRegdate}, #{userFlag})
+    </insert>
+
+    <select id="memberidfind" resultType="int">
+        select count(user_id)
+        from `project_db`.`user`
+        where user_name = #{userName} and user_dep = #{userDep}
+    </select>
+
+    <select id="getmember" resultMap="memberMapper">
+        select * from `project_db`.`user`
+        where user_name = #{userName} and user_dep = #{userDep}
+
+    </select>
+
+    <select id="memberpwfind" resultType="String">
+        select user_pw
+        from `project_db`.`user`
+        where user_id = #{userId} and user_dep = #{userDep}
+    </select>
+
+    <select id="getuserno" resultType="String">
+        select user_no
+        from `project_db`.`user`
+        where user_no = #{userNo}
+    </select>
+
+    <select id="usernocheck" resultType="int">
+        select count(user_no)
+        from `project_db`.`user`
+        where user_no = #{userNo}
+    </select>
+
+</mapper>
