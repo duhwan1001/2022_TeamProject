@@ -18,4 +18,5 @@ public class MemberDTO {
     private String userDep;    //사원 부서
     private String userRank;   //사원 직급
 
+    private String filePath; // 파일 경로
 }

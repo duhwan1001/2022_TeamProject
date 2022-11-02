@@ -38,13 +38,13 @@
     <div class="sidebar-heading">MyArea</div>
 
     <li class="nav-item">
-      <a class="nav-link collapsed" href="#" onClick="changeContent('editinfo');" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
+      <a class="nav-link collapsed" href="#" onclick="window.open('/main/editinfo', 'PopupWin', 'width=710,height=810');" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
         <i class="fas fa-fw fa-cog"></i>
         <span>내 정보 수정</span>
       </a>
     </li>
     <li class="nav-item">
-      <a class="nav-link collapsed" href="#" onClick="changeContent('mywrite');" data-target="#collapseUtilities" aria-expanded="true" aria-controls="collapseUtilities">
+      <a class="nav-link collapsed" href="#" onclick="window.open('/main/mywrite', 'PopupWin', 'width=710,height=810');" data-target="#collapseUtilities" aria-expanded="true" aria-controls="collapseUtilities">
         <i class="fa-solid fa-pen"></i>
         <span>내가 쓴 글</span>
       </a>
