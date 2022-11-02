@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.teamProject.erp.mapper.notice.NoticeMapper">
+
+    <resultMap id="noticeMap" type="com.teamProject.erp.dto.NoticeDTO">
+        <result property="noticeNo" column="notice_no" />
+        <result property="noticeTitle" column="notice_title" />
+        <result property="noticeContent" column="notice_content" />
+        <result property="noticeViewCount" column="notice_viewcount" />
+        <result property="noticeRegDate" column="notice_regdate" />
+
+        <result property="userId" column="user_id" />
+        <result property="fileNo" column="file_no" />
+    </resultMap>
+
+    <insert id="noticeInsert">
+        INSERT INTO notice
+        (notice_title, notice_content)
+        VALUES (#{noticeTitle}, #{noticeContent})
+    </insert>
+
+    <select id="noticeFindAll" resultMap="noticeMap">
+        SELECT  *
+        FROM notice
+        ORDER BY notice_no DESC
+        LIMIT #{start}, #{amount}
+    </select>
+
+    <select id="noticeFindSearchAll" resultMap="noticeMap">
+        SELECT *
+        FROM notice
+        <if test="type == 'title'">
+            WHERE notice_title LIKE CONCAT('%', #{keyword}, '%')
+        </if>
+        <if test="type == 'content'">
+            WHERE notice_content LIKE CONCAT('%', #{keyword}, '%')
+        </if>
+        <if test="type == 'writer'">
+            WHERE notice_writer LIKE CONCAT('%', #{keyword}, '%')
+        </if>
+        ORDER BY notice_no DESC
+        LIMIT #{start}, #{amount}
+    </select>
+
+    <select id="noticeFindOne" resultMap="noticeMap">
+        SELECT *
+        FROM notice
+        WHERE notice_no=#{noticeNo}
+    </select>
+
+    <delete id="noticeDelete">
+        DELETE
+        FROM notice
+        WHERE notice_no=#{noticeNo}
+    </delete>
+
+    <update id="noticeModify">
+        UPDATE notice
+        SET notice_title=#{noticeTitle}, notice_content=#{noticeContent}
+        WHERE notice_no=#{noticeNo}
+    </update>
+
+    <update id="noticeUpViewCount">
+        UPDATE notice
+        SET notice_viewcount = notice_viewcount + 1
+        WHERE notice_no=#{noticeNo}
+    </update>
+
+</mapper>
