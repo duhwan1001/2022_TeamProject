@@ -3,7 +3,7 @@
 
 
 <!-- 글 작성 -->
-<div class="board write">
+<div class="boardDTO write">
     <form id="write_form" action="/reviseboard" method="post" autocomplete="off">
         <div class="mainboard-3">
             <label for="write_name" class="form-label">작성자</label>

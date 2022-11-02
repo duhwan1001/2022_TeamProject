@@ -1,8 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <!-- 글 수정 -->
-<div id="revise board">
+<div id="revise boardDTO">
     <form id="form data" method="post">
-        <table class ="revise table board">
+        <table class ="revise table boardDTO">
 
             <div class="mainboard-3">
                 <label for="write_user" class="form-label">작성자</label>

@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <!-- 자유 게시판 -->
-<table class="board table">
+<table class="boardDTO table">
     <thead>
         <tr>
             <th id="board_num" scope="col">게시물 번호</th>

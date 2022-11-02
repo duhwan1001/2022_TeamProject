@@ -1,6 +1,6 @@
 package com.teamProject.erp.mapper.mail.board;
 
-import com.teamProject.erp.domain.Board;
+import com.teamProject.erp.dto.BoardDTO;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;
@@ -9,9 +9,9 @@ import java.util.List;
 public interface BoardMapper {
 
     //게시글 쓰기 기능
-    boolean save(Board board);
+    boolean save(BoardDTO boardDTO);
 
     //게시글 전체 조회
-    List<Board> findAll();
+    List<BoardDTO> findAll();
 
 }

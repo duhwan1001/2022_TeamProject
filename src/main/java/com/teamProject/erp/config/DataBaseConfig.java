@@ -1,4 +1,4 @@
-package com.teamProject.config;
+package com.teamProject.erp.config;
 
 import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;

@@ -25,6 +25,7 @@ public class MrController {
     public String MrList(@ModelAttribute("s")Search search, Model model){
         log.info("controller request /main/mrlist GET! - search: {}", search);
 
-        Map<String, Object>
+//        Map<String, Object>
+        return null;
     }
 }
