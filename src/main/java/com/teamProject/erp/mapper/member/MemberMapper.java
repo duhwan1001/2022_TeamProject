@@ -18,4 +18,8 @@ public interface MemberMapper {
 
     String memberpwfind(Member member);
 
+    String getuserno(Member member);
+
+    int usernocheck(Member member);
+
 }

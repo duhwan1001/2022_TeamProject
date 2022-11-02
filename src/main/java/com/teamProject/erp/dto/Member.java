@@ -21,5 +21,5 @@ public class Member {
     private Date userRegdate; //현재날짜
     private String userNo; //사원번호
     private String userFlag; //사원구분
-
+    private int userpathNo;  //사원번호생성후전달
 }

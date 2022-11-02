@@ -11,6 +11,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
+import java.security.NoSuchAlgorithmException;
 import java.util.List;
 
 @Controller
@@ -87,7 +88,7 @@ public class LoginController {
 
     // 회원가입 처리기능
     @RequestMapping("/membership/sing-up")
-    public String singup(Member member){
+    public String singup(Member member) {
 //        log.info("회원가입 받은 데이터id={}", member.getUserId());
         return memberService.memberResister(member) ? "redirect:/":"login/membership";
     }

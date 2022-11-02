@@ -52,4 +52,16 @@
         where user_id = #{userId} and user_dep = #{userDep}
     </select>
 
+    <select id="getuserno" resultType="String">
+        select user_no
+        from `project_db`.`user`
+        where user_no = #{userNo}
+    </select>
+
+    <select id="usernocheck" resultType="int">
+        select count(user_no)
+        from `project_db`.`user`
+        where user_no = #{userNo}
+    </select>
+
 </mapper>

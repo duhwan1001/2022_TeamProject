@@ -6,6 +6,8 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Service;
 
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -17,7 +19,7 @@ import java.util.*;
 public class MemberService {
 
     private final MemberMapper memberMapper;
-    //private final BCryptPasswordEncoder bCryptPasswordEncoder;
+  //  private final BCryptPasswordEncoder encoder;
 
     //실시간 아이디 이메일 체크
     public boolean checkSignUpValue(String type, String value) {
@@ -31,30 +33,45 @@ public class MemberService {
     }
 
     //회원가입기능처리
-    public boolean memberResister(Member member){
+    public boolean memberResister(Member member) {
 
+   //     member.setUserPw(encoder.encode(member.getUserPw()));
 
-
+        log.info("사원번호초기값:{}", member.getUserpathNo());
         Date date = new java.sql.Date(System.currentTimeMillis());      //현재시간가져오기
-
-
         member.setUserRegdate(date);
 
-        Random rand = new Random();                                 //사원번호6자리 랜덤생성
-        int user_no = rand.nextInt(888888) + 111111;
-        String setuser_no = Integer.toString(user_no);
+        member.setUserpathNo(1);
+        int setuserno = member.getUserpathNo();
+        log.info("사원번호초기생서:{}", member.getUserpathNo());
+
+        String setuser_no = Integer.toString(member.getUserpathNo());
         member.setUserNo(setuser_no);
 
-        if (member.getUserPw().equals("erpadmin")){
-            member.setUserFlag("1");
+        int nocheck = memberMapper.usernocheck(member);
+        if (nocheck ==0 ){
+            log.info("디비로직수행결과:{}", member.getUserpathNo());
+            member.setUserNo(Integer.toString(setuserno));
         }else{
-            member.setUserFlag("0");
+            log.info("디비수행 초기");
+            String getuserno = memberMapper.getuserno(member);
+            int pathuserno = Integer.parseInt(getuserno);
+
+            int totaluser_no = setuserno+pathuserno;
+            member.setUserNo(Integer.toString(totaluser_no));
+        }
+
+        if (member.getUserPw().equals("erpadmin")){
+            member.setUserFlag("관리자");
+        }else{
+            member.setUserFlag("일반");
         }
         return memberMapper.memberRegister(member);
 
     }
 
-    public List<Member> idfind(Member member) {                     //아이디찾기
+    //아이디찾기
+    public List<Member> idfind(Member member) {
 
         int idsu = memberMapper.memberidfind(member);
         if (idsu >= 1){
