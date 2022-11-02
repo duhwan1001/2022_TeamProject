@@ -19,5 +19,10 @@ public class MrDTO {
 
     private String userId; //사용자 ID
     private int fileNo; // 파일 번호
+
+    private String mrShortTitle;
+    private String mrPrettierDate;
+    private boolean mrNewArticle;
+
     private List<String> filenames; // 첨부파일들의 이름 목록
 }

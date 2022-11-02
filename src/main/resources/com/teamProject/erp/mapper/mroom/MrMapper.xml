@@ -61,7 +61,8 @@
 
     <!--  첨부파일 추가  -->
     <insert id="addFile">
-        INSERT INTO
+        INSERT INTO allfiles
+            (mr_filenames, mno)
     </insert>
 
 <!--    <insert id="save">-->

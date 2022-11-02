@@ -15,7 +15,7 @@ import java.util.Map;
 @Controller
 @Log4j2
 @RequiredArgsConstructor
-@RequestMapping("/main")
+//@RequestMapping("/main")
 public class MrController {
 
     private final MrService mrservice;
