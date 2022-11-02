@@ -20,8 +20,11 @@ class NoticeMapperTest {
         NoticeDTO noticeDTO;
         for (int i = 0; i <= 300; i++) {
             noticeDTO = new NoticeDTO();
+            noticeDTO.setNoticeNo(i);
             noticeDTO.setNoticeTitle("제목" + i);
             noticeDTO.setNoticeContent("내용이다" + i);
+            noticeDTO.setFileNo(i);
+            mapper.noticeInsert(noticeDTO);
         }
     }
 }

@@ -20,6 +20,7 @@ import java.util.Map;
 @Controller
 @Log4j2
 @RequiredArgsConstructor
+//@RequestMapping("/main")
 public class NoticeController {
 
     private final NoticeService noticeService;
@@ -51,23 +52,30 @@ public class NoticeController {
         return mv;
     }
 
+//    @RequestMapping("/notice")
+//    public ModelAndView notice() {
+//        log.info("/notice 호출 됨");
+//        ModelAndView mv = new ModelAndView();
+//        mv.setViewName("notice");
+//        return mv;
+//    }
+
     // 공지사항 목록 요청
-    @GetMapping("/list")
-    public String list(@ModelAttribute("s")Search search, Model model) {
-        log.info("controller request /notice/list GET!! - search: {}", search);
-
-        Map<String, Object> noticeMap = noticeService.noticeFindAllService(search);
-        log.debug("return data - {}", noticeMap);
-
-        // 페이지 정보 생성
-        PageMaker pm = new PageMaker(
-                new Page(search.getPageNum(), search.getAmount())
-                , (Integer) noticeMap.get("tc"));
-
-
-        model.addAttribute("nList", noticeMap.get("nList"));
-        model.addAttribute("pm", pm);
-
-        return "notice";
-    }
+//    @GetMapping("/notice")
+//    public String list(@ModelAttribute("s")Search search, Model model) {
+//        log.info("controller request /notice/list GET!! - search: {}", search);
+//
+//        Map<String, Object> noticeMap = noticeService.noticeFindAllService(search);
+//        log.debug("return data - {}", noticeMap);
+//
+//        // 페이지 정보 생성
+//        PageMaker pm = new PageMaker(
+//                new Page(search.getPageNum(), search.getAmount())
+//                , (Integer) noticeMap.get("tc"));
+//
+//        model.addAttribute("nList", noticeMap.get("nList"));
+//        model.addAttribute("pm", pm);
+//
+//        return "notice";
+//    }
 }

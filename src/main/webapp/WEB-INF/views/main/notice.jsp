@@ -15,9 +15,8 @@
                                 태그 선택
                             </button>
                             <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                <li><a class="dropdown-item" href="#">제목</a></li>
-                                <li><a class="dropdown-item" href="#">작성자</a></li>
-                                <li><a class="dropdown-item" href="#">부서</a></li>
+                                <li><a class="dropdown-item" href="#" type="title">제목</a></li>
+                                <li><a class="dropdown-item" href="#" type="emp">부서</a></li>
                             </ul>
                         </div>
                         <div id="dataTable_filter" class="dataTables_filter float-left">
@@ -34,55 +33,63 @@
                         </div>
                     </div>
                     <ol class="list-group list-group-numbered" style="color: #000000;">
-                        <li class="list-group-item d-flex justify-content-between align-items-start">
-                            <div class="ms-2 me-auto">
-                                <label>
-                                    <button style="font-weight: bold; font-size: 1.3em; background: inherit; border: none"
-                                            type="button" onclick="changeContentCus('notice', 'noticeview')">제목
-                                        <i class="fa-solid fa-paperclip"></i></button>
-                                </label>
-                                <div>
-                                <span class="badge bg-primary rounded-pill"
-                                      style="color: #ffffff; margin-right: 20px; font-size: 0.9em">전체 공지</span>
-                                    <span style="margin-right: 20px">작성자</span>
-                                    <span style="margin-right: 20px">작성일</span>
-                                    <span class="badge bg-primary rounded-pill" style="color: #ffffff">14</span>
+                        <c:forEach var="n" items="${nList}">
+                            <li class="list-group-item d-flex justify-content-between align-items-start">
+                                <div class="ms-2 me-auto">
+                                    <label>
+                                        <button style="font-weight: bold; font-size: 1.3em; background: inherit; border: none"
+                                                type="button"
+                                                onclick="changeContentCus('notice', 'noticeview')">${n.noticeTitle}
+                                            <i class="fa-solid fa-paperclip"></i></button>
+                                    </label>
+                                    <div>
+                                        <span class="badge bg-primary rounded-pill"
+                                              style="color: #ffffff; margin-right: 20px; font-size: 0.9em">전체 공지</span>
+                                        <span style="margin-right: 20px">관리자</span>
+                                        <span style="margin-right: 20px">${n.noticeRegDate}</span>
+                                        <span class="badge bg-primary rounded-pill"
+                                              style="color: #ffffff">${n.noticeViewCount}</span>
+                                        <c:if test="${n.noticeNewArticle}">
+                                            <span class="badge rounded-pill bg-danger">new</span>
+                                        </c:if>
+                                    </div>
                                 </div>
-                            </div>
-                        </li>
-                        <li class="list-group-item d-flex justify-content-between align-items-start">
-                            <div class="ms-2 me-auto">
-                                <label>
-                                    <button style="font-weight: bold; font-size: 1.3em; background: inherit; border: none"
-                                            type="button" onclick="changeContentCus('notice', 'noticeview')">제목
-                                        <i class="fa-solid fa-paperclip"></i></button>
-                                </label>
-                                <div>
-                                <span class="badge bg-primary rounded-pill"
-                                      style="color: #ffffff; margin-right: 20px; font-size: 0.9em">전체 공지</span>
-                                    <span style="margin-right: 20px">작성자</span>
-                                    <span style="margin-right: 20px">작성일</span>
-                                    <span class="badge bg-primary rounded-pill" style="color: #ffffff">14</span>
-                                </div>
-                            </div>
-                        </li>
-                        <li class="list-group-item d-flex justify-content-between align-items-start">
-                            <div class="ms-2 me-auto">
-                                <label>
-                                    <button style="font-weight: bold; font-size: 1.3em; background: inherit; border: none"
-                                            type="button" onclick="changeContentCus('notice', 'noticeview')">제목
-                                        <i class="fa-solid fa-paperclip"></i></button>
-                                </label>
-                                <div>
-                                <span class="badge bg-primary rounded-pill"
-                                      style="color: #ffffff; margin-right: 20px; font-size: 0.9em">전체 공지</span>
-                                    <span style="margin-right: 20px">작성자</span>
-                                    <span style="margin-right: 20px">작성일</span>
-                                    <span class="badge bg-primary rounded-pill" style="color: #ffffff">14</span>
-                                </div>
-                            </div>
-                        </li>
+                            </li>
+                        </c:forEach>
+
                     </ol>
+                    <%-- 페이지 버튼 영역 --%>
+                    <nav aria-label="Page navigation example" style="text-align: center">
+                        <ul class="pagination" style="display: inline-block">
+
+                            <c:if test="${pm.prev}">
+                                <li class="page-item">
+                                    <a class="page-link"
+                                       href="/main/notice?pageNum=${pm.beginPage - 1}&type=${s.type}&keyword=${s.keyword}"
+                                       aria-label="Previous">
+                                        <span aria-hidden="true">&laquo;</span>
+                                    </a>
+                                </li>
+                            </c:if>
+
+                            <c:forEach var="n" begin="${pm.beginPage}" end="${pm.endPage}" step="1">
+                                <li data-page-num="${n}" class="page-item"><a class="page-link"
+                                                                              href="/main/notice?pageNum=${n}&type=${s.type}&keyword=${s.keyword}">${n}</a>
+                                </li>
+                            </c:forEach>
+
+                            <c:if test="${pm.next}">
+                                <li class="page-item">
+                                    <a class="page-link"
+                                       href="/main/notice?pageNum=${pm.endPage + 1}&type=${s.type}&keyword${s.keyword}"
+                                       aria-label="Next">
+                                        <span aria-hidden="true">&raquo;</span>
+                                    </a>
+                                </li>
+                            </c:if>
+
+                        </ul>
+                    </nav>
                 </div>
             </div>
         </div>

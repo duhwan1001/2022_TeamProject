@@ -12,6 +12,7 @@ import java.util.List;
 public class NoticeDTO {
 
     private int noticeNo;
+//    private String noticeWriter;
     private String noticeTitle;
     private String noticeContent;
     private int noticeViewCount;

@@ -13,8 +13,8 @@
                     태그 선택
                 </button>
                 <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                    <li><a class="dropdown-item" href="#">전체 공지</a></li>
-                    <li><a class="dropdown-item" href="#">부서 공지</a></li>
+                    <li><a class="dropdown-item" href="#" type="all">전체 공지</a></li>
+                    <li><a class="dropdown-item" href="#" type="emp">부서 공지</a></li>
                     <%--                    <li><a class="dropdown-item" href="#">부서</a></li>--%>
                 </ul>
             </div>
@@ -43,15 +43,25 @@
 
 
         <%--buttons--%>
-        <div class="clearfix" style="margin-bottom: 2em">
+        <div class="clearfix">
             <div class="float-left">
-                <button type="button" class="btn btn-primary" onclick="changeContentCus('main', 'notice')">목록</button>
+                <button type="button" class="btn btn-primary" onclick="goNoticeMain()">목록</button>
             </div>
             <div class="float-right">
-                <button type="button" class="btn btn-primary" onclick="changeContentCus('main', 'notice')">등록</button>
+                <button type="button" class="btn btn-primary" onclick="insertNotice()">등록</button>
                 <%--                <button type="button" class="btn btn-danger" onclick="">취소</button>--%>
             </div>
         </div>
     </div>
 </div>
+
+<script>
+    function goNoticeMain() {
+        location.href="/main";
+    }
+    function insertNotice() {
+        location.href="/main";
+        location.reload();
+    }
+</script>
 

@@ -16,8 +16,8 @@
 
     <insert id="noticeInsert">
         INSERT INTO notice
-        (title, content)
-        VALUES (#{title}, #{content})
+        (notice_title, notice_content)
+        VALUES (#{noticeTitle}, #{noticeContent})
     </insert>
 
     <select id="noticeFindAll" resultMap="noticeMap">
@@ -57,7 +57,7 @@
 
     <update id="noticeModify">
         UPDATE notice
-        SET notice_writer=#{noticeWriter}, notice_title=#{noticeTitle}, notice_content=#{noticeContent}
+        SET notice_title=#{noticeTitle}, notice_content=#{noticeContent}
         WHERE notice_no=#{noticeNo}
     </update>
 
