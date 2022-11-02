@@ -50,7 +50,7 @@ public class MemberService {
 
    //     member.setUserPw(encoder.encode(member.getUserPw()));
 
-        log.info("사원번호초기값:{}", member.getUserpathNo());
+     //   log.info("사원번호초기값:{}", member.getUserpathNo());
         Date date = new java.sql.Date(System.currentTimeMillis());      //현재시간가져오기
         member.setUserRegdate(date);
 

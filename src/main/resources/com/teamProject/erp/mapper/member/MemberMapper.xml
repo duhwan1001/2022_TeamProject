@@ -38,8 +38,8 @@
 
     <insert id="memberRegister">
         insert into `project_db`.`user`(user_id, user_pw, user_name, user_hp, user_no, user_dep, user_rank, user_addr, user_regdate, user_flag)
-        values(#{userId}, #{userPw}, #{userName}, #{userHp}, (select nvl(max(user_no), 0)+1 from `project_db`.`user`), #{userDep}, #{userRank}, #{userAddr}, #{userRegdate}, #{userFlag})
-    </insert>
+        values(#{userId}, #{userPw}, #{userName}, #{userHp}, (select nvl(max(user_no), 0)+1 from `project_db`.`user` alias_for_subquery), #{userDep}, #{userRank}, #{userAddr}, #{userRegdate}, #{userFlag})
+    </insert>   <!--((중요!! user_no 컬럼타입을 varcahr에서 long으로 변환 따라서 사원번호String에서 Integet로 변환))-->
 
     <select id="memberidfind" resultType="int">
         select count(user_id)
@@ -57,18 +57,6 @@
         select user_pw
         from `project_db`.`user`
         where user_id = #{userId} and user_dep = #{userDep}
-    </select>
-
-    <select id="getuserno" resultType="String">
-        select user_no
-        from `project_db`.`user`
-        where user_no = #{userNo}
-    </select>
-
-    <select id="usernocheck" resultType="int">
-        select count(user_no)
-        from `project_db`.`user`
-        where user_no = #{userNo}
     </select>
 
 </mapper>

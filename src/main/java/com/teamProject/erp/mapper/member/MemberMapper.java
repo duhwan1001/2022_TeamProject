@@ -19,10 +19,10 @@ public interface MemberMapper {
 
     List<Member> getmember(Member member);      //이름 직급으로 해당 리스트 가져오기
 
-    String memberpwfind(Member member);
+    String memberpwfind(Member member);       //비번 찾기 기능
 
-    String getuserno(Member member);
+    //String getuserno(Member member);
 
-    int usernocheck(Member member);
+    //int usernocheck(Member member);
 
 }
