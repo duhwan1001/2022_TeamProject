@@ -22,4 +22,10 @@
         where mail_sender = #{type}
     </select>
 
+    <select id="receivedMail" resultMap="mailMap">
+        SELECT  *
+        FROM mail
+        where mail_receiver = #{type}
+    </select>
+
 </mapper>

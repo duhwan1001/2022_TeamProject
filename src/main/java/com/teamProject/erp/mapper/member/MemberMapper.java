@@ -1,7 +1,11 @@
 package com.teamProject.erp.mapper.member;
 
+import com.teamProject.erp.dto.Member;
 import com.teamProject.erp.dto.MemberDTO;
 import org.apache.ibatis.annotations.Mapper;
+
+import java.util.List;
+import java.util.Map;
 
 @Mapper
 public interface MemberMapper {

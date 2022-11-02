@@ -28,19 +28,6 @@ public class LoginController {
 
     private final MemberService memberService;
 
-//    @Autowired
-//    private SampleService sampleService;
-//
-//    @RequestMapping(value="/index", method = {RequestMethod.POST, RequestMethod.GET})
-//    public String index(HttpServletRequest request, Model model) {
-//
-//        System.out.println("인덱스 페이지 호출");
-//        String test = sampleService.selectTest();
-//        System.out.println("조회 테스트 : "+test);
-//        model.addAttribute("test", "테스트");
-//        return "index";
-//    }
-
     //로그인 페이지이동
     @RequestMapping(value="/login", method = {RequestMethod.GET, RequestMethod.POST})
     public ModelAndView login() {

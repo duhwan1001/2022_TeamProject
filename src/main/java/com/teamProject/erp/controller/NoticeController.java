@@ -1,21 +1,12 @@
 package com.teamProject.erp.controller;
 
-import com.teamProject.erp.common.paging.Page;
-import com.teamProject.erp.common.paging.PageMaker;
-import com.teamProject.erp.common.search.Search;
 import com.teamProject.erp.service.NoticeService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
-import org.springframework.boot.Banner;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
-
-import java.util.Map;
 
 @Controller
 @Log4j2
