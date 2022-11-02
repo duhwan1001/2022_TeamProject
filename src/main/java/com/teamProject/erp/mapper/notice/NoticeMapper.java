@@ -1,7 +1,7 @@
 package com.teamProject.erp.mapper.notice;
 
 import com.teamProject.erp.common.paging.Page;
-import com.teamProject.erp.common.Search.Search;
+import com.teamProject.erp.common.search.Search;
 import com.teamProject.erp.dto.NoticeDTO;
 import org.apache.ibatis.annotations.Mapper;
 

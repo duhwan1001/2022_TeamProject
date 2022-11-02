@@ -1,7 +1,7 @@
 package com.teamProject.erp.mapper.mroom;
 
-import com.teamProject.erp.common.Search.Search;
 import com.teamProject.erp.common.paging.Page;
+import com.teamProject.erp.common.search.Search;
 import com.teamProject.erp.dto.MrDTO;
 import com.teamProject.erp.dto.ValidateMemberDTO;
 import org.apache.ibatis.annotations.Mapper;
