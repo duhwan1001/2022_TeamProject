@@ -38,7 +38,7 @@
 
     <insert id="memberRegister">
         insert into `project_db`.`user`(user_id, user_pw, user_name, user_hp, user_no, user_dep, user_rank, user_addr, user_regdate, user_flag)
-        values(#{userId}, #{userPw}, #{userName}, #{userHp}, #{userNo}, #{userDep}, #{userRank}, #{userAddr}, #{userRegdate}, #{userFlag})
+        values(#{userId}, #{userPw}, #{userName}, #{userHp}, (select nvl(max(user_no), 0)+1 from `project_db`.`user`), #{userDep}, #{userRank}, #{userAddr}, #{userRegdate}, #{userFlag})
     </insert>
 
     <select id="memberidfind" resultType="int">

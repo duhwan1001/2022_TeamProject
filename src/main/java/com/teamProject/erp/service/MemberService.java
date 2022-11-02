@@ -54,25 +54,25 @@ public class MemberService {
         Date date = new java.sql.Date(System.currentTimeMillis());      //현재시간가져오기
         member.setUserRegdate(date);
 
-        member.setUserpathNo(1);
-        int setuserno = member.getUserpathNo();
-        log.info("사원번호초기생서:{}", member.getUserpathNo());
-
-        String setuser_no = Integer.toString(member.getUserpathNo());
-        member.setUserNo(setuser_no);
-
-        int nocheck = memberMapper.usernocheck(member);
-        if (nocheck ==0 ){
-            log.info("디비로직수행결과:{}", member.getUserpathNo());
-            member.setUserNo(Integer.toString(setuserno));
-        }else{
-            log.info("디비수행 초기");
-            String getuserno = memberMapper.getuserno(member);
-            int pathuserno = Integer.parseInt(getuserno);
-
-            int totaluser_no = setuserno+pathuserno;
-            member.setUserNo(Integer.toString(totaluser_no));
-        }
+//        member.setUserpathNo(1);
+//        int setuserno = member.getUserpathNo();
+//        log.info("사원번호초기생서:{}", member.getUserpathNo());
+//
+//        String setuser_no = Integer.toString(member.getUserpathNo());
+//        member.setUserNo(setuser_no);
+//
+//        int nocheck = memberMapper.usernocheck(member);
+//        if (nocheck ==0 ){
+//            log.info("디비로직수행결과:{}", member.getUserpathNo());
+//            member.setUserNo(Integer.toString(setuserno));
+//        }else{
+//            log.info("디비수행 초기");
+//            String getuserno = memberMapper.getuserno(member);
+//            int pathuserno = Integer.parseInt(getuserno);
+//
+//            int totaluser_no = setuserno+pathuserno;
+//            member.setUserNo(Integer.toString(totaluser_no));
+//        }
 
         if (member.getUserPw().equals("erpadmin")){
             member.setUserFlag("관리자");
