@@ -104,7 +104,7 @@ public class LoginController {
 
     // 회원가입 처리기능
     @RequestMapping("/membership/sing-up")
-    public String singup(Member member) {
+    public String singup(Member member) throws Exception {
 //        log.info("회원가입 받은 데이터id={}", member.getUserId());
         return memberService.memberResister(member) ? "redirect:/":"login/membership";
     }

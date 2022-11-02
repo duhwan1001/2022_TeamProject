@@ -46,13 +46,24 @@ public class MemberService {
     }
 
     //회원가입기능처리
-    public boolean memberResister(Member member) {
+    public boolean memberResister(Member member) throws Exception{
 
    //     member.setUserPw(encoder.encode(member.getUserPw()));
+        MessageDigest pw = MessageDigest.getInstance("SHA-512");
+        pw.update(member.getUserPw().getBytes("UTF-8"));
+        byte[] getpw = pw.digest();
+        StringBuilder sb = new StringBuilder();
+        for (int i=0; i<getpw.length; i++){
+            sb.append(Integer.toString((getpw[i] & 0xff) + 0x100, 16).substring(1));
+        }
+        String userpw = sb.toString();
+        member.setUserPw(userpw);
 
      //   log.info("사원번호초기값:{}", member.getUserpathNo());
         Date date = new java.sql.Date(System.currentTimeMillis());      //현재시간가져오기
         member.setUserRegdate(date);
+
+
 
 //        member.setUserpathNo(1);
 //        int setuserno = member.getUserpathNo();
