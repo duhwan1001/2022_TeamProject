@@ -1,15 +1,25 @@
 package com.teamProject.erp.controller;
 
+import com.teamProject.erp.dto.FaqDTO;
+import com.teamProject.erp.service.FaqService;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j;
 import lombok.extern.log4j.Log4j2;
+import org.springframework.boot.Banner;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
+import java.util.List;
+
 @Controller
 @Log4j2
+@RequiredArgsConstructor
 public class MainPageController {
+
+    private final FaqService faqService;
 
 //    @Autowired
 //    private SampleService sampleService;
@@ -114,11 +124,15 @@ public class MainPageController {
 
     // Q&A
     @RequestMapping(value="/main/faq", method = {RequestMethod.GET, RequestMethod.POST})
-    public ModelAndView faq() {
+    public String faqlist(FaqDTO faqDTO, Model model) {
         log.info("/main/faq 호출 됨");
-        ModelAndView mv = new ModelAndView();
-        mv.setViewName("main/faq");
-        return mv;
+        log.info("게시물 등록시 전달값 확인 no={}, title={}, content={}", faqDTO.getFaqNo(), faqDTO.getFaqTitle(), faqDTO.getFaqContent());
+        List<FaqDTO> faqlist = faqService.viewlist();
+     //   List<FaqDTO> getuserflag = faqService.getuserflag(faqDTO.getUserUserId());
+        log.info("리스트전달확인");
+        model.addAttribute("faqList", faqlist);
+      //  model.addAttribute("userflags", getuserflag);
+        return "main/faq";
     }
 
 
