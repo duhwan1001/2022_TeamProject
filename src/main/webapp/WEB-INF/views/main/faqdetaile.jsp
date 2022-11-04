@@ -5,7 +5,7 @@
         <div class="col-lg-12 col-md-6">
             <c:set var="users" value="${user}"></c:set>
 
-            <h1>글 상세 목록</h1>
+            <h1>FAQ 글 상세 목록</h1>
             <a href="logout.do">Log Out</a>
             <hr>
             <form action="/main/faqmodify" method="post">
