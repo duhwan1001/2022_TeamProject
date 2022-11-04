@@ -1,6 +1,7 @@
 package com.teamProject.erp.mapper.faq;
 
 import com.teamProject.erp.dto.FaqDTO;
+import com.teamProject.erp.dto.Member;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;
@@ -19,6 +20,6 @@ public interface FaqMapper {
 
     boolean viewdelete(Integer faqNo);
 
-    List<FaqDTO> getuserflag(String userId);
+    String getuserflag(String userid);
 
 }

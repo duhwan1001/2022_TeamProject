@@ -22,7 +22,6 @@ public class FaqService {
 
     public List<FaqDTO> viewlist(){                     // 게시물 전체 가져오기
         List<FaqDTO> list = faqMapper.viewlist();
-        log.info("데이터 전달 확인");
         return list;
     }
 
@@ -40,8 +39,7 @@ public class FaqService {
         return faqMapper.viewdelete(faqno);
     }
 
-    public List<FaqDTO> getuserflag(String userId){
-        log.info("가져오는 로직");
+    public String getuserflag(String userId){
         return faqMapper.getuserflag(userId);
     }
 

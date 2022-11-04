@@ -4,12 +4,16 @@
 <mapper namespace="com.teamProject.erp.mapper.faq.FaqMapper">
 
     <resultMap id="faqmap" type="com.teamProject.erp.dto.FaqDTO">
-        <result column="faq_no" property="faqNo"></result>
-        <result column="faq_title" property="faqTitle"></result>
+        <result column="faq_no" property="faqNo"/>
+        <result column="faq_title" property="faqTitle"/>
         <result column="faq_content" property="faqContent"></result>
         <result column="faq_viewcount" property="faqViewcount"></result>
         <result column="faq_regdate" property="faqRegdate"></result>
         <result column="user_user_id" property="userUserId"></result>
+    </resultMap>
+    <resultMap id="memberMapper" type="com.teamProject.erp.dto.Member">
+        <result column="user_flag" property="userFlag"/>
+        <result column="user_id" property="userId"/>
     </resultMap>
 
     <insert id="viewsave">
@@ -39,10 +43,10 @@
 
     </delete>
 
-    <select id="getuserflag">
-        select u.user_flag
-        from `project_db`.`faqBoard` f right join `project_db`.`user` u
-        on f.user_user_id = #{userId};
+    <select id="getuserflag" resultType="String">
+        select user_flag
+        from `project_db`.`user` u
+        where user_id= #{userid}
     </select>
 
 </mapper>

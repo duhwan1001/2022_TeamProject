@@ -19,36 +19,41 @@ public class FaqBoardController {
 
     @RequestMapping("/main/writer")             //글쓰기 화면 이동
     public String writer(){
-    //    log.info("이동확인이요!");
         return "main/faqwriter";
     }
 
     @RequestMapping("/main/faqdetaile")
     public String detaile(@RequestParam Integer faqno, Model model, FaqDTO faqDTO){
-    //    log.info("detaile faqno:{}", faqno);
+
         FaqDTO list = faqService.viewdetaile(faqno);
-   //     log.info("사용자 이름:{}", list.getUserUserId());
+        log.info("모든값확인 번호:{}, 제목:{}, 내용:{} 아이디:{}", list.getFaqNo(), list.getFaqTitle(), list.getFaqContent(), list.getUserUserId());
+// 로그인시 사용자 userID 가져와야함
+        String getuser = faqService.getuserflag(list.getUserUserId());
+        log.info("아이디플래그 구분:{}", getuser);
+
+        model.addAttribute("user", getuser);
         model.addAttribute("list", list);
         return "main/faqdetaile";
     }
 
     @RequestMapping("/main/faqsave")
     public String save(FaqDTO faqDTO){
-    //    log.info("컨트롤러 전달받은 값확인 title={}, content={}", faqDTO.getFaqTitle(), faqDTO.getFaqContent());
-        faqDTO.setUserUserId("moiu@gmail.com");
+        faqDTO.setUserUserId("mong@gmail.com");
+        log.info("title값:{}", faqDTO.getFaqTitle(), faqDTO.getFaqTitle());
         return faqService.viewsave(faqDTO) ? "redirect:/main/faq" : "main/faqwriter";
     }
 
     @RequestMapping("/main/faqmodify")
     public String modify(FaqDTO faqDTO){
-  //      log.info("수정 컨트롤러 동작 값확인 title={}, content={}", faqDTO.getFaqTitle(), faqDTO.getFaqTitle());
         return faqService.viewmodify(faqDTO) ? "redirect:/main/faq" : "main/faqdetaile";
     }
 
-    @RequestMapping("main/delete")
+    @RequestMapping("main/faqdelete")
     public String delete(@RequestParam Integer faqno){
-        log.info("컨트롤러 수행");
-        return faqService.viewdelete(faqno) ? "redirect:/main/faq" : "/main/faqdetaile";
+        log.info("faqno값확인:{}", faqno);
+        boolean oks = faqService.viewdelete(faqno);
+        log.info("삭제 리턴값:{}", oks);
+        return oks? "redirect:/main/faq" : "main/detaile";
     }
 
 }

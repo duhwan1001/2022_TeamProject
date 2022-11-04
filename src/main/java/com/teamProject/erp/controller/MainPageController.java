@@ -1,6 +1,7 @@
 package com.teamProject.erp.controller;
 
 import com.teamProject.erp.dto.FaqDTO;
+import com.teamProject.erp.dto.Member;
 import com.teamProject.erp.service.FaqService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j;
@@ -124,14 +125,13 @@ public class MainPageController {
 
     // Q&A
     @RequestMapping(value="/main/faq", method = {RequestMethod.GET, RequestMethod.POST})
-    public String faqlist(FaqDTO faqDTO, Model model) {
-        log.info("/main/faq 호출 됨");
-        log.info("게시물 등록시 전달값 확인 no={}, title={}, content={}", faqDTO.getFaqNo(), faqDTO.getFaqTitle(), faqDTO.getFaqContent());
+    public String faqlist(FaqDTO faqDTO, Model model, Member member) {
         List<FaqDTO> faqlist = faqService.viewlist();
-     //   List<FaqDTO> getuserflag = faqService.getuserflag(faqDTO.getUserUserId());
-        log.info("리스트전달확인");
+//로그인시 해당 userID 반드시 필수로 여기로 가져와야함!!
+        faqDTO.setUserUserId("mong@gmail.com");
+        String getuserflag = faqService.getuserflag(faqDTO.getUserUserId());
         model.addAttribute("faqList", faqlist);
-      //  model.addAttribute("userflags", getuserflag);
+        model.addAttribute("getuserflag", getuserflag);
         return "main/faq";
     }
 
