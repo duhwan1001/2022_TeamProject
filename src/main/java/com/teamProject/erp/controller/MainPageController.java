@@ -1,5 +1,8 @@
 package com.teamProject.erp.controller;
 
+import com.teamProject.erp.common.Search.Search;
+import com.teamProject.erp.common.paging.Page;
+import com.teamProject.erp.common.paging.PageMaker;
 import com.teamProject.erp.dto.FaqDTO;
 import com.teamProject.erp.dto.Member;
 import com.teamProject.erp.service.FaqService;
@@ -127,7 +130,7 @@ public class MainPageController {
     @RequestMapping(value="/main/faq", method = {RequestMethod.GET, RequestMethod.POST})
     public String faqlist(FaqDTO faqDTO, Model model, Member member) {
         List<FaqDTO> faqlist = faqService.viewlist();
-//로그인시 해당 userID 반드시 필수로 여기로 가져와야함!!
+//로그인시 해당 userID 반드시 필수로 여기로 가져와야함!! 현재는 테스트구현을 위해 강제로 주입
         faqDTO.setUserUserId("mong@gmail.com");
         String getuserflag = faqService.getuserflag(faqDTO.getUserUserId());
         model.addAttribute("faqList", faqlist);

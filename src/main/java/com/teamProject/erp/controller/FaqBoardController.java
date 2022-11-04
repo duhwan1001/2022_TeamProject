@@ -23,37 +23,38 @@ public class FaqBoardController {
     }
 
     @RequestMapping("/main/faqdetaile")
-    public String detaile(@RequestParam Integer faqno, Model model, FaqDTO faqDTO){
+    public String detaile(@RequestParam Integer faqno, Model model, FaqDTO faqDTO){             //특정게시물조회(모두가능)
 
         FaqDTO list = faqService.viewdetaile(faqno);
-        log.info("모든값확인 번호:{}, 제목:{}, 내용:{} 아이디:{}", list.getFaqNo(), list.getFaqTitle(), list.getFaqContent(), list.getUserUserId());
 // 로그인시 사용자 userID 가져와야함
         String getuser = faqService.getuserflag(list.getUserUserId());
-        log.info("아이디플래그 구분:{}", getuser);
+
 
         model.addAttribute("user", getuser);
         model.addAttribute("list", list);
         return "main/faqdetaile";
     }
 
-    @RequestMapping("/main/faqsave")
+    @RequestMapping("/main/faqsave")                                            //게시물 추가(관리자)
     public String save(FaqDTO faqDTO){
         faqDTO.setUserUserId("mong@gmail.com");
-        log.info("title값:{}", faqDTO.getFaqTitle(), faqDTO.getFaqTitle());
         return faqService.viewsave(faqDTO) ? "redirect:/main/faq" : "main/faqwriter";
     }
 
-    @RequestMapping("/main/faqmodify")
+    @RequestMapping("/main/faqmodify")                                              //게시물수정(관리자)
     public String modify(FaqDTO faqDTO){
         return faqService.viewmodify(faqDTO) ? "redirect:/main/faq" : "main/faqdetaile";
     }
 
     @RequestMapping("main/faqdelete")
-    public String delete(@RequestParam Integer faqno){
-        log.info("faqno값확인:{}", faqno);
+    public String delete(@RequestParam Integer faqno){          //게시물삭제 (관리자)
         boolean oks = faqService.viewdelete(faqno);
-        log.info("삭제 리턴값:{}", oks);
         return oks? "redirect:/main/faq" : "main/detaile";
     }
+
+   @RequestMapping("/faq/Precautions")              //주의 사항 팝업창 띄우기
+    public String Precautionspath(){
+        return "main/faqPrecautions";
+   }
 
 }

@@ -26,8 +26,6 @@
 
             </table>
 
-        <!-- 게시판 페이지(번호) -->
-
         <!-- 글 추가 -->
         <c:if test="${getuserflag eq '관리자'}">
             <div class="create writing">
@@ -39,7 +37,17 @@
         <!-- 하단 -->
 
 
-        <!-- 검색창 -->
-        <div id="search box">
-
+        <!-- 주의사항 -->
+        <div id="search box" align="right">
+        <a href="javascript:openfrm('/faq/Precautions');">주의사항</a>
         </div>
+
+        <script>
+            function openfrm(path){
+                faqpop_auth = window.open(path, '주의사항 화면 띄우기', 'top=100, left=200, width=500, height=500')
+                faqpop_auth.focus();
+            }
+
+        </script>
+
+        
