@@ -6,6 +6,7 @@ import com.teamProject.erp.dto.NoticeDTO;
 import com.teamProject.erp.mapper.notice.NoticeMapper;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
+import org.springframework.data.relational.core.sql.In;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.util.WebUtils;
@@ -33,13 +34,13 @@ public class NoticeService {
         // 게시물 내용 DB에 저장
         boolean flag = noticeMapper.noticeInsert(noticeDTO);
 
-        List<String> fileNames = noticeDTO.getNoticeFileNames();
-        if(fileNames != null && fileNames.size() > 0) {
-            for (String fileName : fileNames) {
-                // 첨부파일 내용 DB에 저장
-                noticeMapper.noticeAddFile(fileName);
-            }
-        }
+//        List<String> fileNames = noticeDTO.getNoticeFileNames();
+//        if(fileNames != null && fileNames.size() > 0) {
+//            for (String fileName : fileNames) {
+//                // 첨부파일 내용 DB에 저장
+//                noticeMapper.noticeAddFile(fileName);
+//            }
+//        }
         return flag;
     }
 
@@ -136,7 +137,7 @@ public class NoticeService {
 
     // 게시물 상세 조회 요청 중간 처리
     @Transactional
-    public NoticeDTO noticeFindOneService(Long noticeNo, HttpServletResponse response, HttpServletRequest request) {
+    public NoticeDTO noticeFindOneService(Integer noticeNo, HttpServletResponse response, HttpServletRequest request) {
         log.info("noticeFindOne service start - {}", noticeNo);
         NoticeDTO noticeDTO = noticeMapper.noticeFindOne(noticeNo);
 
@@ -147,7 +148,7 @@ public class NoticeService {
         return noticeDTO;
     }
 
-    private void makeViewCount(Long noticeNo, HttpServletResponse response, HttpServletRequest request) {
+    private void makeViewCount(Integer noticeNo, HttpServletResponse response, HttpServletRequest request) {
         // 쿠키 조회 - 해당 이름의 쿠키가 있으면 쿠키가 들어오고 없으면 null 이 들어옴
         Cookie foundCookie = WebUtils.getCookie(request, "n" + noticeNo);
 
@@ -164,7 +165,7 @@ public class NoticeService {
 
     // 게시물 삭제 요청 중간 처리
     @Transactional
-    public boolean noticeDeleteService(Long noticeNo) {
+    public boolean noticeDeleteService(Integer noticeNo) {
         log.info("noticeRemove service start - {}", noticeNo);
 
         // 원본 게시물 삭제
@@ -179,9 +180,9 @@ public class NoticeService {
     }
 
     // 첨부파일 목록 가져오는 중간처리
-    public List<String> getFiles(Long nno) {
-        return noticeMapper.noticeFindFileNames(nno);
-    }
+//    public List<String> getFiles(Long nno) {
+//        return noticeMapper.noticeFindFileNames(nno);
+//    }
 
     // 게시물 번호로 글쓴이 회원정보 가져오기
 

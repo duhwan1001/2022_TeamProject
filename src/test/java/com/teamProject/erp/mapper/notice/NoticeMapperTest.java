@@ -18,7 +18,7 @@ class NoticeMapperTest {
     @DisplayName("100개의 게시물을 삽입해야 한다.")
     void bulkInsert() {
         NoticeDTO noticeDTO;
-        for (int i = 1; i <= 300; i++) {
+        for (int i = 1; i <= 100; i++) {
             noticeDTO = new NoticeDTO();
             noticeDTO.setNoticeTitle("제목" + i);
             noticeDTO.setNoticeContent("내용이다" + i);

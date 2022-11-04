@@ -33,12 +33,12 @@
         <if test="type == 'title'">
             WHERE notice_title LIKE CONCAT('%', #{keyword}, '%')
         </if>
-        <if test="type == 'content'">
-            WHERE notice_content LIKE CONCAT('%', #{keyword}, '%')
-        </if>
-        <if test="type == 'writer'">
-            WHERE notice_writer LIKE CONCAT('%', #{keyword}, '%')
-        </if>
+<!--        <if test="type == 'content'">-->
+<!--            WHERE notice_content LIKE CONCAT('%', #{keyword}, '%')-->
+<!--        </if>-->
+<!--        <if test="type == 'writer'">-->
+<!--            WHERE notice_writer LIKE CONCAT('%', #{keyword}, '%')-->
+<!--        </if>-->
         ORDER BY notice_no DESC
         LIMIT #{start}, #{amount}
     </select>
@@ -66,5 +66,23 @@
         SET notice_viewcount = notice_viewcount + 1
         WHERE notice_no=#{noticeNo}
     </update>
+
+    <select id="noticeGetTotalCount" resultType="Integer">
+        SELECT COUNT(*)
+        FROM notice
+    </select>
+
+    <select id="noticeGetTotalSearchCount" resultType="Integer">
+        SELECT COUNT(*)
+        FROM notice
+        <if test="type == 'title'">
+            WHERE notice_title LIKE CONCAT('%', #{keyword}, '%')
+        </if>
+    </select>
+
+<!--    <insert id="noticeAddFile">-->
+<!--        INSERT INTO allFiles-->
+<!--        ()-->
+<!--    </insert>-->
 
 </mapper>

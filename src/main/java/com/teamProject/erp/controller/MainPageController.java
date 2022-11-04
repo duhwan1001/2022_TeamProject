@@ -68,13 +68,13 @@ public class MainPageController {
     }
 
     // 공지사항
-    @RequestMapping(value="/main/notice", method = {RequestMethod.GET, RequestMethod.POST})
-    public ModelAndView notice() {
-        log.info("/main/notice 호출 됨");
-        ModelAndView mv = new ModelAndView();
-        mv.setViewName("main/notice");
-        return mv;
-    }
+//    @RequestMapping(value="/main/notice", method = {RequestMethod.GET, RequestMethod.POST})
+//    public ModelAndView notice() {
+//        log.info("/main/notice 호출 됨");
+//        ModelAndView mv = new ModelAndView();
+//        mv.setViewName("main/notice");
+//        return mv;
+//    }
 
     // 자유게시판
 //    @RequestMapping(value="/main/mainboard", method = {RequestMethod.GET, RequestMethod.POST})
