@@ -13,20 +13,29 @@
 <div class="input-group mb-4">
     <form action="list" method="get">
 
-        <select class="form-select" name="type" id="search-type">
+        <select class="form-select" name="type" id="search-type" style="float: left">
             <option value="title">제목</option>
 <%--            <option value="content">내용</option>--%>
 <%--            <option value="writer">작성자</option>--%>
 <%--            <option value="tc">제목+내용</option>--%>
         </select>
-
-        <input style="width: 100%; padding: 10px 20px; margin: 5px 0; box-sizing: border-box;" type="text" class="form-control" name="keyword" placeholder="입력해주세요!" value="${s.keyword}">
-
-        <div class="input-group-append">
-            <button class="btn btn-primary" type="submit">
-                <i class="fas fa-search"></i>
-            </button>
+<%--        <div id="dataTable_filter" class="dataTables_filter float-left">--%>
+<%--            <label>--%>
+<%--                <input type="search" class="form-control form-control-sm" placeholder="검색어 입력"--%>
+<%--                       aria-controls="dataTable" style="font-size: 1.2em;" name="keyword" value="${s.keyword}">--%>
+<%--            </label>--%>
+<%--        </div>--%>
+        <div class="input-group" style="margin-left: auto">
+            <input type="text" class="form-control rounded" placeholder="검색어 입력" aria-describedby="search-addon" name="keyword" value="${s.keyword}"/>
+            <button type="submit" class="btn btn-outline-primary">Search</button>
         </div>
+<%--        <input style="width: 100%; padding: 10px 20px; margin: 5px 0; box-sizing: border-box;" type="text" class="form-control" name="keyword" placeholder="입력해주세요!" value="${s.keyword}">--%>
+
+<%--        <div class="input-group-append">--%>
+<%--            <button class="btn btn-primary" type="submit">--%>
+<%--                <i class="fas fa-search"></i>--%>
+<%--            </button>--%>
+<%--        </div>--%>
     </form>
 </div>
 <%--<div class="input-group mb-4">--%>
@@ -72,7 +81,7 @@
                                     <c:forEach var="m" items="${mList}">
                                         <tr>
                                             <td>${m.mrNo}</td>
-                                            <td><a href="/mrmain/mrdetail" onclick="changeContentCus('mrmain', 'mrdetail')">
+                                            <td><a href="mrdetail.jsp">
                                                     ${m.mrTitle}
 <%--                                                ${m.shortTitle}--%>
                                                 <c:if test="${m.mrNewArticle}">
@@ -97,23 +106,23 @@
                             <nav aria-label="Page navigation example">
                                 <button type="button" class="btn btn-primary float-right clearfix" onclick="changeContentCus('mrmain', 'mrwrite')">예약</button>
                                 <ul class="pagination justify-content-center">
-                                    <c:if test="${pm.prev}">
-                                        <li class="page-item">
-                                            <a class="page-link" href="/mrmain/list?pageNum=${pm.beginPage - 1}&amount=${pm.page.amount}&type=${s.type}&keyword=${s.keyword}">prev</a>
-                                        </li>
-                                    </c:if>
+<%--                                    <c:if test="${pm.prev}">--%>
+<%--                                        <li class="page-item">--%>
+<%--                                            <a class="page-link" href="/mrmain/list?pageNum=${pm.beginPage - 1}&amount=${pm.page.amount}&type=${s.type}&keyword=${s.keyword}">prev</a>--%>
+<%--                                        </li>--%>
+<%--                                    </c:if>--%>
 
-                                    <c:forEach var="n" begin="${pm.beginPage}" end="${pm.endPage}" step="1">
-                                        <li data-page-num="${n}" class="page-item">
-                                            <a class="page-link" href="/mrmain/list?pageNum=${n}&amount=${pm.page.amount}&type=${s.type}&keyword=${s.keyword}">${n}</a>
-                                        </li>
-                                    </c:forEach>
+<%--                                    <c:forEach var="n" begin="${pm.beginPage}" end="${pm.endPage}" step="1">--%>
+<%--                                        <li data-page-num="${n}" class="page-item">--%>
+<%--                                            <a class="page-link" href="/mrmain/list?pageNum=${n}&amount=${pm.page.amount}&type=${s.type}&keyword=${s.keyword}">${n}</a>--%>
+<%--                                        </li>--%>
+<%--                                    </c:forEach>--%>
 
-                                    <c:if test="${pm.next}">
-                                        <li class="page-item">
-                                            <a class="page-link" href="/main/mrmain?pageNum=${pm.endPage + 1}&amount=${pm.page.amount}&type=${s.type}&keyword=${s.keyword}">next</a>
-                                        </li>
-                                    </c:if>
+<%--                                    <c:if test="${pm.next}">--%>
+<%--                                        <li class="page-item">--%>
+<%--                                            <a class="page-link" href="/main/mrmain?pageNum=${pm.endPage + 1}&amount=${pm.page.amount}&type=${s.type}&keyword=${s.keyword}">next</a>--%>
+<%--                                        </li>--%>
+<%--                                    </c:if>--%>
                                 </ul>
                             </nav>
                         <%--                            <nav aria-label="Page navigation example">--%>

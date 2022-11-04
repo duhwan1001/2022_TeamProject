@@ -21,7 +21,7 @@ public interface MrMapper {
     List<MrDTO> mrFindSearchAll(Search search);
 
     // 회의실 상세 보기
-    MrDTO mrFindOne(Long mrNo);
+    MrDTO mrFindOne(Integer mrNo);
 
     // 회의실 예약
     boolean mrInsert(MrDTO mrDTO);
@@ -30,7 +30,7 @@ public interface MrMapper {
     boolean mrModify(MrDTO mrDTO);
 
     // 회의실 삭제
-    boolean mrDelete(Long mrNo);
+    boolean mrDelete(Integer mrNo);
 
     // 전체 게시물 수 조회
     int mrGetTotalCount();
@@ -42,8 +42,8 @@ public interface MrMapper {
     void mrAddFile(String mrFileName);
 
     // 게시물에 붙어있는 첨부파일경로명 전부 조회하기
-    List<String> mrFindFileNames(Long mno);
+//    List<String> mrFindFileNames(Long mno);
 
     //게시물 번호로 게시글 작성자의 계정명과 권한 가져오기
-    ValidateMemberDTO findMemberByMrNo(Long mrNo);
+//    ValidateMemberDTO findMemberByMrNo(Long mrNo);
 }

@@ -86,13 +86,13 @@ public class MainPageController {
 //    }
 
     // 회의실 예약
-    @RequestMapping(value="/main/mrmain", method = {RequestMethod.GET, RequestMethod.POST})
-    public ModelAndView mrmain() {
-        log.info("/main/mrmain 호출 됨");
-        ModelAndView mv = new ModelAndView();
-        mv.setViewName("main/mrmain");
-        return mv;
-    }
+//    @RequestMapping(value="/main/mrmain", method = {RequestMethod.GET, RequestMethod.POST})
+//    public ModelAndView mrmain() {
+//        log.info("/main/mrmain 호출 됨");
+//        ModelAndView mv = new ModelAndView();
+//        mv.setViewName("main/mrmain");
+//        return mv;
+//    }
 
     // 자료 공유
     @RequestMapping(value="/main/sharedata", method = {RequestMethod.GET, RequestMethod.POST})

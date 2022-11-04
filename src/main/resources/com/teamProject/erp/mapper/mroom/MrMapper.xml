@@ -18,8 +18,8 @@
 
     <insert id="mrInsert">
         INSERT INTO meetingroom
-        (mr_title, mr_content)
-        VALUES (#{mrTitle}, #{mrContent})
+        (mr_title, mr_max, mr_content, mr_users, mr_time)
+        VALUES (#{mrTitle},#{mrMax}, #{mrContent}, #{mrUsers}, #{mrTime})
     </insert>
 
     <select id="mrFindAll" resultMap="mrMap">
@@ -67,12 +67,12 @@
         WHERE mr_no=#{mrNo}
     </update>
     
-    <select id="mrGetTotalCount" resultType="int">
+    <select id="mrGetTotalCount" resultType="Integer">
         SELECT COUNT(*)
         FROM meetingroom
     </select>
     
-    <select id="mrGetTotalSearchCount" resultType="int">
+    <select id="mrGetTotalSearchCount" resultType="Integer">
         SELECT COUNT(*)
         FROM meetingroom
         WHERE mr_title

@@ -12,38 +12,77 @@
 <!-- 구분 선 속성-->
 <hr class="sidebar-divider d-none d-md-block">
 <!-- 이미지 속성 -->
-<div style="text-align: center; margin-bottom: 0.7em">
-    <img src="${pageContext.request.contextPath}/img/mrimg/mr1.jpg" alt="A 회의실"/>
-</div>
-<div style="text-align: center; margin-bottom: 0.7em">
-    <img src="${pageContext.request.contextPath}/img/mrimg/mr2.jpg" alt="B 회의실"/>
-</div>
-<div style="text-align: center; margin-bottom: 0.7em">
-    <img src="${pageContext.request.contextPath}/img/mrimg/mr3.png" alt="C 회의실"/>
-</div>
+<%--<div style="text-align: center; margin-bottom: 0.7em">--%>
+<%--    <img src="${pageContext.request.contextPath}/img/mrimg/mr1.jpg" alt="A 회의실"/>--%>
+<%--</div>--%>
+<%--<div style="text-align: center; margin-bottom: 0.7em">--%>
+<%--    <img src="${pageContext.request.contextPath}/img/mrimg/mr2.jpg" alt="B 회의실"/>--%>
+<%--</div>--%>
+<%--<div style="text-align: center; margin-bottom: 0.7em">--%>
+<%--    <img src="${pageContext.request.contextPath}/img/mrimg/mr3.png" alt="C 회의실"/>--%>
+<%--</div>--%>
 <br>
 <div class="col-10" style="background:#ffffff; border-radius: 5px; left: 7%">
-    공무원의 신분과 정치적 중립성은 법률이 정하는 바에 의하여 보장된다. 모든 국민은 행위시의 법률에 의하여 범죄를 구성하지 아니하는 행위로 소추되지 아니하며, 동일한 범죄에 대하여 거듭 처벌받지 아니한다.
-    대통령의 임기연장 또는 중임변경을 위한 헌법개정은 그 헌법개정 제안 당시의 대통령에 대하여는 효력이 없다. 대통령은 국가의 원수이며, 외국에 대하여 국가를 대표한다.
+    <div class="mb-3">
+        <label class="form-label">회의실명</label>
+        <input type="text" class="form-control" name="mrTitle" value="${m.mrTitle}" disabled>
+    </div>
+    <div class="mb-3">
+        <label class="form-label">최대인원</label>
+        <input type="text" class="form-control" name="mrMax" value="${m.mrMax}" disabled>
+    </div>
+    <div class="mb-3">
+        <label class="form-label">예약자명</label>
+        <input type="text" class="form-control" name="mrUsers" value="${m.mrUsers}" disabled>
+    </div>
+    <div class="mb-3">
+        <label class="form-label">사용시간</label>
+        <input type="text" class="form-control" name="mrTime" value="${m.mrTime}" disabled>
+    </div>
+    <div class="mb-3">
+        <label class="form-label">회의실 설명</label>
+        <textarea type="text" class="form-control" name="mrContent">${m.mrContent}</textarea>
+    </div>
 </div>
 <br>
-<div>
-    <button type="button" class="btn btn-primary" onclick="changeContentCus('main', 'mrmain')">목록</button>
-    <button type="button" class="btn btn-danger" style="float: right; margin-left: 10px" onclick="cancelRes()">예약취소</button>
-    <button type="button" class="btn btn-warning" style="float: right; color: #ffffff"
-            onclick="changeContentCus('mrdetail', 'mrmodify')">수정</button>
-</div>
+<button id="mr-list" type="button" class="btn btn-primary" onclick="changeContentCus('main', 'mrmain')">목록</button>
+<button id="mr-del" type="button" class="btn btn-danger" style="float: right; margin-left: 10px">삭제</button>
+<button id="mr-mod" type="button" class="btn btn-warning" style="float: right; color: #ffffff" onclick="changeContentCus('mrdetail', 'mrmodify')">수정</button>
+<%--<div>--%>
+<%--    <button type="button" class="btn btn-primary" onclick="changeContentCus('main', 'mrmain')">목록</button>--%>
+<%--    <button type="button" class="btn btn-danger" style="float: right; margin-left: 10px" onclick="cancelRes()">예약취소</button>--%>
+<%--    <button type="button" class="btn btn-warning" style="float: right; color: #ffffff" onclick="changeContentCus('mrdetail', 'mrmodify')">수정</button>--%>
+<%--</div>--%>
+
+<%-- 게시글 상세보기 --%>
 <script>
-    function cancelRes() {
-        var delConfirm = confirm('예약을 쥐소하시겠습니까?');
+    const $mrMod = document.getElementById('mr-mod');
 
-        if(delConfirm){
-            alert('예약 취소되었습니다.');
-            changeContentCus('main', 'mrmain');
-        }
-        else{
+    if ($mrMod !== null) {
+        $mrMod.onclick = e=> {
+            location.href = '/mrmain/modify?mrNo=${m.mrNo}';
+        };
+    }
 
+    const $mrDel = document.getElementById('mr-del');
+    if ($mrDel !== null) {
+        $mrDel.onclick = e => {
+            if (!confirm('정말 예약을 취소하시겠습니까?')) {
+                return;
+            }
+            location.href = '/mrmain/delete?mrNo=${m.mrNo}';
         }
     }
+    // function cancelRes() {
+    //     var delConfirm = confirm('예약을 쥐소하시겠습니까?');
+    //
+    //     if(delConfirm){
+    //         alert('예약 취소되었습니다.');
+    //         changeContentCus('main', 'mrmain');
+    //     }
+    //     else{
+    //
+    //     }
+    // }
 </script>
 

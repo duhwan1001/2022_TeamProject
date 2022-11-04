@@ -105,7 +105,7 @@ public class MrService {
         long nowTime = System.currentTimeMillis();
 
         // 현재 시간 - 작성 시간
-        long diff = nowTime = regDateTime;
+        long diff = nowTime - regDateTime;
 
         // 신규 게시물 제한시간
         long limitTime = 60 * 5 * 1000;
@@ -132,9 +132,9 @@ public class MrService {
         }
     }
 
-//    // 게시물 상세 조회 요청 중간 처리
+//  게시물 상세 조회 요청 중간 처리
     @Transactional
-    public MrDTO mrFindOneService(Long mrNo) {
+    public MrDTO mrFindOneService(Integer mrNo, HttpServletResponse response, HttpServletRequest request) {
         log.info("mrFindOne service start - {}", mrNo);
         MrDTO mrDTO = mrMapper.mrFindOne(mrNo);
 
@@ -143,7 +143,7 @@ public class MrService {
 
     // 게시물 삭제 요청 중간 처리
     @Transactional
-    public boolean mrDeleteService(Long mrNo) {
+    public boolean mrDeleteService(Integer mrNo) {
         log.info("mrRemove service start - {}", mrNo);
 
         // 원본 게시물 삭제
@@ -158,10 +158,10 @@ public class MrService {
     }
 
     // 첨부파일 목록 가져오는 중간 처리
-    public List<String> getFiles(Long mno) { return mrMapper.mrFindFileNames(mno); }
+//    public List<String> getFiles(Long mno) { return mrMapper.mrFindFileNames(mno); }
 
     // 게시글 번호로 글쓴이 회원정보 가져오기
-    public ValidateMemberDTO getMember(Long mrNo) {
-        return mrMapper.findMemberByMrNo(mrNo);
-    }
+//    public ValidateMemberDTO getMember(Long mrNo) {
+//        return mrMapper.findMemberByMrNo(mrNo);
+//    }
 }
