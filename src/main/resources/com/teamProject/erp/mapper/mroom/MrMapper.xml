@@ -9,164 +9,73 @@
         <result property="mrTime" column="mr_time"/>
         <result property="mrTitle" column="mr_title"/>
         <result property="mrContent" column="mr_content"/>
+        <result property="mrMax" column="mr_max"/>
+        <result property="mrRegDate" column="mr_regdate"/>
 
         <result property="userId" column="user_id"/>
         <result property="fileNo" column="file_no"/>
     </resultMap>
 
-    <insert id="save">
+    <insert id="mrInsert">
         INSERT INTO meetingroom
-        (mrUsers, mrTime, mrTitle, mrContent)
-        VALUES (#{mrUsers}, #{mrTime}, #{mrTitle}, #{mrContent})
+        (mr_title, mr_content)
+        VALUES (#{mrTitle}, #{mrContent})
     </insert>
 
-    <select id="findAll" resultMap="mrMap">
+    <select id="mrFindAll" resultMap="mrMap">
         SELECT *
         FROM meetingroom
+        ORDER BY mr_no DESC
+        LIMIT #{start}, #{amount}
     </select>
 
-    <select id="findAll2" resultMap="mrMap">
+    <select id="mrFindSearchAll" resultMap="mrMap">
         SELECT *
         FROM meetingroom
         <if test="type == 'title'">
-            WHERE mrTitle LIKE CONCAT('%', #{keyword}, '%')
+            WHERE mr_title LIKE CONCAT('%', #{keyword}, '%')
         </if>
-        <if test="type == 'content'">
-            WHERE mrContent LIKE CONCAT('%', #{keyword}, '%')
-        </if>
-        <if test="type == 'writer'">
-            WHERE mrWriter LIKE CONCAT('%', #{keyword}, '%')
-        </if>
-        <if test="type == 'tc'">
-            WHERE mrTitle LIKE CONCAT('%', #{keyword}, '%')
-            OR mrContent LIKE CONCAT('%', #{keyword}, '%')
-        </if>
+<!--        <if test="type == 'content'">-->
+<!--            WHERE mr_content LIKE CONCAT('%', #{keyword}, '%')-->
+<!--        </if>-->
+<!--        <if test="type == 'writer'">-->
+<!--            WHERE mr_users LIKE CONCAT('%', #{keyword}, '%')-->
+<!--        </if>-->
+<!--        <if test="type == 'tc'">-->
+<!--            WHERE mr_title LIKE CONCAT('%', #{keyword}, '%')-->
+<!--            OR mr_content LIKE CONCAT('%', #{keyword}, '%')-->
+<!--        </if>-->
+        ORDER BY mr_no Desc
+        LIMIT #{start}, #{amount}
     </select>
 
-    <select id="findOne" resultMap="mrMap">
-        SELECT * FROm meetingroom
+    <select id="mrFindOne" resultMap="mrMap">
+        SELECT *
+        FROM meetingroom
         WHERE mr_no=#{mrNo}
     </select>
 
-    <delete id="remove">
-        DELETE FROM meetingroom
+    <delete id="mrDelete">
+        DELETE
+        FROM meetingroom
         WHERE mr_no=#{mrNo}
     </delete>
 
-    <update id="modify">
+    <update id="mrModify">
         UPDATE meetingroom
-        SET mrWriter = #{mrUsers}, #{mrTime}, mrTitle=#{mrTitle}, mrContent=#{mrContent}
+        SET mr_title=#{mrTitle}, mr_content=#{mrContent}
         WHERE mr_no=#{mrNo}
     </update>
-
-    <!--  첨부파일 추가  -->
-    <insert id="addFile">
-        INSERT INTO allfiles
-            (mr_filenames, mno)
-    </insert>
-
-<!--    <insert id="save">-->
-<!--        INSERT INTO meetingroom-->
-<!--        (mr_no, mr_users, mr_time, mr_title, mr_content)-->
-<!--        VALUES (#{mr_no}, #{mr_users}, #{mr_time}, #{mr_title}, #{mr_content})-->
-<!--    </insert>-->
-
-<!--    <select id="findAll" resultMap="mrMap">-->
-<!--        SELECT *-->
-<!--        FROM meetingroom-->
-<!--        ORDER BY mr_no DESC-->
-<!--        LIMIT #{start}, #{amount}-->
-<!--    </select>-->
-
-<!--    <select id="findAll2" resultMap="mrMap">-->
-<!--        SELECT *-->
-<!--        FROM meetingroom-->
-<!--        <if test="type == 'title'">-->
-<!--            WHERE title LIKE CONCAT('%', #{keyword}, '%')-->
-<!--        </if>-->
-<!--        <if test="type == 'content'">-->
-<!--            WHERE content LIKE CONCAT('%', #{keyword}, '%')-->
-<!--        </if>-->
-<!--        <if test="type == 'writer'">-->
-<!--            WHERE writer LIKE CONCAT('%', #{keyword}, '%')-->
-<!--        </if>-->
-<!--        <if test="type == 'tc'">-->
-<!--            WHERE title LIKE CONCAT('%', #{keyword}, '%')-->
-<!--            OR content LIKE CONCAT('%', #{keyword}, '%')-->
-<!--        </if>-->
-<!--        ORDER BY mr_no DESC-->
-<!--        LIMIT #{start}, #{amount}-->
-<!--    </select>-->
-
-<!--    <select id="findOne" resultMap="mrMap">-->
-<!--        SELECT * FROM meetingroom-->
-<!--        WHERE mr_no=#{mrNo}-->
-<!--    </select>-->
-
-<!--    <delete id="remove">-->
-<!--        DELETE FROM meetingroom-->
-<!--        WHERE mr_no=#{mrNo}-->
-<!--    </delete>-->
-
-<!--    <update id="modify">-->
-<!--        UPDATE meetingroom-->
-<!--        SET writer = #{writer}, title=#{title}, content=#{content}-->
-<!--        WHERE mr_no=#{mrNo}-->
-<!--    </update>-->
-
-<!--    <select id="getTotalCount" resultType="int">-->
-<!--        SELECT COUNT(*)-->
-<!--        FROM meetingroom-->
-<!--    </select>-->
-
-<!--    <select id="getTotalCount2" resultType="int">-->
-<!--        SELECT COUNT(*)-->
-<!--        FROM meetingroom-->
-<!--        <if test="type == 'title'">-->
-<!--            WHERE title LIKE CONCAT('%', #{keyword}, '%')-->
-<!--        </if>-->
-<!--        <if test="type == 'content'">-->
-<!--            WHERE content LIKE CONCAT('%', #{keyword}, '%')-->
-<!--        </if>-->
-<!--        <if test="type == 'writer'">-->
-<!--            WHERE writer LIKE CONCAT('%', #{keyword}, '%')-->
-<!--        </if>-->
-<!--        <if test="type == 'tc'">-->
-<!--            WHERE title LIKE CONCAT('%', #{keyword}, '%')-->
-<!--            OR content LIKE CONCAT('%', #{keyword}, '%')-->
-<!--        </if>-->
-<!--    </select>-->
-
-<!--    &lt;!&ndash; 첨부파일 추가  &ndash;&gt;-->
-<!--    <insert id="addFile">-->
-<!--        INSERT INTO file_upload-->
-<!--            (file_name, mno)-->
-<!--        VALUES-->
-<!--            (#{fileName}, LAST_INSERT_ID())-->
-<!--    </insert>-->
-
-<!--    <select id="findFileNames" resultType="string">-->
-<!--        SELECT file_name-->
-<!--        FROM file_upload-->
-<!--        WHERE mno = #{mno}-->
-<!--    </select>-->
-
-<!--    <select id="findMemberByMrNo" resultType="com.teamProject.erp.dto.ValidateMemberDTO">-->
-<!--        SELECT account, auth-->
-<!--        FORM meetingroom-->
-<!--        WHERE account = (-->
-<!--            SELECT account-->
-<!--            FROM meetingroom-->
-<!--            WHERE mr_no = #{mrNo}-->
-<!--        )-->
-<!--    </select>-->
+    
+    <select id="mrGetTotalCount" resultType="int">
+        SELECT COUNT(*)
+        FROM meetingroom
+    </select>
+    
+    <select id="mrGetTotalSearchCount" resultType="int">
+        SELECT COUNT(*)
+        FROM meetingroom
+        WHERE mr_title
+        LIKE CONCAT('%', #{keyword}, '%')
+    </select>
 </mapper>
-
-<!--        private int mrNo;-->
-<!--        private String mrUsers;-->
-<!--        private Date mrTime;-->
-<!--        private String mrTitle;-->
-<!--        private String mrContent;-->
-
-<!--        private int fileNo;-->
-<!--        private String userId;-->
