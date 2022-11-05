@@ -23,10 +23,8 @@ public class FaqBoardController {
     }
 
     @RequestMapping("/main/faqdetaile")
-    public String detaile(@RequestParam Integer faqno, Model model, FaqDTO faqDTO){             //특정게시물조회(모두가능)
-        log.info("확인!!");
+    public String detaile(@RequestParam Integer faqno, Model model, FaqDTO faqDTO){             //특정게시물조회(모두가능
         FaqDTO list = faqService.viewdetaile(faqno);
-        log.info("번호:{}", list.getFaqViewcount());
 // 로그인시 사용자 userID 가져와야함
         String getuser = faqService.getuserflag(list.getUserUserId());
 
