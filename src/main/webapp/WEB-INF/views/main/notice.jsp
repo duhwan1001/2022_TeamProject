@@ -7,28 +7,28 @@
     <div class="card-body">
         <div id="dataTable_wrapper" class="dataTables_wrapper dt-bootstrap4" style="padding-right: 0; padding-left: 0">
             <div style="height: 38px">
-                <form action="list" method="get" style="float: left; height: inherit">
+                <form action="/main/notice" method="get" style="float: left; height: inherit">
                     <select class="form-select float-left" name="type" id="search-type"
                             style="margin-right: 2em; height: 38px">
-                        <option value="title">제목</option>
+                        <option id="searchTitle" value="title">제목</option>
                     </select>
 
-                    <input type="text" class="form-control form-control-sm float-left" name="keyword"
+                    <input id="searchKeyword" type="text" class="form-control form-control-sm float-left" name="keyword"
                            placeholder="검색어 입력"
                            value="${s.keyword}" style="width: 40%; height: 38px; margin-right: 0.3em; font-size: 1.2em">
 
-                    <button class="btn btn-primary" type="submit" style="height: 38px">
+                    <button class="btn btn-primary" type="submit" style="height: 38px" onclick="noticeSearchContent()">
                         <i class="fas fa-search"></i>
                     </button>
                 </form>
                 <div class="float-right btn-write">
                     <button type="button" class="btn btn-primary"
-                            onclick="changeContentCus('main', 'noticewrite')">
+                            onclick="changeContentCus('notice', 'noticewrite')">
                         글 작성
                     </button>
-<%--                    <a class="btn btn-primary" href="/notice/write">--%>
-<%--                        글 작성--%>
-<%--                    </a>--%>
+                    <%--                    <a class="btn btn-primary" href="/notice/write">--%>
+                    <%--                        글 작성--%>
+                    <%--                    </a>--%>
                 </div>
             </div>
             <ol class="list-group list-group-numbered notice-content" style="color: #000000;">
@@ -36,9 +36,14 @@
                     <li class="list-group-item d-flex justify-content-between align-items-start">
                         <div class="ms-2 me-auto">
                             <label>
-                                <button data-no="${n.noticeNo}" style="font-weight: bold; font-size: 1.3em; background: inherit; border: none"
-                                        type="button"
-                                        onclick="changeContentCus2('notice', 'noticeview', '${n.noticeNo}')">${n.noticeTitle}
+                                    <%--                                <button data-no="${n.noticeNo}" style="font-weight: bold; font-size: 1.3em; background: inherit; border: none"--%>
+                                    <%--                                        type="button"--%>
+                                    <%--                                        onclick="changeContentCus('notice', 'noticeview')">${n.noticeTitle}--%>
+                                    <%--&lt;%&ndash;                                        >${n.noticeTitle}&ndash;%&gt;--%>
+                                    <%--                                    <i class="fa-solid fa-paperclip"></i></button>--%>
+                                <button data-no="${n.noticeNo}"
+                                        style="font-weight: bold; font-size: 1.3em; background: inherit; border: none"
+                                        onclick="changeContent('/notice/noticeview' + ${n.noticeNo})">${n.noticeTitle}
                                     <i class="fa-solid fa-paperclip"></i></button>
                             </label>
                             <div>
@@ -102,21 +107,24 @@
         }
     }
 
-    function detailEvent() {
-        // 상세보기 요청 이벤트
-        const $ol = document.querySelector(".notice-content");
+    <%--function detailEvent() {--%>
+    <%--    // 상세보기 요청 이벤트--%>
+    <%--    const $ol = document.querySelector(".notice-content");--%>
 
-        $ol.addEventListener('click', e => {
-            if (!e.target.matches('.notice-content li div label button')) return;
+    <%--    $ol.addEventListener('click', e => {--%>
+    <%--        if (!e.target.matches('.notice-content li div label button')) return;--%>
 
-            let nn = +e.target.dataset.no;
-            console.log('글번호: ' + nn);
+    <%--        let nn = +e.target.dataset.no;--%>
+    <%--        console.log('글번호: ' + nn);--%>
 
-            <%--location.href = '/notice/content/' + nn + "?pageNum=${pm.page.pageNum}";--%>
-            // location.href = '/main/notice/content/' + nn;
-            location.href = '/notice/noticeview/' + nn;
-        });
-    }
+    <%--        ${n.noticeNo} = nn;--%>
+
+    <%--        &lt;%&ndash;location.href = '/notice/content/' + nn + "?pageNum=${pm.page.pageNum}";&ndash;%&gt;--%>
+    <%--        location.href = '/notice/noticeview/' + nn;--%>
+    <%--        // location.href = '/main/notice/content/' + nn;--%>
+    <%--        // location.href = '/notice/noticeview/' + nn;--%>
+    <%--    });--%>
+    <%--}--%>
 
     // 현재 위치한 페이지에 active 스타일 부여
     function appendPageActive() {
@@ -151,4 +159,18 @@
         appendPageActive();
         fixSearchOption();
     })();
+</script>
+
+<script type="text/javascript">
+    function noticeSearchContent() {
+        const title = $("#search-type").val();
+        const keyword = $("#searchKeyword").val();
+
+        alert(title);
+        alert(keyword);
+
+        $('#mainContent').children().remove();
+        $('#mainContent').load("main/notice" + "?type=" + title + "&keyword=" + keyword);
+    }
+
 </script>

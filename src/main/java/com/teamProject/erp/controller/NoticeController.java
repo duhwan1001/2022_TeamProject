@@ -40,7 +40,7 @@ public class NoticeController {
 //    }
 
     // 게시물 목록 요청
-    @RequestMapping(value="/main/notice", method = {RequestMethod.GET, RequestMethod.POST})
+    @RequestMapping(value = "/main/notice", method = {RequestMethod.GET, RequestMethod.POST})
     public ModelAndView notice(@ModelAttribute("s") Search search, ModelAndView mav) {
         log.info("/main/notice 호출 됨");
         Map<String, Object> noticeMap = noticeService.noticeFindAllService(search);
@@ -76,13 +76,38 @@ public class NoticeController {
 //    }
 
     // 게시물 상세 조회 요청
-    @RequestMapping(value = "/notice/noticeview/", method = {RequestMethod.GET, RequestMethod.POST})
-    public ModelAndView content(Integer noticeNo, ModelAndView mav, HttpServletResponse response, HttpServletRequest request, @ModelAttribute("p") Page page) {
-        log.info("/main/notice/content/{} 호출 됨", noticeNo);
+//    @RequestMapping(value = "/notice/noticeview/{noticeNo}", method = {RequestMethod.GET, RequestMethod.POST})
+//    public ModelAndView content(@PathVariable Integer noticeNo, ModelAndView mav, HttpServletResponse response, HttpServletRequest request, @ModelAttribute("p") Page page) {
+//        log.info("/main/notice/content/{} 호출 됨", noticeNo);
+//        NoticeDTO noticeDTO = noticeService.noticeFindOneService(noticeNo, response, request);
+//        mav.addObject("n", noticeDTO);
+//        mav.setViewName("notice/noticeview");
+//        return mav;
+//    }
+
+    @RequestMapping(value = "/notice/noticeview{noticeNo}", method = {RequestMethod.GET, RequestMethod.POST})
+    public String view(@RequestParam Integer noticeNo, Model model, HttpServletResponse response, HttpServletRequest request, @ModelAttribute("p") Page page) {
+        log.info("/notice/noticeview/{} 호출 됨", noticeNo);
         NoticeDTO noticeDTO = noticeService.noticeFindOneService(noticeNo, response, request);
-        mav.addObject("n", noticeDTO);
-        mav.setViewName("notice/noticeview");
-        return mav;
+        model.addAttribute("n", noticeDTO);
+        return "notice/noticeview";
+    }
+
+    @GetMapping(value = "/notice/noticewrite")
+    public ModelAndView write(HttpSession session, RedirectAttributes ra) {
+        log.info("/notice/noticewrite 호출 됨");
+        ModelAndView mv = new ModelAndView();
+        mv.setViewName("notice/noticewrite");
+        return mv;
+    }
+
+    @PostMapping(value = "/notice/noticewrite")
+    public String write(NoticeDTO noticeDTO, RedirectAttributes ra, HttpSession session) {
+        log.info("/notice/noticewrite 호출 됨");
+        boolean flag = noticeService.noticeInsertService(noticeDTO);
+//        // 게시물 등록에 성공하면 클라이언트에 성공메세지 전송
+        if (flag) ra.addFlashAttribute("msg", "reg-success");
+        return flag ? "redirect:/main" : "redirect:/";
     }
 
     // 게시물 상세 조회 요청
@@ -96,27 +121,50 @@ public class NoticeController {
 //    }
 
     // 게시물 쓰기 화면 요청
-    @GetMapping("/write")
-    public String write(HttpSession session, RedirectAttributes ra) {
-        log.info("controller request /notice/write GET!");
-        return "notice/noticewrite";
-    }
+//    @GetMapping(value = "/notice/write")
+//    public ModelAndView write(HttpSession session, RedirectAttributes ra) {
+//        log.info("/notice/write 호출 됨");
+//        ModelAndView mv = new ModelAndView();
+//        mv.setViewName("notice/noticewrite");
+//        return mv;
+//    }
 
     // 게시물 등록 요청
-    @PostMapping("/write")
-//    public String write(NoticeDTO noticeDTO, @RequestParam("files") List<MultipartFile> fileList, RedirectAttributes ra, HttpSession session) {
-    public String write(NoticeDTO noticeDTO, RedirectAttributes ra, HttpSession session) {
-        log.info("controller request /notice/write POST! - {}", noticeDTO);
+//    @PostMapping(value = "/notice/write")
+//    public String write(NoticeDTO noticeDTO, RedirectAttributes ra, HttpSession session) {
+//        log.info("/notice/write 호출 됨");
+//        boolean flag = noticeService.noticeInsertService(noticeDTO);
+////        ModelAndView mv = new ModelAndView();
+//        // 게시물 등록에 성공하면 클라이언트에 성공메세지 전송
+//        if (flag) ra.addFlashAttribute("msg", "reg-success");
+//
+//        return flag ? "redirect:/notice/list" : "redirect:/";
+////        mv.setViewName("main/notice");
+////        return mv;
+//    }
 
-        // 현재 로그인 사용자 계정명 추가
-//        noticeDTO.setAccount(LoginUtils.getCurrentMemberAccount(session));
-
-        boolean flag = noticeService.noticeInsertService(noticeDTO);
-        // 게시물 등록에 성공하면 클라이언트에 성공메세지 전송
-        if (flag) ra.addFlashAttribute("msg", "reg-success");
-
-        return flag ? "redirect:/notice/list" : "redirect:/";
-    }
+    // 게시물 쓰기 화면 요청
+//    @GetMapping("/write")
+//    public String write(HttpSession session, RedirectAttributes ra) {
+//        log.info("controller request /notice/write GET!");
+//        return "notice/noticewrite";
+//    }
+//
+//    // 게시물 등록 요청
+//    @PostMapping("/write")
+////    public String write(NoticeDTO noticeDTO, @RequestParam("files") List<MultipartFile> fileList, RedirectAttributes ra, HttpSession session) {
+//    public String write(NoticeDTO noticeDTO, RedirectAttributes ra, HttpSession session) {
+//        log.info("controller request /notice/write POST! - {}", noticeDTO);
+//
+//        // 현재 로그인 사용자 계정명 추가
+////        noticeDTO.setAccount(LoginUtils.getCurrentMemberAccount(session));
+//
+//        boolean flag = noticeService.noticeInsertService(noticeDTO);
+//        // 게시물 등록에 성공하면 클라이언트에 성공메세지 전송
+//        if (flag) ra.addFlashAttribute("msg", "reg-success");
+//
+//        return flag ? "redirect:/notice/list" : "redirect:/";
+//    }
 
     // 게시물 삭제 확인 요청
     @GetMapping("/delete")
@@ -154,7 +202,7 @@ public class NoticeController {
         return flag ? "redirect:/notice/content/" + noticeDTO.getNoticeNo() : "redirect:/";
     }
 
-        // 특정 게시물에 붙은 첨부파일경로 리스트를 클라이언트에게 비돈기 전송
+    // 특정 게시물에 붙은 첨부파일경로 리스트를 클라이언트에게 비돈기 전송
 //    @GetMapping("/file/{nno}")
 //    @ResponseBody
 //    public ResponseEntity<List<String>> getFiles(@PathVariable Long nno) {
@@ -163,4 +211,4 @@ public class NoticeController {
 //
 //        return new ResponseEntity<>(files, HttpStatus.OK);
 //    }
-    }
+}

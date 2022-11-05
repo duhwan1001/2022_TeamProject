@@ -5,7 +5,8 @@
         <h1 class="m-0 font-weight-bold text-primary" style="text-align: center">공지사항 등록</h1>
     </div>
     <div class="card-body col-10" style="left: 7%">
-        <form action="/notice/write" id="notice-write-form" class="was-validated" method="post" autocomplete="off">
+        <form action="/notice/noticewrite" id="notice-write-form" class="was-validated" method="post" autocomplete="off">
+<%--        <form action="/notice/write" id="notice-write-form" class="was-validated" method="post" autocomplete="off">--%>
             <%--태그 선택--%>
             <%--            <div class="dropdown mb-3" style="margin-right: 15px">--%>
             <%--                <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton"--%>
@@ -48,10 +49,10 @@
             <%--buttons--%>
             <div class="clearfix">
                 <div class="float-left">
-                    <button id="notice-list" type="button" class="btn btn-primary">목록</button>
+                    <button id="notice-list" type="button" class="btn btn-primary" onclick="changeContentCus('main', 'notice')">목록</button>
                 </div>
                 <div class="float-right">
-                    <button id="notice-write" type="button" class="btn btn-primary">등록</button>
+                    <button id="notice-write" type="submit" class="btn btn-primary">등록</button>
                     <%--                <button type="button" class="btn btn-danger" onclick="">취소</button>--%>
                 </div>
             </div>
@@ -99,10 +100,10 @@
     };
 
     // 목록버튼 이벤트
-    const $noticeList = document.getElementById('notice-list');
-    $noticeList.onclick = e => {
-        location.href = '../notice/list';
-    };
+    // const $noticeList = document.getElementById('notice-list');
+    // $noticeList.onclick = e => {
+    //     location.href = '../notice/list';
+    // };
 
     // function goNoticeMain() {
     //     location.href="/main";
