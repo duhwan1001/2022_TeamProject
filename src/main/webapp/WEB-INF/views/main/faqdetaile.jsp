@@ -8,6 +8,7 @@
             <h1>FAQ 글 상세 목록</h1>
             <form action="fiss/up" method="post">
                 <input type="hidden" id="faqNo" name="faqNo" value="${list.faqNo }">
+                <input type="hidden" id="userUserId" name="userUserId" value="${list.userUserId}">
                 <table>
                     <tr>
                         <td>제목</td>

@@ -52,12 +52,10 @@ public class FaqService {
     }
 
     public boolean viewmodify(FaqDTO faqDTO){                //게시물 수정(관리자 권한)
- //       log.info("게시물수정로직");
         return faqMapper.viewmodify(faqDTO);
     }
 
     public boolean viewdelete(Integer faqno){
- //       log.info("게시물삭제 로직수행");
         return faqMapper.viewdelete(faqno);
     }
 

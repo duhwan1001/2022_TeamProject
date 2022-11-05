@@ -142,13 +142,14 @@ public class MainPageController {
 
         HttpSession session = request.getSession();
         String userId = (String) session.getAttribute("userId");
+   //     log.info("컨트롤러 넘겨받은 아이디:{}", userId);
 
         faqDTO.setUserUserId(userId);
         String getuserflag = faqService.getuserflag(faqDTO.getUserUserId());
 
         model.addAttribute("faqList", faqlist);
         model.addAttribute("getuserflag", getuserflag);
-        model.addAttribute("userid", faqDTO.getUserUserId());
+        model.addAttribute("getuserid", faqDTO.getUserUserId());
         return "main/faq";
     }
 
