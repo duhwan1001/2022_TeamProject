@@ -17,9 +17,9 @@
                         <tr>
                             <th scope="row">${list.faqNo}</th>
                             <td><a href="#"
-                                    onClick="changeContentCus('main', 'faqdetaile?faqno=${list.faqNo}');">${list.faqTitle}</a></td>
+                                    onClick="changeContentCus('main', 'faqdetaile?faqNo=${list.faqNo}&getuserFlag=${getuserflag}&userUserId=${userid}')">${list.faqTitle}</a></td>
                             <td>${list.faqViewcount}</td>
-                            <td>${list.faqRegdate}</td>
+                            <td>${list.strRegdate}</td>
                         </tr>
                     </c:forEach>
                 </tbody>
@@ -29,7 +29,7 @@
         <!-- 글 추가 -->
         <c:if test="${getuserflag eq '관리자'}">
             <div class="create writing">
-                <a class="btn btn-success" href="#" onClick="changeContent('writer');">글쓰기</a>
+                <a class="btn btn-success" href="#" onClick="changeContent('writer?getuserFlag=${getuserflag}&userUserId=${userid}');">글쓰기</a>
             </div>
         </c:if>
 

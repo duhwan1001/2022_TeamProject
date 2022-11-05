@@ -19,7 +19,7 @@
                     </tr>
                     <tr>
                         <td>등록일</td>
-                        <td>${list.faqRegdate }</td>
+                        <td>${list.strRegdate }</td>
                     </tr>
                     <tr>
                         <td>조회수</td>
@@ -34,8 +34,9 @@
                         </tr>
             </c:if>
             
-            <a href="#" onclick="changeContent('writer')">글등록</a>&nbsp;&nbsp;&nbsp;
+            
             <c:if test="${users eq '관리자'}">
+                <a href="#" onclick="changeContent('writer?getuserFlag=${user}&userUserId=${list.userUserId}')" class="btn btn-primary">글등록</a>
                 <a href="#" class="btn btn-primary" onclick="changeContentCusdelete('main', 'faqdelete')">글삭제</a>
             </c:if>
             &nbsp;&nbsp;&nbsp;
