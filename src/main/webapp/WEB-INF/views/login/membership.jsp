@@ -116,6 +116,10 @@
 
         </div>
 
+        <script>
+            
+        </script>
+
         <!--membership javascript-->
         <script src="js/membership.js"></script>
 

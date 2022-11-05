@@ -30,12 +30,11 @@
 
             <c:if test="${users eq '관리자'}">
                         <tr>
-                            <td colspan="2"><input type="button" href="#" class="btn btn-primary"
-                                    onclick="changeContentCusmodify('main', 'faqmodify')" value="글수정" /></td>
+                            <td colspan="2"><input type="button" href="#" class="btn btn-primary" onclick="changeContentCusmodify('main', 'faqmodify')" value="글수정" /></td>
                         </tr>
             </c:if>
             
-            <a href="/main/faq">글등록</a>&nbsp;&nbsp;&nbsp;
+            <a href="#" onclick="changeContent('writer')">글등록</a>&nbsp;&nbsp;&nbsp;
             <c:if test="${users eq '관리자'}">
                 <a href="#" class="btn btn-primary" onclick="changeContentCusdelete('main', 'faqdelete')">글삭제</a>
             </c:if>
@@ -44,26 +43,4 @@
                 onclick="changeContentCus('main', 'faq')">목록</button>
         </div>
 
-        <script>
-
-            function changeContentCusdelete(path, name) {
-                const $faqNo = $('#faqNo');
-
-                console.log(name);
-
-                $('#mainContent').children().remove();
-                $('#mainContent').load("/" + path + "/" + name + "?faqno=" + $faqNo.val());
-
-            }
-
-            function changeContentCusmodify(path, name) {
-
-                const $faqTtile = $('#faqTitle');
-                const $faqContent = $('#faqContent');
-                const $faqNo = $('#faqNo');
-
-                $('#mainContent').children().remove();
-                $('#mainContent').load("/" + path + "/" + name + "?faqTitle=" + $faqTtile.val() + "&faqContent=" + $faqContent.val() + "&faqNo=" + $faqNo.val());
-            }
-
-        </script>
+        

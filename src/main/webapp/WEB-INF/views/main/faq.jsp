@@ -17,7 +17,7 @@
                         <tr>
                             <th scope="row">${list.faqNo}</th>
                             <td><a href="#"
-                                    onClick="changeContent('faqdetaile?faqno=${list.faqNo}');">${list.faqTitle}</a></td>
+                                    onClick="changeContentCus('main', 'faqdetaile?faqno=${list.faqNo}');">${list.faqTitle}</a></td>
                             <td>${list.faqViewcount}</td>
                             <td>${list.faqRegdate}</td>
                         </tr>

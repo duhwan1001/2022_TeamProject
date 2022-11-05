@@ -24,11 +24,11 @@ public class FaqBoardController {
 
     @RequestMapping("/main/faqdetaile")
     public String detaile(@RequestParam Integer faqno, Model model, FaqDTO faqDTO){             //특정게시물조회(모두가능)
-
+        log.info("확인!!");
         FaqDTO list = faqService.viewdetaile(faqno);
+        log.info("번호:{}", list.getFaqViewcount());
 // 로그인시 사용자 userID 가져와야함
         String getuser = faqService.getuserflag(list.getUserUserId());
-
 
         model.addAttribute("user", getuser);
         model.addAttribute("list", list);
@@ -37,6 +37,7 @@ public class FaqBoardController {
 
     @RequestMapping("/main/faqsave")                                            //게시물 추가(관리자)
     public String save(FaqDTO faqDTO){
+        //로그인할때 해당 유저아이디 반드시 여기로끌고 와야 한다. 안끌고 오면 게시물이 등록이 안된다.!!
         faqDTO.setUserUserId("mong@gmail.com");
         return faqService.viewsave(faqDTO) ? "redirect:/main/faq" : "main/faqwriter";
     }

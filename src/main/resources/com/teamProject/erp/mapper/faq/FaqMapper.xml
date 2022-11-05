@@ -33,7 +33,7 @@
 
     <update id="viewmodify">
         update `project_db`.`faqBoard`
-        set faq_title = #{faqTitle}, faq_content = #{faqContent}, faq_viewcount = faq_viewcount+1
+        set faq_title = #{faqTitle}, faq_content = #{faqContent}
         where faq_no = #{faqNo}
     </update>
 
@@ -48,5 +48,10 @@
         from `project_db`.`user` u
         where user_id= #{userid}
     </select>
+
+    <update id="faqviewcountup">
+        update `project_db`.`faqBoard` set faq_viewcount = faq_viewcount+1
+        where faq_no = #{faqno}
+    </update>
 
 </mapper>

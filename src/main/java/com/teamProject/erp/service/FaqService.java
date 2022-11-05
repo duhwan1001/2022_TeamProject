@@ -26,6 +26,7 @@ public class FaqService {
     }
 
     public FaqDTO viewdetaile(Integer faqno){               //게시물 번호로 해당 정보가져오기(관리자권한)
+        faqMapper.faqviewcountup(faqno);
         return faqMapper.viewdetaile(faqno);
     }
 

@@ -22,4 +22,6 @@ public interface FaqMapper {
 
     String getuserflag(String userid);
 
+    void faqviewcountup(Integer faqno);
+
 }
