@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.teamProject.erp.mapper.faq.FaqMapper">
+
+    <resultMap id="faqmap" type="com.teamProject.erp.dto.FaqDTO">
+        <result column="faq_no" property="faqNo"/>
+        <result column="faq_title" property="faqTitle"/>
+        <result column="faq_content" property="faqContent"></result>
+        <result column="faq_viewcount" property="faqViewcount"></result>
+        <result column="faq_regdate" property="faqRegdate"></result>
+        <result column="user_user_id" property="userUserId"></result>
+    </resultMap>
+    <resultMap id="memberMapper" type="com.teamProject.erp.dto.Member">
+        <result column="user_flag" property="userFlag"/>
+        <result column="user_id" property="userId"/>
+    </resultMap>
+
+    <insert id="viewsave">
+        insert into `project_db`.`faqBoard`(faq_no, faq_title, faq_content, user_user_id)
+        values((select nvl(max(faq_no), 0)+1 from `project_db`.`faqBoard` alias_for_subquery), #{faqTitle}, #{faqContent}, #{userUserId})
+    </insert>           <!-- faq_no컬럼 타입 int(10)으로 변환, faq_regdate컬럼 datetime default current_timestamp 타입으로 변환, faq_viewcount컬럼 int default 0으로 변환 -->
+
+    <select id="viewlist" resultMap="faqmap">
+        select * from `project_db`.`faqBoard`
+        order by faq_no desc
+    </select>
+
+    <select id="viewdetaile" resultMap="faqmap">
+        select * from `project_db`.`faqBoard`
+        where faq_no = #{faqNo}
+    </select>
+
+    <update id="viewmodify">
+        update `project_db`.`faqBoard`
+        set faq_title = #{faqTitle}, faq_content = #{faqContent}
+        where faq_no = #{faqNo}
+    </update>
+
+    <delete id="viewdelete">
+        delete from `project_db`.`faqBoard`
+        where faq_no = #{faqNo}
+
+    </delete>
+
+    <select id="getuserflag" resultType="String">
+        select user_flag
+        from `project_db`.`user` u
+        where user_id= #{userid}
+    </select>
+
+    <update id="faqviewcountup">
+        update `project_db`.`faqBoard` set faq_viewcount = faq_viewcount+1
+        where faq_no = #{faqno}
+    </update>
+
+</mapper>

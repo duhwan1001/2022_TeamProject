@@ -39,39 +39,29 @@ public class MemberService {
     }
 
     //회원가입기능처리
-    public boolean memberResister(Member member) {
+    public boolean memberResister(Member member) throws Exception{
 
-   //     member.setUserPw(encoder.encode(member.getUserPw()));
+        if (member.getUserPw().equals("erpadmin")){
+            log.info("관리자확인");
+            member.setUserFlag("관리자");
+        }else{
+            log.info("일반확인");
+            member.setUserFlag("일반");
+        }
 
-        log.info("사원번호초기값:{}", member.getUserpathNo());
+        MessageDigest pw = MessageDigest.getInstance("SHA-512");
+        pw.update(member.getUserPw().getBytes("UTF-8"));
+        byte[] getpw = pw.digest();
+        StringBuilder sb = new StringBuilder();
+        for (int i=0; i<getpw.length; i++){
+            sb.append(Integer.toString((getpw[i] & 0xff) + 0x100, 16).substring(1));
+        }
+        String userpw = sb.toString();
+        member.setUserPw(userpw);
+
         Date date = new java.sql.Date(System.currentTimeMillis());      //현재시간가져오기
         member.setUserRegdate(date);
 
-        member.setUserpathNo(1);
-        int setuserno = member.getUserpathNo();
-        log.info("사원번호초기생서:{}", member.getUserpathNo());
-
-        String setuser_no = Integer.toString(member.getUserpathNo());
-        member.setUserNo(setuser_no);
-
-        int nocheck = memberMapper.usernocheck(member);
-        if (nocheck ==0 ){
-            log.info("디비로직수행결과:{}", member.getUserpathNo());
-            member.setUserNo(Integer.toString(setuserno));
-        }else{
-            log.info("디비수행 초기");
-            String getuserno = memberMapper.getuserno(member);
-            int pathuserno = Integer.parseInt(getuserno);
-
-            int totaluser_no = setuserno+pathuserno;
-            member.setUserNo(Integer.toString(totaluser_no));
-        }
-
-        if (member.getUserPw().equals("erpadmin")){
-            member.setUserFlag("관리자");
-        }else{
-            member.setUserFlag("일반");
-        }
         return memberMapper.memberRegister(member);
 
     }
