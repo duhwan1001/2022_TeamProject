@@ -1,6 +1,6 @@
 package com.teamProject.erp.controller;
 
-import com.teamProject.erp.common.Search.Search;
+import com.teamProject.erp.common.search.Search;
 import com.teamProject.erp.service.MrService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
@@ -22,7 +22,7 @@ public class MrController {
 
     // 목록
     @GetMapping("/mrlist")
-    public String MrList(@ModelAttribute("s")Search search, Model model){
+    public String MrList(@ModelAttribute("s") Search search, Model model){
         log.info("controller request /main/mrlist GET! - search: {}", search);
 
 //        Map<String, Object>
