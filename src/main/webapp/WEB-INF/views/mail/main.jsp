@@ -27,7 +27,7 @@
                         </div>
                         <div class="float-right">
                             <button type="button" class="btn btn-primary">
-                                <a href="#" style="color: #ffffff; outline: none; text-decoration: none">메일 작성</a></button>
+                                <a href="/mailForm" style="color: #ffffff; outline: none; text-decoration: none">메일 작성</a></button>
                         </div>
                     </div>
                     <hr class="sidebar-divider">
@@ -42,7 +42,7 @@
                                         <li class="list-group-item d-flex justify-content-between align-items-start">
                                             <div class="ms-2 me-auto">
                                                 <label>
-                                                    <span class="fw-bold" style="font-weight: bold; font-size: 1.3em"><a href="#" onclick="changeContentCus('notice', 'noticeview')">${m.mailTitle}</a></span>
+                                                    <span class="fw-bold" style="font-weight: bold; font-size: 1.3em"><a href="/mailDetail/${m.mailNo}">${m.mailTitle}</a></span>
                                                 </label>
                                                 <div>
                                                     <span style="margin-right: 20px">${m.mailSender}</span>
@@ -50,6 +50,7 @@
                                                 </div>
                                             </div>
                                         </li>
+                                        <br>
                                     </c:forEach>
                                 </c:otherwise>
                             </c:choose>

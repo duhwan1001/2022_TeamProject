@@ -49,4 +49,14 @@ public class MailService {
 
         return findDataMap;
     }
+
+    public int sendMail(MailDTO mailDTO) {
+        int check = mailMapper.sendMail(mailDTO);
+        return check;
+    }
+
+    public MailDTO selectFind(int mailNo) {
+        MailDTO info = mailMapper.selectFind(mailNo);
+        return info;
+    }
 }

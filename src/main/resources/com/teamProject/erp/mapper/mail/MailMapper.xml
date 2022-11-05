@@ -19,13 +19,24 @@
     <select id="sendedMail" resultMap="mailMap">
         SELECT  *
         FROM mail
-        where mail_sender = #{type}
+        where mail_sender = #{userId}
     </select>
 
     <select id="receivedMail" resultMap="mailMap">
         SELECT  *
         FROM mail
-        where mail_receiver = #{type}
+        where mail_receiver = #{userId}
+    </select>
+
+    <insert id="sendMail">
+        insert into mail(mail_no, mail_content, mail_title, mail_receiver, mail_sender, mail_regdate, user_user_id)
+        VALUES (mail_no, #{mailContent}, #{mailTitle}, #{mailReceiver}, #{mailSender}, sysdate(), #{mailSender})
+    </insert>
+
+    <select id="selectFind" resultMap="mailMap">
+        select *
+        from mail
+        where mail_no = #{mailNo}
     </select>
 
 </mapper>

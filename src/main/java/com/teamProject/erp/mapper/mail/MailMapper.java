@@ -10,7 +10,11 @@ public interface MailMapper {
 
     public List<MailDTO> findAll();
 
-    List<MailDTO> receivedMail(String type);
+    List<MailDTO> receivedMail(String userId);
 
     List<MailDTO> sendedMail(String userId);
+
+    int sendMail(MailDTO mailDTO);
+
+    MailDTO selectFind(int mailNo);
 }
