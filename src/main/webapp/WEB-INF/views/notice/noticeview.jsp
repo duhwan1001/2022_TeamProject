@@ -7,47 +7,84 @@
     <div class="col-10" style="left: 7%">
         <div class="card-title">
             <div class="title" style="margin-top: 25px">
-                <h2>제목</h2>
+                <h2>${n.noticeTitle}</h2>
             </div>
             <div class="subTitle clearfix">
-                <div class="float-left">작성자<span style="margin-left: 15px">김영우</span></div>
-                <div class="float-left" style="margin-left: 15px">조회수<span style="margin-left: 15px">30000000</span></div>
-                <div class="float-right">작성일<span style="margin-left: 15px">2022-10-30</span></div>
+                <div class="float-left">작성자<span style="margin-left: 15px">관리자</span></div>
+                <div class="float-left" style="margin-left: 15px">조회수<span style="margin-left: 15px">${n.noticeViewCount}</span></div>
+                <div class="float-right">작성일<span style="margin-left: 15px">${n.noticeRegDate}</span></div>
             </div>
         </div>
         <!-- 내용 -->
         <div style="font-size: 1.1em; margin-bottom: 1.5em">
-            행정각부의 설치·조직과 직무범위는 법률로 정한다.
-            대한민국의 영토는 한반도와 그 부속도서로 한다.
-            각급 선거관리위원회의 조직·직무범위 기타 필요한 사항은 법률로 정한다.
-
-            대통령은 헌법과 법률이 정하는 바에 의하여 국군을 통수한다.
-            군인은 현역을 면한 후가 아니면 국무위원으로 임명될 수 없다.
-            모든 국민은 주거의 자유를 침해받지 아니한다.
-            주거에 대한 압수나 수색을 할 때에는 검사의 신청에 의하여 법관이 발부한 영장을 제시하여야 한다.
-
-            제1항의 해임건의는 국회재적의원 3분의 1 이상의 발의에 의하여 국회재적의원 과반수의 찬성이 있어야 한다.
-            대통령은 국회에 출석하여 발언하거나 서한으로 의견을 표시할 수 있다.
+            <p class="notice-content">${n.noticeContent}</p>
         </div>
         <!-- 첨부파일 -->
         <div style="margin-bottom: 2em">
-            <div><a href="#"><i class="fa-solid fa-download"></i>첨부파일</a></div>
+            <div><a href="#" class="uploaded-list"><i class="fa-solid fa-download"></i></a></div>
         </div>
         <!-- 버튼 -->
         <div>
             <div class="clearfix" style="margin-bottom: 2em">
                 <div class="float-left">
-                    <button type="button" class="btn btn-primary" onclick="changeContentCus('main', 'notice')">목록</button>
+                    <button id="list-btn" type="button" class="btn btn-primary">목록</button>
                 </div>
                 <div class="float-right">
-                    <button type="button" class="btn btn-warning" onclick="changeContentCus('noticeview', 'noticemodify')">
-                        수정
-                    </button>
-                    <button type="button" class="btn btn-danger" onclick="">
-                        삭제
-                    </button>
+                    <button id="mod-btn" onclick="changeContentN('modify?noticeNo=${n.noticeNo}')" type="button" class="btn btn-warning">수정</button>
+                    <button id="del-btn" type="button" class="btn btn-danger">삭제</button>
                 </div>
             </div>
         </div>
     </div>
 </div>
+
+<script>
+    <%--const $listBtn = document.getElementById('list-btn');--%>
+    <%--const $modBtn = document.getElementById('mod-btn');--%>
+    <%--const $delBtn = document.getElementById('del-btn');--%>
+
+    <%--if ($modBtn !== null) {--%>
+    <%--    // 수정버튼--%>
+    <%--    $modBtn.onclick = e => {--%>
+    <%--        location.href = '/notice/modify?noticeNo=${n.noticeNo}';--%>
+    <%--    };--%>
+    <%--}--%>
+
+    <%--if ($delBtn !== null) {--%>
+    <%--    // 삭제버튼--%>
+    <%--    $delBtn.onclick = e => {--%>
+    <%--      if (!confirm('게시물이 삭제됩니다')){--%>
+    <%--          return;--%>
+    <%--      }--%>
+    <%--      location.href = '/notice/delete?noticeNo=${n.noticeNo}';--%>
+    <%--    };--%>
+    <%--}--%>
+
+    <%--// 목록버튼--%>
+    <%--$listBtn.onclick = e => {--%>
+    <%--  console.log('목록버튼 선택');--%>
+    <%--  location.href = '/notice/list?pageNum=${p.pageNum}';--%>
+    <%--};--%>
+
+    // $(document).ready(function () {
+    //     let originFileName = fileName.subString(fileName.indexOf("_") + 1);
+    //
+    //     const $a = document.createElement('a');
+    //     $a.setAttribute('href', '/loadFile?fileName=' + fileName);
+    //
+    //     $a.innerHTML += '<span>' + originFileName + '<span>';
+    //
+    //     $('.uploaded-list').append($a);
+    // })
+    //
+    // // 파일 목록 불러오기
+    // function showFileList() {
+    //     fetch('/notice/file/' + nno)
+    //         .then(res => res.json())
+    //         .then(fileNames => {
+    //             showFileData(fileNames);
+    //         });
+    // }
+    //
+    // showFileList();
+</script>

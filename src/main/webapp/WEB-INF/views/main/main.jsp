@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://tiles.apache.org/tags-tiles" prefix="tiles"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -26,9 +27,17 @@
 
     <!-- Nav Item - Dashboard -->
     <li class="nav-item active">
-      <a class="nav-link" href="#">
-        <img class="img-profile rounded-circle" src="img/undraw_profile.svg">
-        <span>김두환</span></a>
+      <a class="nav-link">
+        <img class="img-profile rounded-circle" src="img/undraw_profile.svg" style="width: 64px;height: 64px;">&nbsp;&nbsp;
+        <span>${userInfo.userName}</span>&nbsp;
+        <c:if test="${userInfo.userFlag eq '관리자'}"><span class="badge badge-danger">Admin</span></c:if>
+        <br>
+        <br>
+        <form action="logout" method="post">
+            <button class="btn btn-primary" style="width: 186px;">로그아웃</button>
+        </form>
+      </a>
+
     </li>
 
     <!-- Divider -->
@@ -38,13 +47,13 @@
     <div class="sidebar-heading">MyArea</div>
 
     <li class="nav-item">
-      <a class="nav-link collapsed" href="#" onClick="changeContent('editinfo');" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
+      <a class="nav-link collapsed" href="#" onclick="window.open('/main/editinfo', 'PopupWin', 'width=710,height=810');" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
         <i class="fas fa-fw fa-cog"></i>
         <span>내 정보 수정</span>
       </a>
     </li>
     <li class="nav-item">
-      <a class="nav-link collapsed" href="#" onClick="changeContent('mywrite');" data-target="#collapseUtilities" aria-expanded="true" aria-controls="collapseUtilities">
+      <a class="nav-link collapsed" href="#" onclick="window.open('/main/mywrite', 'PopupWin', 'width=710,height=810');" data-target="#collapseUtilities" aria-expanded="true" aria-controls="collapseUtilities">
         <i class="fa-solid fa-pen"></i>
         <span>내가 쓴 글</span>
       </a>

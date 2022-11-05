@@ -107,6 +107,7 @@
                         location.href = "/main";
                     },
                     error: function (xhr, status, e) {
+                        alert("로그인 실패");
                         console.log("error", e);
                         console.log("status", status);
                     }

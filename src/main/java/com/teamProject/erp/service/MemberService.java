@@ -1,22 +1,16 @@
 package com.teamProject.erp.service;
 
-import com.teamProject.erp.dto.MemberDTO;
-import com.teamProject.erp.mapper.member.MemberMapper;
-import lombok.RequiredArgsConstructor;
 import com.teamProject.erp.dto.Member;
 import com.teamProject.erp.mapper.member.MemberMapper;
 import lombok.RequiredArgsConstructor;
-import com.teamProject.erp.dto.MemberDTO;
-import com.teamProject.erp.mapper.member.MemberMapper;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Service;
 
 import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
-import java.text.SimpleDateFormat;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
-import java.util.*;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 @Service
 @Log4j2
@@ -27,7 +21,7 @@ public class MemberService {
   //  private final BCryptPasswordEncoder encoder;
 
     //로그인 처리
-    public int checkLogin(MemberDTO mem) {
+    public int checkLogin(Member mem) {
         log.info("member checkLogin service");
         int check = memberMapper.checkLogin(mem);
         log.info(check);

@@ -1,25 +1,22 @@
 package com.teamProject.erp.controller;
 
-import com.teamProject.erp.dto.MemberDTO;
-import com.teamProject.erp.service.MemberService;
 import com.teamProject.erp.dto.Member;
 import com.teamProject.erp.service.MemberService;
 import lombok.RequiredArgsConstructor;
-import lombok.extern.log4j.Log4j;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
-
-import java.security.NoSuchAlgorithmException;
-import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.io.UnsupportedEncodingException;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
+import java.util.List;
 
 @Controller
 @Log4j2
@@ -28,10 +25,19 @@ public class LoginController {
 
     private final MemberService memberService;
 
+    @RequestMapping(value="/logout", method = {RequestMethod.GET, RequestMethod.POST})
+    public ModelAndView logout(HttpServletRequest request) {
+        log.info("logout function");
+        HttpSession session = request.getSession();
+        session.removeAttribute("userId");
+        ModelAndView mv = new ModelAndView();
+        mv.setViewName("login/logout");
+        return mv;
+    }
+
     //로그인 페이지이동
     @RequestMapping(value="/login", method = {RequestMethod.GET, RequestMethod.POST})
     public ModelAndView login() {
-//        log.info("login page 호출 됨");
         ModelAndView mv = new ModelAndView();
         mv.setViewName("login/login");
         return mv;
@@ -39,24 +45,33 @@ public class LoginController {
 
     // 로그인 처리
     @RequestMapping("/signIn")
-    public String signIn(@ModelAttribute MemberDTO mem, HttpServletRequest request) {
+    public String signIn(@ModelAttribute Member mem, HttpServletRequest request) throws NoSuchAlgorithmException, UnsupportedEncodingException {
         log.info("signIn 호출됨");
-        String id = request.getParameter("userId");
-        String pw = request.getParameter("userPw");
+        log.info("id : {}, pw : {}", mem.getUserId(), mem.getUserPw());
 
-        log.info("id : {}, pw : {}", id, pw);
+        MessageDigest pw = MessageDigest.getInstance("SHA-512");
+        pw.update(mem.getUserPw().getBytes("UTF-8"));
+        byte[] getpw = pw.digest();
+        StringBuilder sb = new StringBuilder();
+        for (int i=0; i<getpw.length; i++){
+            sb.append(Integer.toString((getpw[i] & 0xff) + 0x100, 16).substring(1));
+        }
 
-        mem.setUserId(id);
-        mem.setUserPw(pw);
+        String userpw = sb.toString();
+        log.info(userpw);
+        mem.setUserPw(userpw);
+
 
         int userInfo = memberService.checkLogin(mem);
         HttpSession session = request.getSession();
 
+
+
         if (userInfo != 0) {
-            session.setAttribute("userId", id);
-            return "redirect:/main";
+            session.setAttribute("userId", mem.getUserId());
+            return "main/main";
         } else {
-            return "redirect:/login";
+            return "/login";
         }
     }
 

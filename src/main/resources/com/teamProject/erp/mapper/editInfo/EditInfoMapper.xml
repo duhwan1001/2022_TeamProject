@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.teamProject.erp.mapper.editInfo.EditInfoMapper">
+
+    <resultMap id="memberDTO" type="com.teamProject.erp.dto.Member">
+
+        <result column="user_id" property="userId"/>
+        <result column="user_pw" property="userPw"/>
+        <result column="user_name" property="userName"/>
+        <result column="user_no" property="userNo"/>
+        <result column="user_hp" property="userHp"/>
+        <result column="user_dep" property="userDep"/>
+        <result column="user_rank" property="userRank"/>
+        <result column="user_addr" property="userAddr"/>
+        <result column="user_regdate" property="userRegdate"/>
+        <result column="user_flag" property="userFlag"/>
+
+    </resultMap>
+
+    <select id="getUserInfo" resultMap="memberDTO">
+        select * from `project_db`.`user`
+        where user_id = #{userId}
+    </select>
+
+    <update id="editUserInfo">
+        UPDATE user SET user_pw = #{userPw}, user_name = #{userName}, user_hp = #{userHp}, user_addr = #{userAddr} WHERE user_id = #{userId};
+
+    </update>
+
+</mapper>

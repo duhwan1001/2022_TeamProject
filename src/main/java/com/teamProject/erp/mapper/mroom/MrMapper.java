@@ -1,7 +1,7 @@
 package com.teamProject.erp.mapper.mroom;
 
-import com.teamProject.erp.common.Search.Search;
 import com.teamProject.erp.common.paging.Page;
+import com.teamProject.erp.common.Search.Search;
 import com.teamProject.erp.dto.MrDTO;
 import com.teamProject.erp.dto.ValidateMemberDTO;
 import org.apache.ibatis.annotations.Mapper;
@@ -11,32 +11,39 @@ import java.util.List;
 @Mapper
 public interface MrMapper {
 
-    //게시글 쓰기 기능
-    boolean save(MrDTO mrdto);
+    // 회의실 목록 출력
+    List<MrDTO> mrFindAll();
 
-    //게시글 전체 조회
-    List<MrDTO> findAll();
+    // 회의실 목록 출력 - 페이징
+    List<MrDTO> mrFindAll(Page page);
 
-    //게시글 전체 조회 with paging
-    List<MrDTO> findAll(Page page);
-    //게시글 전체 조회 with searching
-    List<MrDTO> findAll2(Search search);
+    // 회의실 리스트 출력 - 검색어 입력
+    List<MrDTO> mrFindSearchAll(Search search);
 
-    //게시글 상세 조회
-    MrDTO findOne(int mrNo);
+    // 회의실 상세 보기
+    MrDTO mrFindOne(Integer mrNo);
 
-    //게시글 삭제
-    boolean remove(int mrNo);
+    // 회의실 예약
+    boolean mrInsert(MrDTO mrDTO);
 
-    //게시글 수정
-    boolean modify(MrDTO mrdto);
+    // 회의실 수정
+    boolean mrModify(MrDTO mrDTO);
 
-    //파일 첨부 기능 처리
-    void addFile(String fileName);
+    // 회의실 삭제
+    boolean mrDelete(Integer mrNo);
 
-    //게시물에 붙어있는 첨부파일경로명 전부 조회하기
-    List<String> findFileNames(int mno);
+    // 전체 게시물 수 조회
+    int mrGetTotalCount();
+
+    // 전체 게시물 수 조회 - 검색
+    int mrGetTotalSearchCount(Search search);
+
+    // 파일 업로드 기능 처리
+    void mrAddFile(String mrFileName);
+
+    // 게시물에 붙어있는 첨부파일경로명 전부 조회하기
+//    List<String> mrFindFileNames(Long mno);
 
     //게시물 번호로 게시글 작성자의 계정명과 권한 가져오기
-    ValidateMemberDTO findMemberByMrNo(int mrNo);
+//    ValidateMemberDTO findMemberByMrNo(Long mrNo);
 }
