@@ -10,7 +10,7 @@ import java.util.Map;
 @Mapper
 public interface MemberMapper {
 
-    public int checkLogin(MemberDTO mem);
+    int checkLogin(Member mem);
 
     int membercheck(Map<String, Object> checkmember);   //중복된 아이디 및 패스워드 여부확인
     boolean memberRegister(Member member);    //회원가입기능

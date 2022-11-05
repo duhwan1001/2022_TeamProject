@@ -33,26 +33,26 @@
             <div class="card mb-4">
                 <div class="card-header">계정 정보</div>
                 <div class="card-body">
-                    <form>
+                    <form action="/editinfo/edit_request" method="post" id="info">
                         <div class="mb-3">
                             <label class="small mb-1" for="userPw">비밀번호 수정</label>
-                            <input class="form-control" id="userPw" type="password" placeholder="비밀번호를 입력하세요" value="">
+                            <input class="form-control" id="userPw" name="userPw" type="password" placeholder="비밀번호를 입력하세요" value="">
                         </div>
                         <div class="mb-3">
-                            <label class="small mb-1" for="userPhone">휴대폰 번호</label>
-                            <input class="form-control" id="userPhone" type="number" placeholder="휴대폰 번호를 입력하세요" value="">
+                            <label class="small mb-1" for="userHp">휴대폰 번호</label>
+                            <input class="form-control" id="userHp" name="userHp" type="text" placeholder="휴대폰 번호를 입력하세요" value="${userInfo.userHp}">
                         </div>
                         <div class="mb-3">
                             <label class="small mb-1" for="userAddr">주소</label>
-                            <input class="form-control" id="userAddr" type="text" placeholder="주소를 입력하세요" value="">
+                            <input class="form-control" id="userAddr" name="userAddr" type="text" placeholder="주소를 입력하세요" value="${userInfo.userAddr}">
                         </div>
                         <div class="mb-3">
                             <label class="small mb-1" for="userName">이름</label>
-                            <input class="form-control" id="userName" type="text" placeholder="이름을 입력하세요" value="">
+                            <input class="form-control" id="userName"  name="userName"type="text" placeholder="이름을 입력하세요" value="${userInfo.userName}">
                         </div>
                         <!-- Save changes button-->
                         <div class="mb-3">
-                            <button class="btn btn-primary" type="button">정보 저장</button>
+                            <button class="btn btn-primary" type="button" onclick="submit(info)">정보 저장</button>
                         </div>
                     </form>
                 </div>
@@ -67,5 +67,9 @@
         alert(name);
         $('#mainContent').children().remove();
         $('#mainContent').load("/mail/"+name);
+    }
+
+    function submit(formId) {
+        $("#" + formId).submit();
     }
 </script>
