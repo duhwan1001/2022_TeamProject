@@ -43,7 +43,8 @@
                                     <%--                                    <i class="fa-solid fa-paperclip"></i></button>--%>
                                 <button data-no="${n.noticeNo}"
                                         style="font-weight: bold; font-size: 1.3em; background: inherit; border: none"
-                                        onclick="changeContent('/notice/noticeview' + ${n.noticeNo})">${n.noticeTitle}
+                                        onclick="changeContentN('noticeview?noticeNo=${n.noticeNo}')"
+                                >${n.noticeTitle}
                                     <i class="fa-solid fa-paperclip"></i></button>
                             </label>
                             <div>
@@ -117,10 +118,8 @@
     <%--        let nn = +e.target.dataset.no;--%>
     <%--        console.log('글번호: ' + nn);--%>
 
-    <%--        ${n.noticeNo} = nn;--%>
-
     <%--        &lt;%&ndash;location.href = '/notice/content/' + nn + "?pageNum=${pm.page.pageNum}";&ndash;%&gt;--%>
-    <%--        location.href = '/notice/noticeview/' + nn;--%>
+    <%--        location.href = '/notice/noticeview?noticeNo=' + nn;--%>
     <%--        // location.href = '/main/notice/content/' + nn;--%>
     <%--        // location.href = '/notice/noticeview/' + nn;--%>
     <%--    });--%>

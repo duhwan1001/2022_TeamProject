@@ -30,7 +30,7 @@
                     <button id="list-btn" type="button" class="btn btn-primary">목록</button>
                 </div>
                 <div class="float-right">
-                    <button id="mod-btn" type="button" class="btn btn-warning">수정</button>
+                    <button id="mod-btn" onclick="changeContentN('modify?noticeNo=${n.noticeNo}')" type="button" class="btn btn-warning">수정</button>
                     <button id="del-btn" type="button" class="btn btn-danger">삭제</button>
                 </div>
             </div>
@@ -39,32 +39,32 @@
 </div>
 
 <script>
-    const $listBtn = document.getElementById('list-btn');
-    const $modBtn = document.getElementById('mod-btn');
-    const $delBtn = document.getElementById('del-btn');
+    <%--const $listBtn = document.getElementById('list-btn');--%>
+    <%--const $modBtn = document.getElementById('mod-btn');--%>
+    <%--const $delBtn = document.getElementById('del-btn');--%>
 
-    if ($modBtn !== null) {
-        // 수정버튼
-        $modBtn.onclick = e => {
-            location.href = '/notice/modify?noticeNo=${n.noticeNo}';
-        };
-    }
+    <%--if ($modBtn !== null) {--%>
+    <%--    // 수정버튼--%>
+    <%--    $modBtn.onclick = e => {--%>
+    <%--        location.href = '/notice/modify?noticeNo=${n.noticeNo}';--%>
+    <%--    };--%>
+    <%--}--%>
 
-    if ($delBtn !== null) {
-        // 삭제버튼
-        $delBtn.onclick = e => {
-          if (!confirm('게시물이 삭제됩니다')){
-              return;
-          }
-          location.href = '/notice/delete?noticeNo=${n.noticeNo}';
-        };
-    }
+    <%--if ($delBtn !== null) {--%>
+    <%--    // 삭제버튼--%>
+    <%--    $delBtn.onclick = e => {--%>
+    <%--      if (!confirm('게시물이 삭제됩니다')){--%>
+    <%--          return;--%>
+    <%--      }--%>
+    <%--      location.href = '/notice/delete?noticeNo=${n.noticeNo}';--%>
+    <%--    };--%>
+    <%--}--%>
 
-    // 목록버튼
-    $listBtn.onclick = e => {
-      console.log('목록버튼 선택');
-      location.href = '/notice/list?pageNum=${p.pageNum}';
-    };
+    <%--// 목록버튼--%>
+    <%--$listBtn.onclick = e => {--%>
+    <%--  console.log('목록버튼 선택');--%>
+    <%--  location.href = '/notice/list?pageNum=${p.pageNum}';--%>
+    <%--};--%>
 
     // $(document).ready(function () {
     //     let originFileName = fileName.subString(fileName.indexOf("_") + 1);

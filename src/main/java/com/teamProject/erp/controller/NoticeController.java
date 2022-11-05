@@ -56,36 +56,7 @@ public class NoticeController {
         return mav;
     }
 
-    // 공지사항 목록 요청
-//    @GetMapping("/list")
-//    public String list(@ModelAttribute("s") Search search, Model model) {
-//        log.info("controller request /notice/list GET!! - search: {}", search);
-//
-//        Map<String, Object> noticeMap = noticeService.noticeFindAllService(search);
-//        log.debug("return data - {}", noticeMap);
-//
-//        // 페이지 정보 생성
-//        PageMaker pm = new PageMaker(
-//                new Page(search.getPageNum(), search.getAmount())
-//                , (Integer) noticeMap.get("tc"));
-//
-//        model.addAttribute("nList", noticeMap.get("nList"));
-//        model.addAttribute("pm", pm);
-//
-//        return "main/notice";
-//    }
-
-    // 게시물 상세 조회 요청
-//    @RequestMapping(value = "/notice/noticeview/{noticeNo}", method = {RequestMethod.GET, RequestMethod.POST})
-//    public ModelAndView content(@PathVariable Integer noticeNo, ModelAndView mav, HttpServletResponse response, HttpServletRequest request, @ModelAttribute("p") Page page) {
-//        log.info("/main/notice/content/{} 호출 됨", noticeNo);
-//        NoticeDTO noticeDTO = noticeService.noticeFindOneService(noticeNo, response, request);
-//        mav.addObject("n", noticeDTO);
-//        mav.setViewName("notice/noticeview");
-//        return mav;
-//    }
-
-    @RequestMapping(value = "/notice/noticeview{noticeNo}", method = {RequestMethod.GET, RequestMethod.POST})
+    @RequestMapping(value = "/notice/noticeview", method = {RequestMethod.GET, RequestMethod.POST})
     public String view(@RequestParam Integer noticeNo, Model model, HttpServletResponse response, HttpServletRequest request, @ModelAttribute("p") Page page) {
         log.info("/notice/noticeview/{} 호출 됨", noticeNo);
         NoticeDTO noticeDTO = noticeService.noticeFindOneService(noticeNo, response, request);
@@ -110,62 +81,6 @@ public class NoticeController {
         return flag ? "redirect:/main" : "redirect:/";
     }
 
-    // 게시물 상세 조회 요청
-//    @GetMapping("/content/{noticeNo}")
-//    public String content(@PathVariable Long noticeNo, Model model, HttpServletResponse response, HttpServletRequest request, @ModelAttribute("p") Page page) {
-//        log.info("controller request /notice/content GET! - {}", noticeNo);
-//        NoticeDTO noticeDTO = noticeService.noticeFindOneService(noticeNo, response, request);
-//        log.info("return data - {}", noticeDTO);
-//        model.addAttribute("n", noticeDTO);
-//        return "notice/noticeview";
-//    }
-
-    // 게시물 쓰기 화면 요청
-//    @GetMapping(value = "/notice/write")
-//    public ModelAndView write(HttpSession session, RedirectAttributes ra) {
-//        log.info("/notice/write 호출 됨");
-//        ModelAndView mv = new ModelAndView();
-//        mv.setViewName("notice/noticewrite");
-//        return mv;
-//    }
-
-    // 게시물 등록 요청
-//    @PostMapping(value = "/notice/write")
-//    public String write(NoticeDTO noticeDTO, RedirectAttributes ra, HttpSession session) {
-//        log.info("/notice/write 호출 됨");
-//        boolean flag = noticeService.noticeInsertService(noticeDTO);
-////        ModelAndView mv = new ModelAndView();
-//        // 게시물 등록에 성공하면 클라이언트에 성공메세지 전송
-//        if (flag) ra.addFlashAttribute("msg", "reg-success");
-//
-//        return flag ? "redirect:/notice/list" : "redirect:/";
-////        mv.setViewName("main/notice");
-////        return mv;
-//    }
-
-    // 게시물 쓰기 화면 요청
-//    @GetMapping("/write")
-//    public String write(HttpSession session, RedirectAttributes ra) {
-//        log.info("controller request /notice/write GET!");
-//        return "notice/noticewrite";
-//    }
-//
-//    // 게시물 등록 요청
-//    @PostMapping("/write")
-////    public String write(NoticeDTO noticeDTO, @RequestParam("files") List<MultipartFile> fileList, RedirectAttributes ra, HttpSession session) {
-//    public String write(NoticeDTO noticeDTO, RedirectAttributes ra, HttpSession session) {
-//        log.info("controller request /notice/write POST! - {}", noticeDTO);
-//
-//        // 현재 로그인 사용자 계정명 추가
-////        noticeDTO.setAccount(LoginUtils.getCurrentMemberAccount(session));
-//
-//        boolean flag = noticeService.noticeInsertService(noticeDTO);
-//        // 게시물 등록에 성공하면 클라이언트에 성공메세지 전송
-//        if (flag) ra.addFlashAttribute("msg", "reg-success");
-//
-//        return flag ? "redirect:/notice/list" : "redirect:/";
-//    }
-
     // 게시물 삭제 확인 요청
     @GetMapping("/delete")
     public String delete(@ModelAttribute("noticeNo") Long noticeNo, Model model) {
@@ -182,7 +97,7 @@ public class NoticeController {
     }
 
     // 수정 화면 요청
-    @GetMapping("/modify")
+    @GetMapping("/notice/modify")
     public String modify(int noticeNo, Model model, HttpServletRequest request, HttpServletResponse response) {
         log.info("controller request /notice/modify GET! - nno: {}", noticeNo);
         NoticeDTO noticeDTO = noticeService.noticeFindOneService(noticeNo, response, request);
@@ -195,11 +110,11 @@ public class NoticeController {
     }
 
     // 수정 처리 요청
-    @PostMapping("/modify")
+    @PostMapping("/notice/modify")
     public String modify(NoticeDTO noticeDTO) {
         log.info("controller request /notice/modify POST! - {}", noticeDTO);
         boolean flag = noticeService.noticeModifyService(noticeDTO);
-        return flag ? "redirect:/notice/content/" + noticeDTO.getNoticeNo() : "redirect:/";
+        return flag ? "redirect:/notice/noticeview?noticeNo=" + noticeDTO.getNoticeNo() : "redirect:/";
     }
 
     // 특정 게시물에 붙은 첨부파일경로 리스트를 클라이언트에게 비돈기 전송
