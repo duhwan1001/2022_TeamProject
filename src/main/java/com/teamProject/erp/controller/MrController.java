@@ -31,6 +31,7 @@ public class MrController {
         log.info("/main/mrmain 호출 됨");
         Map<String, Object> mrMap = mrService.mrFindAllService(search);
 
+        // 페이지 정보 생성
         PageMaker pm = new PageMaker(
                 new Page(search.getPageNum(), search.getAmount())
                 , (Integer) mrMap.get("tc"));
@@ -41,62 +42,15 @@ public class MrController {
         mav.setViewName("main/mrmain");
         return mav;
     }
-//    @GetMapping("/list")
-//    public String list(@ModelAttribute("s") Search search, Model model) {
-//        log.info("controller request /main/list GET! - search : {}", search);
-//
-//        Map<String, Object> mrMap = mrService.mrFindAllService(search);
-//        log.debug("return data - {}", mrMap);
-//
-//        //페이지 정보 생성
-//        PageMaker pm = new PageMaker( new Page(search.getPageNum(), search.getAmount()), (Integer) mrMap.get("tc"));
-//
-//        model.addAttribute("mList", mrMap.get("mList"));
-//        model.addAttribute("pm", pm);
-//
-//        return "main/mrmain";
-//    }
-//    @RequestMapping(value = "/main/mrmain", method = {RequestMethod.GET, RequestMethod.POST})
-//    public ModelAndView mrList() {
-//        log.info("/main/mrmain 호출 됨");
-//        ModelAndView mv = new ModelAndView();
-//        mv.setViewName("main/mrmain");
-//        return mv;
-//    }
 
     // 게시물 상세 조회 요청
-    @RequestMapping(value = "/mrmain/mrdetail/{mrNo}", method = {RequestMethod.GET, RequestMethod.POST})
-    public ModelAndView content(@PathVariable Integer mrNo, ModelAndView mav, HttpServletResponse response, HttpServletRequest request, @ModelAttribute("p") Page page) {
-        log.info("/main/mrmain/content/{} 호출 됨", mrNo);
+    @RequestMapping(value = "/mrmain/mrdetail", method = {RequestMethod.GET, RequestMethod.POST})
+    public String content(@RequestParam Integer mrNo, Model model, HttpServletResponse response, HttpServletRequest request, @ModelAttribute("p") Page page) {
+        log.info("/main/mrmain/{} 호출 됨", mrNo);
         MrDTO mrDTO = mrService.mrFindOneService(mrNo, response, request);
-        mav.addObject("n", mrDTO);
-        mav.setViewName("mrmain/mrdetail");
-        return mav;
+        model.addAttribute("m", mrDTO);
+        return "mroom/mrdetail";
     }
-//    @RequestMapping(value = "/mrmain/mrdetail", method = {RequestMethod.GET, RequestMethod.POST})
-//    public ModelAndView content(Integer mrNo, ModelAndView mav, HttpServletResponse response, HttpServletRequest request, @ModelAttribute("p") Page page) {
-//        log.info("/main/mrmain/content/{} 호출됨", mrNo);
-//        MrDTO mrDTO = mrService.mrFindOneService(mrNo, response, request);
-//        mav.addObject("m", mrDTO);
-//        mav.setViewName("mrmain/mrdetail");
-//        return mav;
-//    }
-
-    // 게시물 상세
-//    @GetMapping("/content/{mrNo}")
-//    public String content(@PathVariable Long mrNo, Model model, @ModelAttribute("p") Page page) {
-//        log.info("controller request /mrmain/content GET! - {}", mrNo);
-//        MrDTO mrDTO = mrService.mrFindOneService(mrNo);
-//        model.addAttribute("b", mrDTO);
-//        return "mrmain/mrdetail";
-//    }
-//    @RequestMapping(value = "/mrmain/mrdetail", method = {RequestMethod.GET, RequestMethod.POST})
-//    public ModelAndView mrDetail() {
-//        log.info("/mrmain/mrdetail 호출 됨");
-//        ModelAndView mv = new ModelAndView();
-//        mv.setViewName("mroom/mrdetail");
-//        return mv;
-//    }
 
     // 게시물 쓰기 화면 요청
     @GetMapping("/mrmain/mrwrite")
@@ -147,7 +101,7 @@ public class MrController {
     }
 
     // 수정 화면 요청
-    @GetMapping("/modify")
+    @GetMapping("/mrmain/modify")
     public String modify(Integer mrNo, Model model, HttpServletRequest request, HttpServletResponse response) {
         log.info("controller request /mrmain/modify GET! - mno: {}", mrNo);
         MrDTO mrDTO = mrService.mrFindOneService(mrNo, response, request);
@@ -155,38 +109,16 @@ public class MrController {
 
         model.addAttribute("mrDTO", mrDTO);
 //        model.addAttribute("validate", mrService.getMember(mrNo));
-        return  "mrmain/mrmodify";
+        return  "mroom/mrmodify";
     }
-//    @GetMapping("/modify")
-//    public String modify(Long mrNo, Model model) {
-//        log.info("controller request /detail/modify GET! - {}", mrNo);
-//        MrDTO mrDTO = mrService.mrFindOneService(mrNo);
-//        log.info("find article: {}", mrDTO);
-//        model.addAttribute("mrDTO", mrDTO);
-//        model.addAttribute("validate", mrService.getMember(mrNo));
-//        return "mrdetail/mrmodify";
-//    }
 
     // 게시물 수정 처리 요청
-    @PostMapping("/modify")
+    @PostMapping("/mrmain/modify")
     public String modify(MrDTO mrDTO) {
         log.info("controller request /mrmain/modify POST! - {}", mrDTO);
         boolean flag = mrService.mrModifyService(mrDTO);
-        return flag ? "redirect:/mrmain/content/" + mrDTO.getMrNo() : "redirect:/";
+        return flag ? "redirect:/mrmain/mrdetail/" + mrDTO.getMrNo() : "redirect:/";
     }
-//    @PostMapping("/modify")
-//    public String modify(MrDTO mrDTO) {
-//        log.info("controller request /detail/modify POST! - {}", mrDTO);
-//        boolean flag = mrService.mrModifyService(mrDTO);
-//        return flag ? "redirect:/mrdetail/content/" + mrDTO.getMrNo() : "redirect:/";
-//    }
-//    @RequestMapping(value = "/mrdetail/mrmodify", method = {RequestMethod.GET, RequestMethod.POST})
-//    public ModelAndView mrModify() {
-//        log.info("/mrdetail/mrmodify 호출 됨");
-//        ModelAndView mv = new ModelAndView();
-//        mv.setViewName("mroom/mrmodify");
-//        return mv;
-//    }
 
     //특정 게시물에 붙은 첨부파일경로 리스트를 클라이언트에게 비동기 전송
 //    @GetMapping("/file/{mno}")

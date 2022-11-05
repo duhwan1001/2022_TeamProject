@@ -47,7 +47,7 @@
 <br>
 <button id="mr-list" type="button" class="btn btn-primary" onclick="changeContentCus('main', 'mrmain')">목록</button>
 <button id="mr-del" type="button" class="btn btn-danger" style="float: right; margin-left: 10px">삭제</button>
-<button id="mr-mod" type="button" class="btn btn-warning" style="float: right; color: #ffffff" onclick="changeContentCus('mrdetail', 'mrmodify')">수정</button>
+<button id="mr-mod" type="button" class="btn btn-warning" style="float: right; color: #ffffff" onclick="changeContentM('modify?mrNo=${m.mrNo}')">수정</button>
 <%--<div>--%>
 <%--    <button type="button" class="btn btn-primary" onclick="changeContentCus('main', 'mrmain')">목록</button>--%>
 <%--    <button type="button" class="btn btn-danger" style="float: right; margin-left: 10px" onclick="cancelRes()">예약취소</button>--%>
@@ -56,23 +56,23 @@
 
 <%-- 게시글 상세보기 --%>
 <script>
-    const $mrMod = document.getElementById('mr-mod');
+    <%--const $mrMod = document.getElementById('mr-mod');--%>
 
-    if ($mrMod !== null) {
-        $mrMod.onclick = e=> {
-            location.href = '/mrmain/modify?mrNo=${m.mrNo}';
-        };
-    }
+    <%--if ($mrMod !== null) {--%>
+    <%--    $mrMod.onclick = e=> {--%>
+    <%--        location.href = '/mrmain/modify?mrNo=${m.mrNo}';--%>
+    <%--    };--%>
+    <%--}--%>
 
-    const $mrDel = document.getElementById('mr-del');
-    if ($mrDel !== null) {
-        $mrDel.onclick = e => {
-            if (!confirm('정말 예약을 취소하시겠습니까?')) {
-                return;
-            }
-            location.href = '/mrmain/delete?mrNo=${m.mrNo}';
-        }
-    }
+    <%--const $mrDel = document.getElementById('mr-del');--%>
+    <%--if ($mrDel !== null) {--%>
+    <%--    $mrDel.onclick = e => {--%>
+    <%--        if (!confirm('정말 예약을 취소하시겠습니까?')) {--%>
+    <%--            return;--%>
+    <%--        }--%>
+    <%--        location.href = '/mrmain/delete?mrNo=${m.mrNo}';--%>
+    <%--    }--%>
+    <%--}--%>
     // function cancelRes() {
     //     var delConfirm = confirm('예약을 쥐소하시겠습니까?');
     //

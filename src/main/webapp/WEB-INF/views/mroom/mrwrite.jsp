@@ -50,7 +50,7 @@
                                aria-describedby="inputGroup-sizing-lg" name="mrTime">
                     </div>
                 </div>
-                <div>
+                <div style="margin-left: 1px;">
                     <button style="float: right" type="submit" class="btn btn-primary" id="mr-save">저장</button>
                     <button type="button" class="btn btn-primary" onclick="changeContentCus('main', 'mrmain')">목록</button>
                 </div>

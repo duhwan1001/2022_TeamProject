@@ -13,3 +13,10 @@ function changeContentCus(path, name){
     $('#mainContent').children().remove();
     $('#mainContent').load("/" + path + "/"+name);
 }
+
+function changeContentM(name){
+    console.log(name)
+    alert(name);
+    $('#mainContent').children().remove();
+    $('#mainContent').load("/mrmain/" + name);
+}

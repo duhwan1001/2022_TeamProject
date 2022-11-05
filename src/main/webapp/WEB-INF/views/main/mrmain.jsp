@@ -10,53 +10,26 @@
 <!-- 구분 선 속성-->
 <hr class="sidebar-divider d-none d-md-block">
 
+<%--<div class="box-footer">--%>
+<%--    <div class="form-group col-sm-2">--%>
+<%--        <sleec--%>
+<%--    </div>--%>
+<%--</div>--%>
 <div class="input-group mb-4">
-    <form action="list" method="get">
-
-        <select class="form-select" name="type" id="search-type" style="float: left">
-            <option value="title">제목</option>
+    <form action="/main/mrmain" method="get">
+        <select class="form-select" name="type" id="search-type" style="display: flex">
+            <option value="title" id="searchTitle">제목</option>
 <%--            <option value="content">내용</option>--%>
 <%--            <option value="writer">작성자</option>--%>
 <%--            <option value="tc">제목+내용</option>--%>
         </select>
-<%--        <div id="dataTable_filter" class="dataTables_filter float-left">--%>
-<%--            <label>--%>
-<%--                <input type="search" class="form-control form-control-sm" placeholder="검색어 입력"--%>
-<%--                       aria-controls="dataTable" style="font-size: 1.2em;" name="keyword" value="${s.keyword}">--%>
-<%--            </label>--%>
-<%--        </div>--%>
-        <div class="input-group" style="margin-left: auto">
-            <input type="text" class="form-control rounded" placeholder="검색어 입력" aria-describedby="search-addon" name="keyword" value="${s.keyword}"/>
-            <button type="submit" class="btn btn-outline-primary">Search</button>
-        </div>
-<%--        <input style="width: 100%; padding: 10px 20px; margin: 5px 0; box-sizing: border-box;" type="text" class="form-control" name="keyword" placeholder="입력해주세요!" value="${s.keyword}">--%>
 
-<%--        <div class="input-group-append">--%>
-<%--            <button class="btn btn-primary" type="submit">--%>
-<%--                <i class="fas fa-search"></i>--%>
-<%--            </button>--%>
-<%--        </div>--%>
+        <div class="input-group" style="margin-left: auto">
+            <input type="text" class="form-control rounded" placeholder="검색어 입력" aria-describedby="search-addon" name="keyword" id="searchKeyword" onkeypress="enterSearch(event)"/>
+            <button type="button" onclick="changeContentMr()" class="btn btn-outline-primary">Search</button>
+        </div>
     </form>
 </div>
-<%--<div class="input-group mb-4">--%>
-<%--    <form action="list" method="get">--%>
-<%--        <select class="form-select" name="type" id="search-type">--%>
-<%--            <option value="title">제목</option>--%>
-<%--            &lt;%&ndash;            <option value="content">내용</option>&ndash;%&gt;--%>
-<%--            &lt;%&ndash;            <option value="writer">작성자</option>&ndash;%&gt;--%>
-<%--            &lt;%&ndash;            <option value="tc">제목+내용</option>&ndash;%&gt;--%>
-<%--        </select>--%>
-
-<%--        <input type="text" class="form-control bg-white border-0 small" placeholder="내용을 입력하세요."--%>
-<%--               aria-label="Search" aria-describedby="basic-addon2" name="keyword" value="${s.keyword}">--%>
-
-<%--        <div class="input-group-append">--%>
-<%--            <button class="btn btn-primary" type="button">--%>
-<%--                <i class="fas fa-search fa-sm"></i>--%>
-<%--            </button>--%>
-<%--        </div>--%>
-<%--    </form>--%>
-<%--</div>--%>
 <!-- Content Row 회의실관리 목록 내용 담고있는 전체 박스-->
 <div class="row">
     <!-- Earnings (Monthly) Card Example -->
@@ -81,7 +54,7 @@
                                     <c:forEach var="m" items="${mList}">
                                         <tr>
                                             <td>${m.mrNo}</td>
-                                            <td><a href="mrdetail.jsp">
+                                            <td><a href="#" onclick="changeContentM('mrdetail?mrNo=${m.mrNo}')">
                                                     ${m.mrTitle}
 <%--                                                ${m.shortTitle}--%>
                                                 <c:if test="${m.mrNewArticle}">
@@ -105,7 +78,7 @@
                             </table>
                             <nav aria-label="Page navigation example">
                                 <button type="button" class="btn btn-primary float-right clearfix" onclick="changeContentCus('mrmain', 'mrwrite')">예약</button>
-                                <ul class="pagination justify-content-center">
+<%--                                <ul class="pagination justify-content-center">--%>
 <%--                                    <c:if test="${pm.prev}">--%>
 <%--                                        <li class="page-item">--%>
 <%--                                            <a class="page-link" href="/mrmain/list?pageNum=${pm.beginPage - 1}&amount=${pm.page.amount}&type=${s.type}&keyword=${s.keyword}">prev</a>--%>
@@ -123,26 +96,23 @@
 <%--                                            <a class="page-link" href="/main/mrmain?pageNum=${pm.endPage + 1}&amount=${pm.page.amount}&type=${s.type}&keyword=${s.keyword}">next</a>--%>
 <%--                                        </li>--%>
 <%--                                    </c:if>--%>
+<%--                                </ul>--%>
+                                <ul class="pagination justify-content-center">
+                                    <li class="page-item">
+                                        <a class="page-link" href="#" aria-label="Previous">
+                                            <span aria-hidden="true">&laquo;</span>
+                                        </a>
+                                    </li>
+                                    <li class="page-item"><a class="page-link" href="#">1</a></li>
+                                    <li class="page-item"><a class="page-link" href="#">2</a></li>
+                                    <li class="page-item"><a class="page-link" href="#">3</a></li>
+                                    <li class="page-item">
+                                        <a class="page-link" href="#" aria-label="Next">
+                                            <span aria-hidden="true">&raquo;</span>
+                                        </a>
+                                    </li>
                                 </ul>
                             </nav>
-                        <%--                            <nav aria-label="Page navigation example">--%>
-<%--                                <button type="button" class="btn btn-primary float-right clearfix" onclick="changeContentCus('mrmain', 'mrwrite')">예약</button>--%>
-<%--                                <ul class="pagination justify-content-center">--%>
-<%--                                    <li class="page-item">--%>
-<%--                                        <a class="page-link" href="#" aria-label="Previous">--%>
-<%--                                            <span aria-hidden="true">&laquo;</span>--%>
-<%--                                        </a>--%>
-<%--                                    </li>--%>
-<%--                                    <li class="page-item"><a class="page-link" href="#">1</a></li>--%>
-<%--                                    <li class="page-item"><a class="page-link" href="#">2</a></li>--%>
-<%--                                    <li class="page-item"><a class="page-link" href="#">3</a></li>--%>
-<%--                                    <li class="page-item">--%>
-<%--                                        <a class="page-link" href="#" aria-label="Next">--%>
-<%--                                            <span aria-hidden="true">&raquo;</span>--%>
-<%--                                        </a>--%>
-<%--                                    </li>--%>
-<%--                                </ul>--%>
-<%--                            </nav>--%>
                         </div>
                     </div>
                 </div>
@@ -150,3 +120,20 @@
         </div>
     </div>
 </div>
+<script type="text/javascript">
+    function changeContentMr(){
+        const title = $("#search-type").val();
+        const keyword = $("#searchKeyword").val();
+
+        alert(title);
+        alert(keyword);
+
+        $('#mainContent').children().remove();
+        $('#mainContent').load("main/mrmain" + "?type=" + title + "&keyword="+ keyword);
+    }
+    function enterSearch(e){
+        if (e.keyCode == 13){
+            changeContentMr();
+        }
+    }
+</script>
