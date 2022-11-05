@@ -47,7 +47,7 @@ public class FaqBoardController {
     }
 
     @RequestMapping("main/faqdelete")
-    public String delete(@RequestParam Integer faqno){          //게시물삭제 (관리자)
+    public String delete(@RequestParam Integer faqno){          //게시물삭제 (관리자) 수정
         boolean oks = faqService.viewdelete(faqno);
         return oks? "redirect:/main/faq" : "main/detaile";
     }
