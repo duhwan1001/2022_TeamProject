@@ -28,6 +28,7 @@ public class FaqBoardController {
 // 로그인시 사용자 userID 가져와야함
         String getuser = faqService.getuserflag(list.getUserUserId());
 
+
         model.addAttribute("user", getuser);
         model.addAttribute("list", list);
         return "main/faqdetaile";
