@@ -164,12 +164,10 @@ public class NoticeService {
 
     // 게시물 삭제 요청 중간 처리
     @Transactional
-    public boolean noticeDeleteService(Integer noticeNo) {
+    public void noticeDeleteService(Integer noticeNo) {
         log.info("noticeRemove service start - {}", noticeNo);
-
         // 원본 게시물 삭제
-        boolean delete = noticeMapper.noticeDelete(noticeNo);
-        return delete;
+        noticeMapper.noticeDelete(noticeNo);
     }
 
     // 게시물 수정 요청 중간 처리

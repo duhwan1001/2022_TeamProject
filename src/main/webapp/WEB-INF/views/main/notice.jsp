@@ -108,23 +108,6 @@
         }
     }
 
-    <%--function detailEvent() {--%>
-    <%--    // 상세보기 요청 이벤트--%>
-    <%--    const $ol = document.querySelector(".notice-content");--%>
-
-    <%--    $ol.addEventListener('click', e => {--%>
-    <%--        if (!e.target.matches('.notice-content li div label button')) return;--%>
-
-    <%--        let nn = +e.target.dataset.no;--%>
-    <%--        console.log('글번호: ' + nn);--%>
-
-    <%--        &lt;%&ndash;location.href = '/notice/content/' + nn + "?pageNum=${pm.page.pageNum}";&ndash;%&gt;--%>
-    <%--        location.href = '/notice/noticeview?noticeNo=' + nn;--%>
-    <%--        // location.href = '/main/notice/content/' + nn;--%>
-    <%--        // location.href = '/notice/noticeview/' + nn;--%>
-    <%--    });--%>
-    <%--}--%>
-
     // 현재 위치한 페이지에 active 스타일 부여
     function appendPageActive() {
         // 현재 내가 보고 있는 페이지 넘버
@@ -154,7 +137,7 @@
 
     (function () {
         alertServerMessage();
-        detailEvent();
+        // detailEvent();
         appendPageActive();
         fixSearchOption();
     })();

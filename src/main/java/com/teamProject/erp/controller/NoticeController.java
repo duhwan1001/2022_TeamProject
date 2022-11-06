@@ -3,10 +3,14 @@ package com.teamProject.erp.controller;
 import com.teamProject.erp.common.search.Search;
 import com.teamProject.erp.common.paging.Page;
 import com.teamProject.erp.common.paging.PageMaker;
+import com.teamProject.erp.common.search.Search;
 import com.teamProject.erp.dto.NoticeDTO;
 import com.teamProject.erp.service.NoticeService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
+import org.springframework.data.relational.core.sql.In;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -21,7 +25,7 @@ import java.util.Map;
 @Controller
 @Log4j2
 @RequiredArgsConstructor
-@RequestMapping("/notice")
+//@RequestMapping("/notice")
 public class NoticeController {
 
     private final NoticeService noticeService;
@@ -51,6 +55,7 @@ public class NoticeController {
         return mav;
     }
 
+    // 게시물 상세보기
     @RequestMapping(value = "/notice/noticeview", method = {RequestMethod.GET, RequestMethod.POST})
     public String view(@RequestParam Integer noticeNo, Model model, HttpServletResponse response, HttpServletRequest request, @ModelAttribute("p") Page page) {
         log.info("/notice/noticeview/{} 호출 됨", noticeNo);
@@ -59,6 +64,7 @@ public class NoticeController {
         return "notice/noticeview";
     }
 
+    // 게시물 작성 화면 요청
     @GetMapping(value = "/notice/noticewrite")
     public ModelAndView write(HttpSession session, RedirectAttributes ra) {
         log.info("/notice/noticewrite 호출 됨");
@@ -67,33 +73,62 @@ public class NoticeController {
         return mv;
     }
 
+    // 게시물 등록 요청
     @PostMapping(value = "/notice/noticewrite")
     public String write(NoticeDTO noticeDTO, RedirectAttributes ra, HttpSession session) {
         log.info("/notice/noticewrite 호출 됨");
         boolean flag = noticeService.noticeInsertService(noticeDTO);
 //        // 게시물 등록에 성공하면 클라이언트에 성공메세지 전송
         if (flag) ra.addFlashAttribute("msg", "reg-success");
-        return flag ? "redirect:/main" : "redirect:/";
+        return flag ? "main/notice" : "main";
     }
 
-    // 게시물 삭제 확인 요청
-    @GetMapping("/delete")
-    public String delete(@ModelAttribute("noticeNo") Long noticeNo, Model model) {
-        log.info("controller request /notice/delete GET! - {}", noticeNo);
+    // 게시물 삭제 요청
+    @ResponseBody
+    @RequestMapping(value = "/notice/delete", method = {RequestMethod.GET, RequestMethod.POST})
+    public String delete(Integer noticeNo) {
+        log.info("controller request /notice/delete - {}", noticeNo);
 //        model.addAttribute("validate", noticeService.getMember(noticeNo));
-        return "notice/noticedelete";
+//        return "notice/noticedelete";
+        noticeService.noticeDeleteService(noticeNo);
+        return "/main/notice";
     }
 
-    // 게시물 삭제 확정 요청
-    @PostMapping("/delete")
-    public String delete(int noticeNo) {
-        log.info("controller request /notice/delete POST! - nno: {}", noticeNo);
-        return noticeService.noticeDeleteService(noticeNo) ? "redirect:/notice/list" : "redirect:/";
-    }
+//    @RequestMapping(value = "/notice/delete", method = RequestMethod.POST)
+//    @ResponseBody
+//    public String delete(Integer noticeNo) {
+//        log.info("controller request /notice/delete POST! - {}", noticeNo);
+//        boolean flag = noticeService.noticeDeleteService(noticeNo);
+//        log.info(flag);
+//        if (flag) {
+//            return "main/notice";
+//        }
+//        return null;
+//    }
+//
+//     게시물 삭제 확정 요청
+//    @PostMapping("/notice/delete")
+//    public String delete(Integer noticeNo) {
+//        log.info("controller request /notice/delete POST! - nno: {}", noticeNo);
+//        return noticeService.noticeDeleteService(noticeNo) ? "redirect:/main/notice" : "redirect:/";
+//    }
+
+//    @RequestMapping(value = "/notice/delete", method = RequestMethod.POST)
+//    @ResponseBody
+//    public ResponseEntity<?> delete(NoticeDTO noticeDTO){
+//        log.info("controller request /notice/delete POST! - {}", noticeDTO);
+//        boolean flag = noticeService.noticeDeleteService(noticeDTO.getNoticeNo());
+//        log.info(flag);
+//        if (flag) {
+////            return new ResponseEntity<>("성공", HttpStatus.OK);
+//        } else {
+//            return new ResponseEntity<>("데이터가 없습니다.", HttpStatus.SERVICE_UNAVAILABLE);
+//        }
+//    }
 
     // 수정 화면 요청
     @GetMapping("/notice/modify")
-    public String modify(int noticeNo, Model model, HttpServletRequest request, HttpServletResponse response) {
+    public String modify(Integer noticeNo, Model model, HttpServletRequest request, HttpServletResponse response) {
         log.info("controller request /notice/modify GET! - nno: {}", noticeNo);
         NoticeDTO noticeDTO = noticeService.noticeFindOneService(noticeNo, response, request);
         log.info("find article: {}", noticeDTO);
@@ -104,12 +139,17 @@ public class NoticeController {
         return "notice/noticemodify";
     }
 
-    // 수정 처리 요청
-    @PostMapping("/notice/modify")
-    public String modify(NoticeDTO noticeDTO) {
+    @RequestMapping(value = "/notice/modify", method = RequestMethod.POST)
+    @ResponseBody
+    public ResponseEntity<?> modify(NoticeDTO noticeDTO) {
         log.info("controller request /notice/modify POST! - {}", noticeDTO);
         boolean flag = noticeService.noticeModifyService(noticeDTO);
-        return flag ? "redirect:/notice/noticeview?noticeNo=" + noticeDTO.getNoticeNo() : "redirect:/";
+        log.info(flag);
+        if (flag) {
+            return new ResponseEntity<>("성공", HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>("데이터가 없습니다.", HttpStatus.SERVICE_UNAVAILABLE);
+        }
     }
 
     // 특정 게시물에 붙은 첨부파일경로 리스트를 클라이언트에게 비돈기 전송

@@ -5,20 +5,8 @@
         <h1 class="m-0 font-weight-bold text-primary" style="text-align: center">공지사항 수정</h1>
     </div>
     <div class="card-body col-10" style="left: 7%">
-        <form id="notice-mod-form" action="/notice/modify" class="was-validated" method="post">
-            <input type="hidden" name="noticeNo" value="${noticeDTO.noticeNo}">
-
-            <%--태그 선택--%>
-            <%--            <div class="dropdown mb-3" style="margin-right: 15px">--%>
-            <%--                <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton"--%>
-            <%--                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">--%>
-            <%--                    태그 선택--%>
-            <%--                </button>--%>
-            <%--                <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">--%>
-            <%--                    <li><a class="dropdown-item" href="#" type="all">전체 공지</a></li>--%>
-            <%--                    <li><a class="dropdown-item" href="#" type="emp">부서 공지</a></li>--%>
-            <%--                </ul>--%>
-            <%--            </div>--%>
+        <form id="notice-mod-form" action="/notice/modify" class="was-validated" method="post" autocomplete="off">
+            <input id="notice-no" type="hidden" name="noticeNo" value="${noticeDTO.noticeNo}">
             <select class="form-select float-left" name="type" id="notice-type"
                     style="margin-right: 2em; height: 38px">
                 <option value="all">전체 공지</option>
@@ -57,66 +45,39 @@
                     <button type="button" class="btn btn-primary">목록</button>
                 </div>
                 <div class="float-right">
-<%--                    <button id="mod-btn" type="submit" class="btn btn-primary">수정</button>--%>
-<%--                    <button type="submit" onclick="changeContentN('noticeview?noticeNo=${noticeDTO.noticeNo}')" class="btn btn-primary">수정</button>--%>
-                    <button id="notice-mod-btn" type="submit" class="btn btn-primary">수정</button>
-                    <%--                    <button type="button" class="btn btn-danger" onclick="">취소</button>--%>
+                    <button id="notice-mod-btn" type="button" class="btn btn-primary" onclick="modifyN(${noticeDTO.noticeNo})">수정</button>
                 </div>
             </div>
         </form>
     </div>
 </div>
-
 <script>
-    // 게시물 등록 입력값 검증 함수
-    function noticeValidateFormValue() {
-        // 제목 입력 태그, 내용 입력 태그
-        const $noticeTitleInput = document.getElementById('notice-title');
-        const $noticeContentInput = document.getElementById('notice-content');
-        let flag = false; // 입력 제대로 하면 true로 변경
 
-        console.log('t: ', $noticeTitleInput);
-        console.log('c: ', $noticeContentInput);
-
-        if ($noticeTitleInput.value.trim() === '') {
-            alert('제목은 필수 입니다.');
-        } else if ($noticeContentInput.value.trim() === '') {
-            alert('내용은 필수 입니다.');
-        } else {
-            flag = true;
-        }
-
-        console.log('flag: ', flag);
-
-        return flag;
+    function changeContentN(noticeNo){
+        $('#mainContent').children().remove();
+        $('#mainContent').load("/notice/noticeview?noticeNo=" + noticeNo);
     }
 
-    // 게시물 입력값 검증
-    const $noticeModBtn = document.getElementById('notice-mod-btn');
-
-    $noticeWrite.onclick = e => {
-        // 입력값을 제대로 채우지 않았는지 확인
-        if (!noticeValidateFormValue()) {
-            return;
-        }
-
-        // 필수 입력값을 잘 채웠으면 폼을 서브밋한다
-        const $noticeForm = document.getElementById('notice-mod-form');
-        $noticeForm.submit();
-    };
-
-    // 목록버튼 이벤트
-    // const $noticeList = document.getElementById('notice-list');
-    // $noticeList.onclick = e => {
-    //     location.href = '../notice/list';
-    // };
-
-    // function goNoticeMain() {
-    //     location.href="/main";
-    // }
-    //
-    // function insertNotice() {
-    //     location.href="/main";
-    //     location.reload();
-    // }
+    function modifyN(noticeNo) {
+        $.ajax({
+            type:"post",  //전송타입
+            url:"/notice/modify",//서버요청대상파일
+            data: {
+                noticeNo : $("#notice-no").val(),
+                noticeTitle : $("#notice-title").val(),
+                noticeContent : $("#notice-content").val()
+            },
+            success: function (data, status, xhr) {
+                console.log(data);
+                alert("수정 성공!");
+                changeContentN(noticeNo);
+            },
+            error: function (xhr, status, e) {
+                alert("수정 실패");
+                console.log("xhr", xhr);
+                console.log("error", e);
+                console.log("status", status);
+            }
+        });
+    }
 </script>
