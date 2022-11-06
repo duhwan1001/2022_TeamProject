@@ -1,6 +1,6 @@
 package com.teamProject.erp.service;
 
-import com.teamProject.erp.common.Search.Search;
+import com.teamProject.erp.common.search.Search;
 import com.teamProject.erp.common.paging.Page;
 import com.teamProject.erp.dto.MrDTO;
 import com.teamProject.erp.dto.ValidateMemberDTO;
@@ -143,12 +143,10 @@ public class MrService {
 
     // 게시물 삭제 요청 중간 처리
     @Transactional
-    public boolean mrDeleteService(Integer mrNo) {
+    public void mrDeleteService(Integer mrNo) {
         log.info("mrRemove service start - {}", mrNo);
-
         // 원본 게시물 삭제
-        boolean delete = mrMapper.mrDelete(mrNo);
-        return delete;
+        mrMapper.mrDelete(mrNo);
     }
 
     // 게시물 수정 요청 중간 처리

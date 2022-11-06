@@ -55,7 +55,7 @@
         WHERE mr_no=#{mrNo}
     </select>
 
-    <delete id="mrDelete">
+    <delete id="mrDelete" parameterType="Integer">
         DELETE
         FROM meetingroom
         WHERE mr_no=#{mrNo}
@@ -63,7 +63,7 @@
 
     <update id="mrModify">
         UPDATE meetingroom
-        SET mr_title=#{mrTitle}, mr_content=#{mrContent}
+        SET mr_content=#{mrContent}
         WHERE mr_no=#{mrNo}
     </update>
     

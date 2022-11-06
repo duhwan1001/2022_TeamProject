@@ -19,9 +19,7 @@
     <form action="/main/mrmain" method="get">
         <select class="form-select" name="type" id="search-type" style="display: flex">
             <option value="title" id="searchTitle">제목</option>
-<%--            <option value="content">내용</option>--%>
-<%--            <option value="writer">작성자</option>--%>
-<%--            <option value="tc">제목+내용</option>--%>
+            <option value="writer" id="searchUsers">작성자</option>
         </select>
 
         <div class="input-group" style="margin-left: auto">
@@ -67,13 +65,6 @@
                                             <td>${m.mrRegDate}</td>
                                         </tr>
                                     </c:forEach>
-<%--                                    <tr>--%>
-<%--                                        <th scope="row">1</th> mrNo - 글 작성 번호--%>
-<%--                                        <td><a href="#" onclick="changeContentCus('mrmain', 'mrdetail')">A 회의실</a></td>--%>
-<%--                                        <td>5명</td>--%>
-<%--                                        <td>김동철</td>--%>
-<%--                                        <td>사용 시간</td>--%>
-<%--                                    </tr>--%>
                                 </tbody>
                             </table>
                             <nav aria-label="Page navigation example">
@@ -124,9 +115,6 @@
     function changeContentMr(){
         const title = $("#search-type").val();
         const keyword = $("#searchKeyword").val();
-
-        alert(title);
-        alert(keyword);
 
         $('#mainContent').children().remove();
         $('#mainContent').load("main/mrmain" + "?type=" + title + "&keyword="+ keyword);
