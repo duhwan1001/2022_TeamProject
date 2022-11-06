@@ -22,6 +22,9 @@
 <%--    <img src="${pageContext.request.contextPath}/img/mrimg/mr3.png" alt="C 회의실"/>--%>
 <%--</div>--%>
 <br>
+<form action="/mrmain/delete" method="post">
+    <input type="hidden" value="${m.mrNo}" name="mrNo" id="mrNo">
+</form>
 <div class="col-10" style="background:#ffffff; border-radius: 5px; left: 7%">
     <div class="mb-3">
         <label class="form-label">회의실명</label>
@@ -46,43 +49,29 @@
 </div>
 <br>
 <button id="mr-list" type="button" class="btn btn-primary" onclick="changeContentCus('main', 'mrmain')">목록</button>
-<button id="mr-del" type="button" class="btn btn-danger" style="float: right; margin-left: 10px">삭제</button>
+<button id="mr-del" type="button" class="btn btn-danger" style="float: right; margin-left: 10px" onclick="deleteM(${m.mrNo})">삭제</button>
 <button id="mr-mod" type="button" class="btn btn-warning" style="float: right; color: #ffffff" onclick="changeContentM('modify?mrNo=${m.mrNo}')">수정</button>
-<%--<div>--%>
-<%--    <button type="button" class="btn btn-primary" onclick="changeContentCus('main', 'mrmain')">목록</button>--%>
-<%--    <button type="button" class="btn btn-danger" style="float: right; margin-left: 10px" onclick="cancelRes()">예약취소</button>--%>
-<%--    <button type="button" class="btn btn-warning" style="float: right; color: #ffffff" onclick="changeContentCus('mrdetail', 'mrmodify')">수정</button>--%>
-<%--</div>--%>
 
 <%-- 게시글 상세보기 --%>
 <script>
-    <%--const $mrMod = document.getElementById('mr-mod');--%>
-
-    <%--if ($mrMod !== null) {--%>
-    <%--    $mrMod.onclick = e=> {--%>
-    <%--        location.href = '/mrmain/modify?mrNo=${m.mrNo}';--%>
-    <%--    };--%>
-    <%--}--%>
-
-    <%--const $mrDel = document.getElementById('mr-del');--%>
-    <%--if ($mrDel !== null) {--%>
-    <%--    $mrDel.onclick = e => {--%>
-    <%--        if (!confirm('정말 예약을 취소하시겠습니까?')) {--%>
-    <%--            return;--%>
-    <%--        }--%>
-    <%--        location.href = '/mrmain/delete?mrNo=${m.mrNo}';--%>
-    <%--    }--%>
-    <%--}--%>
-    // function cancelRes() {
-    //     var delConfirm = confirm('예약을 쥐소하시겠습니까?');
-    //
-    //     if(delConfirm){
-    //         alert('예약 취소되었습니다.');
-    //         changeContentCus('main', 'mrmain');
-    //     }
-    //     else{
-    //
-    //     }
-    // }
+    function deleteM(mrNo) {
+        $.ajax({
+            type:"post",  //전송타입
+            url:"/mrmain/delete",//서버요청대상파일
+            data: {
+                mrNo : $("#mrNo").val(),
+            },
+            success: function (data) {
+                alert("삭제 성공!");
+                changeContentMr(mrNo);
+            },
+            error: function (xhr, status, e) {
+                alert("삭제 실패");
+                console.log("xhr", xhr);
+                console.log("error", e);
+                console.log("status", status);
+            }
+        });
+    }
 </script>
 

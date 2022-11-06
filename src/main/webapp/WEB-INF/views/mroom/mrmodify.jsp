@@ -11,8 +11,9 @@
 <hr class="sidebar-divider d-none d-md-block">
 <div style="background:#ffffff; border-radius: 5px; margin-top: 30px">
     <div class="default">
-        <form action="" name="signup" id="mr-for" method="get" style="margin-bottom: 0;">
+        <form action="/mrmain/modify" name="signup" id="mr-for" method="post" style="margin-bottom: 0;">
             <div style="cellpadding: 0; cellspacing: 0; margin: 0 auto; width: 80%">
+                <input type="hidden" value="${mrDTO.mrNo}" name="mrNo" id="mrNo">
                 <div>
                     <div class="input-group input-group-lg" style="margin-bottom: 30px">
                         <span class="input-group-text" id="inputGroup-sizing-lg">회의실 명:</span>
@@ -37,24 +38,22 @@
                 <div style="text-align: left; margin-bottom: 1.5em">
                     <div class="mb-5">
                         <div class="input-group" style="margin-bottom: 30px">
-                            <span class="input-group-text" id="mr-con">회의실 설명:</span>
-                            <textarea class="form-control" aria-label="With textarea" rows="5" placeholder="사용하실 품목들을 입력해주세요.">
-                                ${mrDTO.mrContent}
-                            </textarea>
-                        </div>
-                    </div>
-                </div>
-                <div style="text-align: left; margin-bottom: 1.5em">
-                    <div class="mb-5">
-                        <div class="input-group" style="margin-bottom: 30px">
                             <span class="input-group-text">사용시간:</span>
                             <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-lg" readonly
                                    name="mrTime" value="${mrDTO.mrTime}">
                         </div>
                     </div>
                 </div>
+                <div style="text-align: left; margin-bottom: 1.5em">
+                    <div class="mb-5">
+                        <div class="input-group" style="margin-bottom: 30px">
+                            <span class="input-group-text" id="mr-con">회의실 설명:</span>
+                            <textarea id="mrContent" name="mrContent" class="form-control" aria-label="With textarea" rows="5" placeholder="사용하실 품목들을 입력해주세요.">${mrDTO.mrContent}</textarea>
+                        </div>
+                    </div>
+                </div>
                 <div>
-                    <button id="mr-save" style="float: right" type="submit" class="btn btn-primary" onclick="mrValidateFormValue('mrmain', 'mrdetail')">저장</button>
+                    <button id="mr-save" style="float: right" type="button" onclick="modifyM(${mrDTO.mrNo})" class="btn btn-primary">저장</button>
                     <button type="button" class="btn btn-primary" onclick="changeContentCus('main', 'mrmain')">목록</button>
                 </div>
             </div>
@@ -65,7 +64,8 @@
     // 게시물 등록 입력값 검증 함수
     function mrValidateFormValue() {
         //용 입력 태그
-        const $mrCon = document.getElementById('mr-con');
+        const $mrCon = $("#mr-con");
+            // document.getElementById('mr-con');
         let flag = false; // 입력 제대로 하면 true로 변경
 
         console.log('c: ', $mrCon);
@@ -82,7 +82,8 @@
     }
 
     // 게시물 입력값 검증
-    const $mrSave = document.getElementById('mr-save');
+    const $mrSave = $("#mr-save");
+        // document.getElementById('mr-save');
 
     $mrSave.onclick = e => {
         // 입력값을 제대로 채우지 않았는지 확인
@@ -94,6 +95,33 @@
         const $mrFor = document.getElementById('mr-for');
         $mrFor.submit();
     };
+
+    function changeContentMr(mrNo){
+        $('#mainContent').children().remove();
+        $('#mainContent').load("/mrmain/mrdetail?mrNo=" + mrNo);
+    }
+
+    function modifyM(mrNo) {
+        $.ajax({
+            type:"post",  //전송타입
+            url:"/mrmain/modify",//서버요청대상파일
+            data: {
+                mrNo : $("#mrNo").val(),
+                mrContent : $("#mrContent").val()
+            },
+            success: function (data, status, xhr) {
+                console.log(data);
+                alert("수정 성공!");
+                changeContentMr(mrNo);
+            },
+            error: function (xhr, status, e) {
+                alert("수정 실패");
+                console.log("xhr", xhr);
+                console.log("error", e);
+                console.log("status", status);
+            }
+        });
+    }
 </script>
 
 

@@ -12,7 +12,7 @@ import java.util.List;
 @AllArgsConstructor
 public class MrDTO {
 
-    private int mrNo; //글번호
+    private Integer mrNo; //글번호
     private String mrTitle; //회의실 명
     private int mrMax; // 입장 가능 인원
     private String mrUsers; //예약자명

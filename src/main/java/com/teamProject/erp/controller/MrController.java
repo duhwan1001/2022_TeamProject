@@ -1,12 +1,14 @@
 package com.teamProject.erp.controller;
 
-import com.teamProject.erp.common.Search.Search;
+import com.teamProject.erp.common.search.Search;
 import com.teamProject.erp.common.paging.Page;
 import com.teamProject.erp.common.paging.PageMaker;
 import com.teamProject.erp.dto.MrDTO;
 import com.teamProject.erp.service.MrService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -77,29 +79,23 @@ public class MrController {
         return flag ? "redirect:/main" : "redirect:/";
     }
 
-//    @RequestMapping(value = "/mrmain/mrwrite", method = {RequestMethod.GET, RequestMethod.POST})
-//    public ModelAndView mrWrite() {
-//        log.info("/mrmain/mrwrite 호출 됨");
-//        ModelAndView mv = new ModelAndView();
-//        mv.setViewName("mroom/mrwrite");
-//        return mv;
-//    }
-
     // 게시물 내용 삭제 확인 요청
-    @GetMapping("/delete")
+    @GetMapping("/mrmain/delete")
     public String delete(@ModelAttribute("mrNo") Integer mrNo, Model model) {
         log.info("controller request /mrmain/delete GET! - {}", mrNo);
 //        model.addAttribute("validate", mrService.getMember(mrNo));
-        return "mrmain/mrdelete";
+        return "mroom/mrdelete";
     }
-
-    // 게시물 내용 삭제 확정 요청
-    @PostMapping("/delete")
-    public String delete(Integer mrNo) {
-        log.info("controller request /mrmain/delete POST! - mno: {}", mrNo);
-        return mrService.mrDeleteService(mrNo) ? "redirect:/mrmain/list" : "redirect:/";
+//    // 게시물 내용 삭제 확정 요청
+    @RequestMapping(value = "/mrmain/delete", method = RequestMethod.POST)
+    @ResponseBody
+    public ModelAndView delete(Integer mrNo){
+        log.info("controller request /mrmain/delete POST! - {}", mrNo);
+        mrService.mrDeleteService(mrNo);
+        ModelAndView mav = new ModelAndView();
+        mav.setViewName("main/mrmain");
+        return mav;
     }
-
     // 수정 화면 요청
     @GetMapping("/mrmain/modify")
     public String modify(Integer mrNo, Model model, HttpServletRequest request, HttpServletResponse response) {
@@ -113,11 +109,17 @@ public class MrController {
     }
 
     // 게시물 수정 처리 요청
-    @PostMapping("/mrmain/modify")
-    public String modify(MrDTO mrDTO) {
+    @RequestMapping(value = "/mrmain/modify", method = RequestMethod.POST)
+    @ResponseBody
+    public ResponseEntity<?> modify(MrDTO mrDTO){
         log.info("controller request /mrmain/modify POST! - {}", mrDTO);
         boolean flag = mrService.mrModifyService(mrDTO);
-        return flag ? "redirect:/mrmain/mrdetail/" + mrDTO.getMrNo() : "redirect:/";
+        log.info(flag);
+        if (flag) {
+            return new ResponseEntity<>("성공", HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>("데이터가 없습니다.", HttpStatus.SERVICE_UNAVAILABLE);
+        }
     }
 
     //특정 게시물에 붙은 첨부파일경로 리스트를 클라이언트에게 비동기 전송

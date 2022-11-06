@@ -1,4 +1,4 @@
-package com.teamProject.erp.common.Search;
+package com.teamProject.erp.common.search;
 
 import com.teamProject.erp.common.paging.Page;
 import lombok.*;
