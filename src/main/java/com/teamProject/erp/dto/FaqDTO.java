@@ -15,4 +15,5 @@ public class FaqDTO {
     private Integer faqViewcount;
     private Date faqRegdate;
     private String userUserId;
+    private String strRegdate;
 }

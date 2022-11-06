@@ -4,6 +4,7 @@
             <div class="boardDTO write">
                 <h2 align="center">FAQ 글 작성</h2>
                 <form name="savefrm" action="/main/faqsave" method="post">
+                <input type="hidden" id="userUserId" name="userUserId" value="${list.userUserId}">
                     <div class="mainboard-3">
                         <label for="write_title" class="form-label">글제목</label>
                         <input type="text" class="form-control" id="faqTitle" placeholder="제목" name="faqTitle" placeholder="제목을 입력해 주세요." required>
@@ -15,7 +16,9 @@
             </div>
 
                 <div>
-                    <button type="button" class="btn btn-primary" onclick="changeContentCusd('main', 'faqsave')">등록</button>
+                                                <c:if test="${user eq '관리자'}">
+                    <button type="button" class="btn btn-primary" onclick="changeContentCuswriter('main', 'faqsave')">등록</button>
+                                                    </c:if>
                     <button id="to-list" type="button" class="btn btn-primary" onclick="changeContentCus('main', 'faq')">목록</button>
                 </div>
             </form>
@@ -23,24 +26,4 @@
 
             <script>
 
-                function changeContentCusd(path, name){
-
-                    const $faqTtile = $('#faqTitle');
-                    const $faqContent = $('#faqContent');
-
-                    if($faqTtile.val() ===''|| $faqTtile.val() === null){
-                        alert('제목은 필수사항입니다.');
-                        return;
-                    }
-
-                    if($faqContent.val() ==='' || $faqContent.val() === null){
-                        alert('내용은 필수 사항입니다.');
-                        return;
-
-                    }
-
-                    $('#mainContent').children().remove();
-                    $('#mainContent').load("/" + path + "/"+name+"?faqTitle="+$faqTtile.val()+"&faqContent="+$faqContent.val());
-
-                }
             </script>

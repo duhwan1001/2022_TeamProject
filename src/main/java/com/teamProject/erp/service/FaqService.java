@@ -7,6 +7,9 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Service;
 
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -22,21 +25,37 @@ public class FaqService {
 
     public List<FaqDTO> viewlist(){                     // 게시물 전체 가져오기
         List<FaqDTO> list = faqMapper.viewlist();
-        return list;
+
+        List<FaqDTO> faqlist = new ArrayList<>();
+
+        for (FaqDTO faqDTO : list){
+            SimpleDateFormat setregdate = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+            Date date = faqDTO.getFaqRegdate();
+            String getdates = setregdate.format(date);
+
+            faqDTO.setStrRegdate(getdates);
+            faqlist.add(faqDTO);
+
+        }
+        return faqlist;
     }
 
-    public FaqDTO viewdetaile(Integer faqno){               //게시물 번호로 해당 정보가져오기(관리자권한)
+    public FaqDTO viewdetaile(Integer faqno){               //게시물 번호로 해당 정보가져오기(관리자권한수행)
         faqMapper.faqviewcountup(faqno);
-        return faqMapper.viewdetaile(faqno);
+
+        FaqDTO faqDTO = faqMapper.viewdetaile(faqno);
+        Date date = faqDTO.getFaqRegdate();
+        SimpleDateFormat getregdate = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        String setregdate =getregdate.format(date);
+        faqDTO.setStrRegdate(setregdate);
+        return faqDTO;
     }
 
     public boolean viewmodify(FaqDTO faqDTO){                //게시물 수정(관리자 권한)
-        log.info("게시물수정로직");
         return faqMapper.viewmodify(faqDTO);
     }
 
     public boolean viewdelete(Integer faqno){
-        log.info("게시물삭제 로직수행");
         return faqMapper.viewdelete(faqno);
     }
 
