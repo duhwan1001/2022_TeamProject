@@ -1,6 +1,5 @@
 package com.teamProject.erp.controller;
 
-import com.teamProject.erp.common.search.Search;
 import com.teamProject.erp.common.paging.Page;
 import com.teamProject.erp.common.paging.PageMaker;
 import com.teamProject.erp.common.search.Search;
@@ -8,7 +7,6 @@ import com.teamProject.erp.dto.NoticeDTO;
 import com.teamProject.erp.service.NoticeService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
-import org.springframework.data.relational.core.sql.In;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
