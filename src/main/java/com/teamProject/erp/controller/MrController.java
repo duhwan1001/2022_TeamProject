@@ -1,6 +1,6 @@
 package com.teamProject.erp.controller;
 
-import com.teamProject.erp.common.Search.Search;
+import com.teamProject.erp.common.search.Search;
 import com.teamProject.erp.common.paging.Page;
 import com.teamProject.erp.common.paging.PageMaker;
 import com.teamProject.erp.dto.MrDTO;

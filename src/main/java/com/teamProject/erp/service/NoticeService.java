@@ -1,7 +1,7 @@
 package com.teamProject.erp.service;
 
 import com.teamProject.erp.common.paging.Page;
-import com.teamProject.erp.common.Search.Search;
+import com.teamProject.erp.common.search.Search;
 import com.teamProject.erp.dto.NoticeDTO;
 import com.teamProject.erp.mapper.notice.NoticeMapper;
 import lombok.RequiredArgsConstructor;
@@ -165,12 +165,10 @@ public class NoticeService {
 
     // 게시물 삭제 요청 중간 처리
     @Transactional
-    public boolean noticeDeleteService(Integer noticeNo) {
+    public void noticeDeleteService(Integer noticeNo) {
         log.info("noticeRemove service start - {}", noticeNo);
-
         // 원본 게시물 삭제
-        boolean delete = noticeMapper.noticeDelete(noticeNo);
-        return delete;
+        noticeMapper.noticeDelete(noticeNo);
     }
 
     // 게시물 수정 요청 중간 처리
