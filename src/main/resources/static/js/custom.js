@@ -7,6 +7,8 @@ function changeContent(name){
 }
 
 function changeContentCus(path, name){
+
+    alert('클릭확인!');
     
     $('#mainContent').children().remove();
     $('#mainContent').load("/" + path + "/"+name);
@@ -35,13 +37,32 @@ function changeContentCuswriter(path, name){
 }
 
 function changeContentCusdelete(path, name) {
-    const $faqNo = $('#faqNo');
-    const $userUserId = $('#userUserId');
 
-    console.log(name);
+    // console.log(name);
 
-    $('#mainContent').children().remove();
-    $('#mainContent').load("/" + path + "/" + name + "?faqno=" + $faqNo.val()+"&userUserId="+$userUserId.val());
+    $.ajax({
+        type:"get",
+        url:"/main/faqdelete",
+        data: {
+            faqNo : $('#faqNo').val(),
+            userUserId : $('#userUserId').val(),
+        },
+        // $getdata : '${okdata}',
+
+        success: function(get){
+            console.log('전달받은값확인:', get);
+            alert('삭제에 성공 했습니다.!');
+            changeContentCus(path, name);
+        },
+
+        error: function(data){
+            alert('삭제에 실패 했습니다.!');
+            return;
+        }
+    })
+
+    // $('#mainContent').children().remove();
+    // $('#mainContent').load("/" + path + "/" + name);
 
 }
 
@@ -68,4 +89,14 @@ function changeContentM(name){
     alert(name);
     $('#mainContent').children().remove();
     $('#mainContent').load("/mrmain/" + name);
+}
+
+function changeContentCusSearch(path, name){
+
+    const $searchtype = $('#search-type');
+    const $searchkeword = $('#faqkeyword');
+
+    $('#mainContent').children().remove();
+    $('#mainContent').load("/" + path + "/"+name+"?faqtype=" + $searchtype.val() + "&faqkeyword=" + $searchkeword.val());
+
 }

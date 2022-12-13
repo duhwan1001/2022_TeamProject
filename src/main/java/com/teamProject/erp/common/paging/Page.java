@@ -8,7 +8,6 @@ import lombok.ToString;
 @AllArgsConstructor
 // 페이지 정보 클래스
 public class Page {
-
     private int pageNum; // 페이지 번호
     private int amount; // 한 페이지당 배치할 게시물 수
 
@@ -18,7 +17,9 @@ public class Page {
     }
 
     // start 값 계산 함수
-    public int getStart() { return (pageNum - 1) * amount; }
+    public int getfaqstart(){
+        return (pageNum-1) * amount;
+    }
 
     public void setPageNum(int pageNum) {
         if (pageNum <= 0 || pageNum > Integer.MAX_VALUE) {

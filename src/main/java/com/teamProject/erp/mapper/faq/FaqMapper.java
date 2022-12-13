@@ -1,6 +1,9 @@
 package com.teamProject.erp.mapper.faq;
 
+import com.teamProject.erp.common.paging.Page;
+import com.teamProject.erp.common.search.Search;
 import com.teamProject.erp.dto.FaqDTO;
+import com.teamProject.erp.dto.FaqSearch;
 import com.teamProject.erp.dto.Member;
 import org.apache.ibatis.annotations.Mapper;
 
@@ -14,6 +17,10 @@ public interface FaqMapper {
 
     List<FaqDTO> viewlist();
 
+    List<FaqDTO> viewlistsearch(FaqSearch faqSearch);
+
+//    List<FaqDTO> viewlistsearch2(FaqSearch faqSearch);
+
     FaqDTO viewdetaile(Integer faqno);
 
     boolean viewmodify(FaqDTO faqDTO);
@@ -23,5 +30,7 @@ public interface FaqMapper {
     String getuserflag(String userid);
 
     void faqviewcountup(Integer faqno);
+
+    int faqCountTotal();
 
 }

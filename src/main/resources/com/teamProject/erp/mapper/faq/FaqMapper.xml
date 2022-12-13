@@ -11,6 +11,7 @@
         <result column="faq_regdate" property="faqRegdate"></result>
         <result column="user_user_id" property="userUserId"></result>
     </resultMap>
+
     <resultMap id="memberMapper" type="com.teamProject.erp.dto.Member">
         <result column="user_flag" property="userFlag"/>
         <result column="user_id" property="userId"/>
@@ -25,10 +26,38 @@
         select * from `project_db`.`faqBoard`
         order by faq_no desc
     </select>
+    
+    <select id="viewlistsearch" resultMap="faqmap">
+        select * from `project_db`.`faqBoard`
+        <if test="faqtype == 'faqtitle'">
+            where faq_title like concat('%', #{faqkeyword}, '%')
+        </if>
+        <if test="faqtype == 'faqcontent'">
+            where faq_content like concat('%', #{faqkeyword}, '%')
+        </if>
+        order by faq_no desc
+        LIMIT #{faqstart}, #{amount}
+    </select>
+
+<!--    <select id="viewlistsearch2" resultMap="faqmap">-->
+<!--        select *-->
+<!--        from (select row_number rn, v_board.* from-->
+<!--        (select * from `project_db`.`faqBoard` order by faq_no desc))-->
+<!--        where-->
+<!--    </select>-->
+
+<!--    <select id="viewlistsearch2" resultType="int">-->
+<!--        select * from(select * from)-->
+<!--    </select>-->
 
     <select id="viewdetaile" resultMap="faqmap">
         select * from `project_db`.`faqBoard`
         where faq_no = #{faqNo}
+    </select>
+
+    <select id="faqCountTotal" resultType="int">
+        select count(*)
+        from `project_db`.`faqBoard`
     </select>
 
     <update id="viewmodify">

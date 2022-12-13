@@ -1,6 +1,10 @@
 package com.teamProject.erp.controller;
 
+import com.teamProject.erp.common.paging.Page;
+import com.teamProject.erp.common.paging.PageMaker;
+import com.teamProject.erp.common.search.Search;
 import com.teamProject.erp.dto.FaqDTO;
+import com.teamProject.erp.dto.FaqSearch;
 import com.teamProject.erp.dto.Member;
 import com.teamProject.erp.service.EditInfoService;
 import com.teamProject.erp.service.FaqService;
@@ -9,6 +13,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -16,7 +21,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-import java.util.List;
+import java.util.*;
 
 @Controller
 @Log4j2
@@ -135,10 +140,15 @@ public class MainPageController {
         return mv;
     }
 
+    // @ModelAttribute
+
     // Q&A
     @RequestMapping(value="/main/faq", method = {RequestMethod.GET, RequestMethod.POST})
-    public String faqlist(FaqDTO faqDTO, Model model, Member member, HttpServletRequest request) {
-        List<FaqDTO> faqlist = faqService.viewlist();
+    public String faqlist(@ModelAttribute("s") FaqSearch faqSearch, Model model, HttpServletRequest request) {
+
+        FaqDTO faqDTO = new FaqDTO();
+
+        Map<String, Object> faqlist = faqService.viewlist(faqSearch);
 
         HttpSession session = request.getSession();
         String userId = (String) session.getAttribute("userId");
@@ -147,7 +157,10 @@ public class MainPageController {
         faqDTO.setUserUserId(userId);
         String getuserflag = faqService.getuserflag(faqDTO.getUserUserId());
 
-        model.addAttribute("faqList", faqlist);
+        PageMaker pm = new PageMaker(new Page(faqSearch.getPageNum(), faqSearch.getAmount()), (Integer) faqlist.get("pageno"));
+
+        model.addAttribute("faqList", faqlist.get("flist"));
+        model.addAttribute("fpage", pm);
         model.addAttribute("getuserflag", getuserflag);
         model.addAttribute("getuserid", faqDTO.getUserUserId());
         return "main/faq";

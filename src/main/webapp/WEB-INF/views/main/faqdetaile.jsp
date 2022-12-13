@@ -38,7 +38,7 @@
             
             <c:if test="${users eq '관리자'}">
                 <a href="#" onclick="changeContent('writer?getuserFlag=${user}&userUserId=${list.userUserId}')" class="btn btn-primary">글등록</a>
-                <a href="#" class="btn btn-primary" onclick="changeContentCusdelete('main', 'faqdelete')">글삭제</a>
+                <a href="#" class="btn btn-primary" onclick="changeContentCusdelete('main', 'faq')">글삭제</a>
             </c:if>
             &nbsp;&nbsp;&nbsp;
             <button id="to-list" type="button" class="btn btn-primary"

@@ -1,11 +1,11 @@
 package com.teamProject.erp.common.paging;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
 import lombok.ToString;
 
 // 페이지 랜더링 정보 생성
-@Setter @Getter @ToString
+@ToString
+@Data
 public class PageMaker {
 
     // 한번에 그려낼 페이지 수
@@ -24,6 +24,14 @@ public class PageMaker {
         this.page = page;
         this.totalCount = totalCount;
         makePageInfo();
+    }
+
+    public int getTotalCount() {
+        return totalCount;
+    }
+
+    public void setTotalCount(int totalCount) {
+        this.totalCount = totalCount;
     }
 
     // 페이지 정보 생성 알고리즘
