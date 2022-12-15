@@ -68,6 +68,7 @@ public class LoginController {
 
 
         if (userInfo != 0) {
+            session.setMaxInactiveInterval(3600);
             session.setAttribute("userId", mem.getUserId());
             return "main/main";
         } else {

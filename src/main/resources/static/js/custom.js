@@ -7,8 +7,6 @@ function changeContent(name){
 }
 
 function changeContentCus(path, name){
-
-    alert('클릭확인!');
     
     $('#mainContent').children().remove();
     $('#mainContent').load("/" + path + "/"+name);
