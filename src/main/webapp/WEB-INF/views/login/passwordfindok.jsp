@@ -42,11 +42,11 @@
                                         <h2 class="h4 text-gray-900 mb-4">회원님의 새로운 비밀번호는</h2>
                                     </div>
                                     <div class="form-group">
-                                        <p>${memberpw} 입니다.</p>
+                                        <p>${getpassword} 입니다.</p>
                                     </div>
 
                                     <a href="/" class="btn btn-primary btn-user btn-block">
-                                            로그인
+                                            로그인화면이동
                                     </a>
                                     
                                 </div>

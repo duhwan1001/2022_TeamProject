@@ -39,7 +39,8 @@
                                             <h1 class="h4 text-gray-900 mb-4">비밀번호 찾기</h1>
                                         </div>
                                         <form name="pwfrm" action="/passwordfind/passfind" method="post">
-                                            <input type="hidden" id="getpassword" name="getpassword" value="${getpassword}">
+                                            <input type="hidden" id="userPw" name="userPw" value="${getpassword}">
+                                            <input type="hidden" id="pass" name="pass" value="${pass}">
                                             <div class="form-group">
                                                 <input type="text" class="form-control form-control-user" name="userId"
                                                     id="userId" aria-describedby="emailHelp" placeholder="아이디 입력:">
@@ -54,7 +55,7 @@
                                                     확인
                                             </button>
                                             <a href="/" class="btn btn-primary btn-user btn-block">
-                                                로그인
+                                                로그인화면이동
                                             </a>
                                         </form>
                                     </div>
@@ -73,14 +74,22 @@
 
         <script>
 
-            const $getpassword = $('#getpassword');
+            const $pass = $('#pass');
+            const $userPw = $('#userPw');
 
-            console.log('모델 값:', $getpassword.val());
-            if($getpassword.val() ==='N'){
+            console.log('모델 값:', $pass.val());
+            console.log('새비밀번호:', $userPw.val());
+            if($pass.val() ==='N'){
                 alert('해당유저정보가 존재하지않습니다.');
+            }else if($pass.val() ==='Y'){
+                alert('성공!');
+                pwfrm.action='/passwordfind/pwfindpath';
+                pwfrm.method='post';
+                pwfrm.submit();
             }
 
             function pwfindbtn(){
+                alert('클릭');
                 const $userId =$('#userId');
                 const $userName =$('#userName');
 
@@ -95,7 +104,6 @@
                 }
 
                 document.pwfrm.submit();
-
             }
 
         </script>

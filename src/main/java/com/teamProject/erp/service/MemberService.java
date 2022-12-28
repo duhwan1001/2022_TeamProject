@@ -85,13 +85,7 @@ public class MemberService {
     //비번찾기 기능구현
     public String passwordfind(Member member){
         String password = memberMapper.memberpwfind(member);
-
-        if (password != null){
-            log.info("받은비번:{}", password);
-            return password;
-        }else{
-            return "N";
-        }
+        return password;
     }
 
     public void passwordUpdate(Member member) throws NoSuchAlgorithmException, UnsupportedEncodingException {

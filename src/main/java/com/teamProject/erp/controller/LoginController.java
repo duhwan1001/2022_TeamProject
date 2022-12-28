@@ -134,30 +134,35 @@ public class LoginController {
     }
 
     //비번찾기 기능구현
-    @PostMapping("/passwordfind/passfind")
+    @RequestMapping(value="/passwordfind/passfind", method = {RequestMethod.GET, RequestMethod.POST})
     @ResponseBody
     public ModelAndView passwordfind(Member member) throws NoSuchAlgorithmException, UnsupportedEncodingException{
 
         String getpassword = memberService.passwordfind(member);
+        String passnum = "Y";
 
-//        log.info("받은 암호화 비번:{}", getpassword);
-        ModelAndView mv = new ModelAndView();
-        if (!getpassword.equals("N")){
+        ModelAndView mv = new ModelAndView("login/passwordfind");
+        if (getpassword != null){
             Random ranpw = new Random();
             int ranpassword = ranpw.nextInt(1000000);
             String password = Integer.toString(ranpassword);
 //            log.info("평문화한 랜덤비번:{}", password);
             member.setUserPw(password);
             memberService.passwordUpdate(member);
-            mv.setViewName("login/passwordfindok");
-            mv.addObject("memberpw", password);
-            return mv;
+            mv.addObject("pass", passnum);
+            mv.addObject("getpassword", password);
         }else{
-//            log.info("비밀번호확인여부:{}", getpassword);
-            mv.setViewName("login/passwordfind");
-            mv.addObject("getpassword", getpassword);
-            return mv;
+            passnum = "N";
+            mv.addObject("pass", passnum);
         }
+        return mv;
+    }
+
+    @RequestMapping(value = "/passwordfind/pwfindpath", method = {RequestMethod.GET, RequestMethod.POST})
+    public String pwfindpath(String userPw, Model model, String pass){
+//        log.info("비밀번호:{}, 받은 데이터:{}", member.getUserPw(), pass);
+        model.addAttribute("getpassword", userPw);
+        return "login/passwordfindok";
     }
 
 }
