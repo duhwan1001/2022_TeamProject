@@ -6,7 +6,9 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Service;
 
+import java.io.UnsupportedEncodingException;
 import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -83,6 +85,7 @@ public class MemberService {
     //비번찾기 기능구현
     public String passwordfind(Member member){
         String password = memberMapper.memberpwfind(member);
+
         if (password != null){
             log.info("받은비번:{}", password);
             return password;
@@ -91,4 +94,16 @@ public class MemberService {
         }
     }
 
+    public void passwordUpdate(Member member) throws NoSuchAlgorithmException, UnsupportedEncodingException {
+        MessageDigest pw = MessageDigest.getInstance("SHA-512");
+        pw.update(member.getUserPw().getBytes());
+        byte [] getpw = pw.digest();
+        StringBuilder sb = new StringBuilder();
+        for (int i=0; i<getpw.length; i++){
+            sb.append(Integer.toString((getpw[i] & 0xff) + 0x100,16).substring(1));
+        }
+        String password = sb.toString();
+        member.setUserPw(password);
+        memberMapper.passwordUpdate(member);
+    }
 }

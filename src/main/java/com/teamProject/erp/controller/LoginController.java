@@ -17,6 +17,7 @@ import java.io.UnsupportedEncodingException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.List;
+import java.util.Random;
 
 @Controller
 @Log4j2
@@ -45,7 +46,7 @@ public class LoginController {
 
     // 로그인 처리
     @RequestMapping("/signIn")
-    public String signIn(@ModelAttribute Member mem, HttpServletRequest request) throws NoSuchAlgorithmException, UnsupportedEncodingException {
+    public String signIn(@ModelAttribute Member mem, HttpServletRequest request, Model model) throws NoSuchAlgorithmException, UnsupportedEncodingException {
         log.info("signIn 호출됨");
         log.info("id : {}, pw : {}", mem.getUserId(), mem.getUserPw());
 
@@ -134,12 +135,29 @@ public class LoginController {
 
     //비번찾기 기능구현
     @PostMapping("/passwordfind/passfind")
-    public String passwordfind(Member member, Model model){
+    @ResponseBody
+    public ModelAndView passwordfind(Member member) throws NoSuchAlgorithmException, UnsupportedEncodingException{
 
-        String getmembers = memberService.passwordfind(member);
-        model.addAttribute("memberpw", getmembers);
-        model.addAttribute("member", member);
-        return !getmembers.equals("N") ? "login/passwordfindok":"login/passwordfindno";
+        String getpassword = memberService.passwordfind(member);
+
+//        log.info("받은 암호화 비번:{}", getpassword);
+        ModelAndView mv = new ModelAndView();
+        if (!getpassword.equals("N")){
+            Random ranpw = new Random();
+            int ranpassword = ranpw.nextInt(1000000);
+            String password = Integer.toString(ranpassword);
+//            log.info("평문화한 랜덤비번:{}", password);
+            member.setUserPw(password);
+            memberService.passwordUpdate(member);
+            mv.setViewName("login/passwordfindok");
+            mv.addObject("memberpw", password);
+            return mv;
+        }else{
+//            log.info("비밀번호확인여부:{}", getpassword);
+            mv.setViewName("login/passwordfind");
+            mv.addObject("getpassword", getpassword);
+            return mv;
+        }
     }
 
 }

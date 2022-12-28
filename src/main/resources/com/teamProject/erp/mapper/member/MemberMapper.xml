@@ -56,7 +56,12 @@
     <select id="memberpwfind" resultType="String">
         select user_pw
         from `project_db`.`user`
-        where user_id = #{userId} and user_dep = #{userDep}
+        where user_id = #{userId} and user_name = #{userName}
     </select>
+
+    <update id="passwordUpdate">
+        update `project_db`.`user`
+        set user_pw = #{userPw}
+    </update>
 
 </mapper>

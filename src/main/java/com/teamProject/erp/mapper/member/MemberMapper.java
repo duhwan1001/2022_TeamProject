@@ -21,6 +21,8 @@ public interface MemberMapper {
 
     String memberpwfind(Member member);       //비번 찾기 기능
 
+    void passwordUpdate(Member member);
+
     //String getuserno(Member member);
 
     //int usernocheck(Member member);

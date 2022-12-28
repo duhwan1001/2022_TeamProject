@@ -39,7 +39,7 @@
                             <div class="col-lg-12">
                                 <div class="p-5">
                                     <div class="text-center">
-                                        <h2 class="h4 text-gray-900 mb-4">회원님의 비밀번호는</h2>
+                                        <h2 class="h4 text-gray-900 mb-4">회원님의 새로운 비밀번호는</h2>
                                     </div>
                                     <div class="form-group">
                                         <p>${memberpw} 입니다.</p>
