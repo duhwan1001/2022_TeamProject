@@ -136,32 +136,34 @@ public class LoginController {
     //비번찾기 기능구현
     @RequestMapping(value="/passwordfind/passfind", method = {RequestMethod.GET, RequestMethod.POST})
     @ResponseBody
-    public ModelAndView passwordfind(Member member) throws NoSuchAlgorithmException, UnsupportedEncodingException{
+    public ResponseEntity<?> passwordfind(Member member) {
 
+        System.out.println("아이디:"+ member.getUserId()+"\n이름:"+ member.getUserName());
         String getpassword = memberService.passwordfind(member);
-        String passnum = "Y";
+        System.out.println("가져온 데이터:"+ getpassword);
+        ModelAndView mv = new ModelAndView("");
+        if (getpassword.equals("Y")){
 
-        ModelAndView mv = new ModelAndView("login/passwordfind");
-        if (getpassword != null){
-            Random ranpw = new Random();
-            int ranpassword = ranpw.nextInt(1000000);
-            String password = Integer.toString(ranpassword);
-//            log.info("평문화한 랜덤비번:{}", password);
-            member.setUserPw(password);
-            memberService.passwordUpdate(member);
-            mv.addObject("pass", passnum);
-            mv.addObject("getpassword", password);
+            mv.addObject("getpassword", getpassword);
+            return new ResponseEntity<>("success", HttpStatus.OK);
         }else{
-            passnum = "N";
-            mv.addObject("pass", passnum);
+            System.out.println("여기까지 확인!!");
+            mv.addObject("getpassword", getpassword);
+            return new ResponseEntity<>("실패!!", HttpStatus.SERVICE_UNAVAILABLE);
         }
-        return mv;
     }
 
     @RequestMapping(value = "/passwordfind/pwfindpath", method = {RequestMethod.GET, RequestMethod.POST})
-    public String pwfindpath(String userPw, Model model, String pass){
+    public String pwfindpath(Model model, Member member) throws NoSuchAlgorithmException, UnsupportedEncodingException{
 //        log.info("비밀번호:{}, 받은 데이터:{}", member.getUserPw(), pass);
-        model.addAttribute("getpassword", userPw);
+        System.out.println("진입!");
+        Random ranpw = new Random();
+        int ranpassword = ranpw.nextInt(1000000);
+        String password = Integer.toString(ranpassword);
+//            log.info("평문화한 랜덤비번:{}", password);
+        member.setUserPw(password);
+        memberService.passwordUpdate(member);
+        model.addAttribute("getpassword", password);
         return "login/passwordfindok";
     }
 

@@ -85,6 +85,12 @@ public class MemberService {
     //비번찾기 기능구현
     public String passwordfind(Member member){
         String password = memberMapper.memberpwfind(member);
+        System.out.println("받은 pw 값:"+ password);
+        if (password != null){
+            password = "Y";
+        }else {
+            password = "N";
+        }
         return password;
     }
 
