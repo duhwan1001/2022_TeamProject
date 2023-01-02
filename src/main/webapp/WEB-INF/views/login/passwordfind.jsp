@@ -74,15 +74,10 @@
 
             </div>
 
-            <script defer>
-
-                const $pass = $('#pass');
-                const $userPw = $('#userPw');
-
-                console.log('모델 값:', $pass.val());
-                console.log('새비밀번호:', $userPw.val());
+            <script>
 
                 function pwfindbtn() {
+                    
                     const $userId = $('#userId');
                     const $userName = $('#userName');
 
@@ -95,7 +90,6 @@
                         alert('이름을 입력 하세요.');
                         return;
                     }
-                    console.log('확인!!!');
 
                     $.ajax({
                         type: "post",
@@ -104,19 +98,16 @@
                             userId: $userId.val(),
                             userName: $userName.val(),
                         }),
-                        success: function (data) {
-                            console.log('받은 데이터:', data);
-                            if (data === 'success') {
-                                alert('성공!!');
+                        success: function (getdata) {
+                            console.log('받은 데이터:', getdata);
+                            if (getdata === 'success') {
+                                alert('임시비밀번호6자리를 생성합니다.');
                                 location.href='/passwordfind/pwfindpath';
                             }
                         },
-                        error: function(xhr, status, e){
-                            console.log('에러:', xhr);
-                            console.log('에러확인:', xhr);
-                            alert('실패!');
+                        error: function(xhr, status){
+                            alert('잘못된 유저 정보입니다. 다시 확인해주세요.');
                         }
-
                     });
                 }
 
