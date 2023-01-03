@@ -23,6 +23,8 @@ public interface MemberMapper {
 
     void passwordUpdate(Member member);
 
+    int idcheck(Member member);
+
     //String getuserno(Member member);
 
     //int usernocheck(Member member);

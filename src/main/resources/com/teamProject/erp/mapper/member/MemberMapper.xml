@@ -64,4 +64,10 @@
         set user_pw = #{userPw}
     </update>
 
+    <select id="idcheck" resultType="int">
+        select count(*)
+        from `project_db`.`user`
+        where user_name = #{userName} and user_dep = #{userDep}
+    </select>
+
 </mapper>

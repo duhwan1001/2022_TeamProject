@@ -85,14 +85,23 @@ public class LoginController {
     }
 
     //아이디 찾기 기능
-    @RequestMapping(value = "/idfind/checkfind", method = {RequestMethod.GET, RequestMethod.POST})
-    public String idfind(Member member, Model model){
+    @RequestMapping(value = "/idfind/idfindpath", method = {RequestMethod.POST})
+    public String idfindpath(Member member, Model model){
+        System.out.println("확인!");
       //  log.info("받은값확인 name={}, dep={}", member.getUserName(), member.getUserDep());
         List<Member> idlist = memberService.idfind(member);
         log.info("컨트롤러 반환값확인!");
         model.addAttribute("member", idlist);
         model.addAttribute("setmember", member);
         return idlist!=null ? "login/idfindok" : "login/idfindno";
+    }
+
+    @RequestMapping(value = "/idfind/checkfind")
+    @ResponseBody
+    public ResponseEntity<?> idcheck(Member member){
+        String getidcheck = memberService.idcheck(member);
+        log.info("받은 값확인:{}", getidcheck);
+        return new ResponseEntity<>(getidcheck, HttpStatus.OK);
     }
 
     //비밀번호 찾기 기능

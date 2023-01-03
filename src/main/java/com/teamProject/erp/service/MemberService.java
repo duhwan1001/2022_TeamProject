@@ -106,4 +106,16 @@ public class MemberService {
         member.setUserPw(password);
         memberMapper.passwordUpdate(member);
     }
+
+    public String idcheck(Member member) {
+        System.out.println("받은 회원 이름:"+ member.getUserName());
+        int idchecknum =  memberMapper.idcheck(member);
+        System.out.println("존재여부:"+ idchecknum);
+        if (idchecknum > 0){
+            return "Y";
+        }else if (idchecknum ==0){
+            return "N";
+        }
+        return null;
+    }
 }
