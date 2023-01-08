@@ -51,7 +51,7 @@
                     <tr>
                         <th scope="row">${list.faqNo}</th>
                         <td><a href="#"
-                                onClick="changeContentCus('main', 'faqdetaile?faqNo=${list.faqNo}&getuserFlag=${getuserflag}&userUserId=${getuserid}')">${list.faqTitle}</a>
+                             onClick="changeContentCus('main', 'faqdetaile?faqNo=${list.faqNo}&userflag=${faq.userflag}&userUserId=${list.userUserId}')">${list.faqTitle}</a>
                         </td>
                         <td>${list.faqViewcount}</td>
                         <td>${list.strRegdate}</td>
@@ -67,11 +67,11 @@
         <div class="bottom-section">
 
             <!-- 글쓰기 버튼 영역 -->
-            <c:if test="${getuserflag eq '관리자'}">
+            <c:if test="${faq.userflag eq '관리자'}">
 
                 <div class="create writing" align="left">
                     <a class="btn btn-success" href="#"
-                        onClick="changeContent('writer?getuserFlag=${getuserflag}&userUserId=${getuserid}');">글쓰기</a>
+                        onClick="changeContent('writer?userflag=${faq.userflag}&userUserId=${faq.userUserId}');">글쓰기</a>
                 </div>
             </c:if>
             <!-- 페이지 버튼 영역 -->

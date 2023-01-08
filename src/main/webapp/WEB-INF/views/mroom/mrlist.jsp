@@ -4,7 +4,7 @@
 <!-- Page Heading 회의실관리 목록 제목 설정-->
 <div class="d-sm-flex align-items-center justify-content-between mb-4">
     <div class="border-bottom-1">
-        <h1 class="h3 mb-2 text-gray-700">회의실 목록</h1>
+        <!-- <h1 class="h3 mb-2 text-gray-700">회의실 목록</h1> -->
     </div>
 </div>
 <!-- 구분 선 속성-->
@@ -60,11 +60,11 @@
                             <table class="table" style="margin-bottom: 5%">
                                 <thead>
                                 <tr>
-                                    <th scope="col">번호</th>
-                                    <th scope="col">회의실명</th>
-                                    <th scope="col">최대인원</th>
-                                    <th scope="col">예약자명</th>
-                                    <th scope="col">사용시간</th>
+                                    <th scope="col"></th>
+                                    <th scope="col">회</th>
+                                    <th scope="col">최대</th>
+                                    <th scope="col">예약</th>
+                                    <th scope="col">사용</th>
                                     <th scope="col">작성시간</th>
                                 </tr>
                                 </thead>

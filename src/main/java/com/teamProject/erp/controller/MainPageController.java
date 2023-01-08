@@ -40,7 +40,8 @@ public class MainPageController {
         String userId = (String) session.getAttribute("userId");
         Member userInfo = (Member)editInfoService.getUserInfo(userId);
         log.info("userId : " + userId);
-        request.setAttribute("userInfo", userInfo);
+        session.setAttribute("userId", userId);
+        mv.addObject("userInfo", userInfo);
         mv.setViewName("main/main");
         return mv;
     }
@@ -152,17 +153,18 @@ public class MainPageController {
 
         HttpSession session = request.getSession();
         String userId = (String) session.getAttribute("userId");
-   //     log.info("컨트롤러 넘겨받은 아이디:{}", userId);
+        log.info("컨트롤러 넘겨받은 아이디:{}", userId);
 
         faqDTO.setUserUserId(userId);
-        String getuserflag = faqService.getuserflag(faqDTO.getUserUserId());
+        faqDTO.setUserflag(faqService.getuserflag(faqDTO.getUserUserId()));
 
         PageMaker pm = new PageMaker(new Page(faqSearch.getPageNum(), faqSearch.getAmount()), (Integer) faqlist.get("pageno"));
 
+        log.info("다시 받은 아이디:{}", faqDTO.getUserUserId());
+        log.info("플래그:{}", faqDTO.getUserflag());
         model.addAttribute("faqList", faqlist.get("flist"));
         model.addAttribute("fpage", pm);
-        model.addAttribute("getuserflag", getuserflag);
-        model.addAttribute("getuserid", faqDTO.getUserUserId());
+        model.addAttribute("faq", faqDTO);
         return "main/faq";
     }
 

@@ -72,7 +72,7 @@ function changeContentCusmodify(path, name) {
     const $faqNo = $('#faqNo');
 
     $('#mainContent').children().remove();
-    $('#mainContent').load("/" + path + "/" + name + "?faqTitle=" + $faqTtile.val() + "&faqContent=" + $faqContent.val() + "&faqNo=" + $faqNo.val() +"&userUserId="+$userUserId.val());
+    $('#mainContent').load("/" + path + "/" + name + "?faqTitle=" + $faqTtile.val() + "&faqContent=" + $faqContent.val() + "&faqNo=" + $faqNo.val());
 }
 
 function changeContentN(name){

@@ -62,11 +62,8 @@ public class LoginController {
         log.info(userpw);
         mem.setUserPw(userpw);
 
-
         int userInfo = memberService.checkLogin(mem);
         HttpSession session = request.getSession();
-
-
 
         if (userInfo != 0) {
             session.setMaxInactiveInterval(3600);

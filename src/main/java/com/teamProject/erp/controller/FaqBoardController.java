@@ -29,22 +29,26 @@ import java.util.Date;
 public class FaqBoardController {
 
     private final FaqService faqService;
+    private HttpSession session;
 //    private HttpSession session;
 
     @RequestMapping("/main/writer")             //글쓰기 화면 이동
-    public String writer(@RequestParam String getuserFlag, FaqDTO faqDTO, Model model){
-        model.addAttribute("user", getuserFlag);
+    public String writer(FaqDTO faqDTO, Model model){
+        log.info("받은 플래그:{}", faqDTO.getUserflag());
         model.addAttribute("list", faqDTO);
         return "main/faqwriter";
     }
 
     @RequestMapping("/main/faqdetaile")
-    public String detaile(@RequestParam String getuserFlag, Model model, FaqDTO faqDTO){             //특정게시물조회(모두가능
+    public String detaile(Model model, FaqDTO faqDTO){             //특정게시물조회(모두가능
+
         FaqDTO list = faqService.viewdetaile(faqDTO.getFaqNo());
+        log.info("DB에서 가져온 유저아이디:{}", list.getUserUserId());
+        list.setUserflag(faqDTO.getUserflag());
+        list.setUserUserId(faqDTO.getUserUserId());
 // 로그인시 사용자 userID 가져와야함
  //       String getuser = faqService.getuserflag(list.getUserUserId());
 
-        model.addAttribute("user", getuserFlag);
         model.addAttribute("list", list);
         return "main/faqdetaile";
     }
@@ -55,16 +59,26 @@ public class FaqBoardController {
         //로그인할때 해당 유저아이디 반드시 여기로끌고 와야 한다. 안끌고 오면 게시물이 등록이 안된다.!!
   //      faqDTO.setUserUserId("mong@gmail.com");
         HttpSession session = request.getSession();
-        session.setAttribute("userId", faqDTO.getUserUserId());
+        String id = (String)session.getAttribute("userId");
+        faqDTO.setUserUserId(id);
         return faqService.viewsave(faqDTO) ? "redirect:/main/faq" : "main/faqwriter";
     }
 
     @RequestMapping("/main/faqmodify")                                              //게시물수정(관리자)
     public String modify(FaqDTO faqDTO, HttpServletRequest request){
-        HttpSession session = request.getSession();
-        session.setAttribute("userId", faqDTO.getUserUserId());
-        log.info("세션아이디:{}", session.getAttribute("userId"));
-        return faqService.viewmodify(faqDTO) ? "redirect:/main/faq" : "main/faqdetaile";
+        session = request.getSession();
+        String id = (String)session.getAttribute("userId");
+        log.info("수정 컨트롤러에서 받은아이디:{}", id);
+        log.info("새로운제목:{}", faqDTO.getFaqTitle());
+        faqDTO.setUserUserId(id);
+        log.info("수정 컨트롤러에서 받은 두번째 아이디 :{}", faqDTO.getUserUserId());
+        if (faqService.viewmodify(faqDTO)){
+            System.out.println("성공!");
+            return "redirect:/main/faq";
+        }else {
+            System.out.println("실패!");
+            return "redirect:/main/faqdetaile";
+        }
     }
 
     @RequestMapping(value = "/main/faqdelete", method = {RequestMethod.POST, RequestMethod.GET})

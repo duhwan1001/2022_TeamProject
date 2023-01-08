@@ -16,7 +16,7 @@
             </div>
 
                 <div>
-                                                <c:if test="${user eq '관리자'}">
+                                                <c:if test="${list.userflag eq '관리자'}">
                     <button type="button" class="btn btn-primary" onclick="changeContentCuswriter('main', 'faqsave')">등록</button>
                                                     </c:if>
                     <button id="to-list" type="button" class="btn btn-primary" onclick="changeContentCus('main', 'faq')">목록</button>

@@ -76,6 +76,9 @@ public class FaqService {
     }
 
     public boolean viewmodify(FaqDTO faqDTO){                //게시물 수정(관리자 권한)
+        log.info("수정서비스에서 받은 아이디:{}", faqDTO.getUserUserId());
+        log.info("수정서비스에서 받은 제목:{}", faqDTO.getFaqTitle());
+        log.info("수정서비스에서 받은 내용:{}", faqDTO.getFaqContent());
         return faqMapper.viewmodify(faqDTO);
     }
 

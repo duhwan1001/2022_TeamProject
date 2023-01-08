@@ -29,14 +29,14 @@
                 </table>
             </form>
 
-            <c:if test="${users eq '관리자'}">
+            <c:if test="${list.userflag eq '관리자'}">
                         <tr>
                             <td colspan="2"><input type="button" href="#" class="btn btn-primary" onclick="changeContentCusmodify('main', 'faqmodify')" value="글수정" /></td>
                         </tr>
             </c:if>
             
             
-            <c:if test="${users eq '관리자'}">
+            <c:if test="${list.userflag eq '관리자'}">
                 <a href="#" onclick="changeContent('writer?getuserFlag=${user}&userUserId=${list.userUserId}')" class="btn btn-primary">글등록</a>
                 <a href="#" class="btn btn-primary" onclick="changeContentCusdelete('main', 'faq')">글삭제</a>
             </c:if>

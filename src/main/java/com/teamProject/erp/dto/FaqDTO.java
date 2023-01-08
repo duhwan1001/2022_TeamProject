@@ -16,4 +16,5 @@ public class FaqDTO {
     private Date faqRegdate;
     private String userUserId;
     private String strRegdate;
+    private String userflag;
 }
